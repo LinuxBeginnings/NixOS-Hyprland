@@ -1,4 +1,4 @@
-# 💫 https://github.com/JaKooLit 💫 #
+# 💫 https://github.com/LinuxBeginnings 💫 #
 {
   lib,
   pkgs,

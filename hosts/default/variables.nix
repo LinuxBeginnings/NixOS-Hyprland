@@ -1,9 +1,9 @@
-# 💫 https://github.com/JaKooLit 💫 #
+# 💫 https://github.com/LinuxBeginnings 💫 #
 # Variables
 {
   # Git Configuration ( For Pulling Software Repos )
-  gitUsername = "JaKooLit";
-  gitEmail = "ejhay.games@gmail.com";
+  gitUsername = "LinuxBeginnings";
+  gitEmail = "linuxbeginnings-null@gmail.com";
 
   # Hyprland Settings
   extraMonitorSettings = "";

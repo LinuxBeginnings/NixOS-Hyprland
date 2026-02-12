@@ -1,4 +1,4 @@
-# 💫 https://github.com/JaKooLit 💫 #
+# 💫 https://github.com/LinuxBeginnings 💫 #
 # Packages and Fonts config including the "programs" options
 {pkgs, ...}: let
   python-packages = pkgs.python3.withPackages (

@@ -3,10 +3,10 @@
 # 💌 ** KooL's ❄️ NixOS-Hyprland Install Script ** 💌
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="400" />
+  <img src="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/assets/latte.png" width="400" />
 </p>
 
-![GitHub Repo stars](https://img.shields.io/github/stars/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) ![GitHub last commit](https://img.shields.io/github/last-commit/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=b4befe) ![GitHub repo size](https://img.shields.io/github/repo-size/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) <a href="https://discord.gg/kool-tech-world"> <img src="https://img.shields.io/discord/1151869464405606400?style=for-the-badge&logo=discord&color=cba6f7&link=https%3A%2F%2Fdiscord.gg%kool-tech-world"> </a>
+![GitHub Repo stars](https://img.shields.io/github/stars/LinuxBeginnings/NixOS-Hyprland?style=for-the-badge&color=cba6f7) ![GitHub last commit](https://img.shields.io/github/last-commit/LinuxBeginnings/NixOS-Hyprland?style=for-the-badge&color=b4befe) ![GitHub repo size](https://img.shields.io/github/repo-size/LinuxBeginnings/NixOS-Hyprland?style=for-the-badge&color=cba6f7) <a href="https://discord.gg/kool-tech-world"> <img src="https://img.shields.io/discord/1151869464405606400?style=for-the-badge&logo=discord&color=cba6f7&link=https%3A%2F%2Fdiscord.gg%kool-tech-world"> </a>
 
 <br/>
 </div>
@@ -20,7 +20,7 @@
  </div><br>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="200" />
+  <img src="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/assets/latte.png" width="200" />
 </p>
 
 <div align="center">
@@ -29,16 +29,16 @@
 </div>
 <div align="center">
 <br>
-  <a href="https://github.com/JaKooLit/Hyprland-Dots/tree/NixOS-Dots"><kbd> <br> KooL Hyprland-Dots NixOS repo <br> </kbd></a>&ensp;&ensp;
+  <a href="https://github.com/LinuxBeginnings/Hyprland-Dots/tree/NixOS-Dots"><kbd> <br> KooL Hyprland-Dots NixOS repo <br> </kbd></a>&ensp;&ensp;
   <a href="https://www.youtube.com/playlist?list=PLDtGd5Fw5_GjXCznR0BzCJJDIQSZJRbxx"><kbd> <br> Youtube <br> </kbd></a>&ensp;&ensp;
-  <a href="https://github.com/JaKooLit/Hyprland-Dots/wiki"><kbd> <br> Wiki <br> </kbd></a>&ensp;&ensp;
-  <a href="https://github.com/JaKooLit/Hyprland-Dots/wiki/Keybinds"><kbd> <br> Keybinds <br> </kbd></a>&ensp;&ensp;
-  <a href="https://github.com/JaKooLit/Hyprland-Dots/wiki/FAQ"><kbd> <br> FAQ <br> </kbd></a>&ensp;&ensp;
+  <a href="https://github.com/LinuxBeginnings/Hyprland-Dots/wiki"><kbd> <br> Wiki <br> </kbd></a>&ensp;&ensp;
+  <a href="https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Keybinds"><kbd> <br> Keybinds <br> </kbd></a>&ensp;&ensp;
+  <a href="https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/FAQ"><kbd> <br> FAQ <br> </kbd></a>&ensp;&ensp;
   <a href="https://discord.gg/kool-tech-world"><kbd> <br> Discord <br> </kbd></a>
 </div><br>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="200" />
+  <img src="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/assets/latte.png" width="200" />
 </p>
 
 <h3 align="center">
@@ -98,11 +98,11 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 
 > ** Not all of the configuration files in this project are written in NIX language **
 
-- The `auto-install.sh` script will install Hyprland config files, (Dotfiles) from [`KooL's Hyprland-Dots`](https://github.com/JaKooLit/Hyprland-Dots)
+- The `auto-install.sh` script will install Hyprland config files, (Dotfiles) from [`KooL's Hyprland-Dots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
 - These Hyprland dotfiles are constantly evolving / improving
-- You can check the CHANGELOG here [`Hyprland-Dots-Changelogs`](https://github.com/JaKooLit/Hyprland-Dots/wiki/Changelogs)
-- GTK Themes and Icons will be pulled from [`LINK`](https://github.com/JaKooLit/GTK-themes-icons), including Bibata Cursor Modern Ice
-- You will be prompted if you want to download wallpapers from here: [`REPO`](https://github.com/JaKooLit/Wallpaper-Bank)
+- You can check the CHANGELOG here [`Hyprland-Dots-Changelogs`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Changelogs)
+- GTK Themes and Icons will be pulled from [`LINK`](https://github.com/LinuxBeginnings/GTK-themes-icons), including Bibata Cursor Modern Ice
+- You will be prompted if you want to download wallpapers from here: [`REPO`](https://github.com/LinuxBeginnings/Wallpaper-Bank)
 
 > [Note:] The wallpapers contain AI generated and AI enhanced images. If this is an issue for you enter "N" when prompted to download them
 
@@ -155,7 +155,7 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 <summary><strong>🙋 Having Issues / Questions? </strong></summary>
     
 - Please feel free to raise an issue on the repo, please label a feature request with the title beginning with [feature request], thank you!
-- If you have a question about KooL's Hyprland dots, see [`KooL's Dots WIKI`](https://github.com/JaKooLit/Hyprland-Dots/wiki). Contained within the wiki is an FAQ, along with other pages for tips, keybinds, and more!
+- If you have a question about KooL's Hyprland dots, see [`KooL's Dots WIKI`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki). Contained within the wiki is an FAQ, along with other pages for tips, keybinds, and more!
 </details>
 
 ## ⬇️ Installation
@@ -177,7 +177,7 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 - Simply copy this and run it:
 ```
 nix-shell -p git vim curl pciutils
-sh <(curl -L https://github.com/JaKooLit/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
+sh <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
 ```
 > [!NOTE]
 > pciutils is necessary to detect if you have an Nvidia card. 
@@ -198,7 +198,7 @@ nix-shell -p git vim curl pciutils
 - Clone this repo & CD into it:
 
 ```
-git clone --depth 1 https://github.com/JaKooLit/NixOS-Hyprland.git ~/NixOS-Hyprland
+git clone --depth 1 https://github.com/LinuxBeginnings/NixOS-Hyprland.git ~/NixOS-Hyprland
 cd ~/NixOS-Hyprland
 ```
 
@@ -244,7 +244,7 @@ nix-shell -p git curl pciutils
 - Clone this repo into your home directory & CD into it:
 
 ```
-git clone --depth 1 https://github.com/JaKooLit/NixOS-Hyprland.git ~/NixOS-Hyprland
+git clone --depth 1 https://github.com/LinuxBeginnings/NixOS-Hyprland.git ~/NixOS-Hyprland
 cd ~/NixOS-Hyprland
 ```
 
@@ -277,7 +277,7 @@ Hope you enjoy! 🎉
 
 ⌨ Keybinds
 
-- Keybinds [`CLICK`](https://github.com/JaKooLit/Hyprland-Dots/wiki/Keybinds)
+- Keybinds [`CLICK`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Keybinds)
 - Tmux Cheatsheet [`English`](assets/tmux.cheatsheet.md) | [`Español`](assets/tmux.cheatsheet.es.md)
 - Intro to Neovim [`English`](assets/Intro-to-Neovim.md) | [`Español`](assets/Intro-to-Neovim.es.md)
 
@@ -294,7 +294,7 @@ Hope you enjoy! 🎉
 
 #### 🫥 Improving performance for Older Nvidia Cards using driver 470
 
-- [`SEE HERE`](https://github.com/JaKooLit/Hyprland-Dots/discussions/123#discussion-6035205)
+- [`SEE HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/discussions/123#discussion-6035205)
 
 <details>
 <summary><strong>🔙 Reverting back to your default configs </strong></summary>
@@ -318,7 +318,7 @@ Hope you enjoy! 🎉
 - As stated above, these script does not contain actual config files. These are only the installer of packages
 - If you want to contribute and/or test the Hyprland-Dotfiles (development branch), [`Hyprland-Dots-Development`](https://github.com/JaKooLit/Hyprland-Dots/tree/development)
 - Want to contribute on KooL-Hyprland-Dots Click [`HERE`](https://github.com/JaKooLit/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
-- Want to contribute on This Installer? Click [`HERE`](https://github.com/JaKooLit/NixOS-Hyprland/blob/main/CONTRIBUTING.md) for a guide how to contribute
+- Want to contribute on This Installer? Click [`HERE`](https://github.com/LinuxBeginnings/NixOS-Hyprland/blob/main/CONTRIBUTING.md) for a guide how to contribute
 </details>
 
 👍👍👍 Thanks and Credits!
@@ -356,4 +356,4 @@ Or you can donate cryto on my btc wallet :)
 </details>
 
 🥰🥰 💖💖 👍👍👍
-[![Stargazers over time](https://starchart.cc/JaKooLit/NixOS-Hyprland.svg?variant=adaptive)](https://starchart.cc/JaKooLit/NixOS-Hyprland)
+[![Stargazers over time](https://starchart.cc/LinuxBeginnings/NixOS-Hyprland.svg?variant=adaptive)](https://starchart.cc/LinuxBeginnings/NixOS-Hyprland)
