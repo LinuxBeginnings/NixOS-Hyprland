@@ -330,24 +330,10 @@ Hope you enjoy! 🎉
 
 <details>
 <summary><strong>💖 Support </strong></summary>
-    
+
 - a Star on my Github repos would be nice 🌟
 
 - Subscribe to my Youtube Channel [YouTube](https://www.youtube.com/@LinuxBeginnings)
-
-- you can also give support through coffee's or btc 😊
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/linuxbeginnings)
-
-or
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/LinuxBeginnings)
-
-Or you can donate cryto on my btc wallet :)
-
-> 1N3MeV2dsX6gQB42HXU6MF2hAix1mqjo8i
-
-![Bitcoin](https://github.com/user-attachments/assets/7ed32f8f-c499-46f0-a53c-3f6fbd343699)
 
 </details>
 <details>
