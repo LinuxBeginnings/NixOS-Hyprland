@@ -1,4 +1,4 @@
-# 💫 https://github.com/JaKooLit 💫 #
+# 💫 https://github.com/LinuxBeginnings 💫 #
 # Packages for this host only
 {pkgs, ...}: let
   python-packages = pkgs.python3.withPackages (

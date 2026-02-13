@@ -42,9 +42,9 @@
 </p>
 
 <h3 align="center">
-	<img src="https://github.com/JaKooLit/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
+	<img src="https://github.com/LinuxBeginnings/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
 	KooL Hyprland-Dotfiles Showcase 
-	<img src="https://github.com/JaKooLit/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
+	<img src="https://github.com/LinuxBeginnings/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
 </h3>
 
 <br>
@@ -269,7 +269,7 @@ Hope you enjoy! 🎉
 
 🪤 My NixOS configs
 
-- on this repo [`KooL's NIXOS Configs`](https://github.com/JaKooLit/NixOS-configs)
+- on this repo [`KooL's NIXOS Configs`](https://github.com/LinuxBeginnings/NixOS-configs)
 
 🎞️ AGS Overview DEMO
 
@@ -316,8 +316,8 @@ Hope you enjoy! 🎉
 <summary><strong>✍️ Contributing </strong></summary>
     
 - As stated above, these script does not contain actual config files. These are only the installer of packages
-- If you want to contribute and/or test the Hyprland-Dotfiles (development branch), [`Hyprland-Dots-Development`](https://github.com/JaKooLit/Hyprland-Dots/tree/development)
-- Want to contribute on KooL-Hyprland-Dots Click [`HERE`](https://github.com/JaKooLit/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
+- If you want to contribute and/or test the Hyprland-Dotfiles (development branch), [`Hyprland-Dots-Development`](https://github.com/LinuxBeginnings/Hyprland-Dots/tree/development)
+- Want to contribute on KooL-Hyprland-Dots Click [`HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
 - Want to contribute on This Installer? Click [`HERE`](https://github.com/LinuxBeginnings/NixOS-Hyprland/blob/main/CONTRIBUTING.md) for a guide how to contribute
 </details>
 
@@ -333,15 +333,15 @@ Hope you enjoy! 🎉
     
 - a Star on my Github repos would be nice 🌟
 
-- Subscribe to my Youtube Channel [YouTube](https://www.youtube.com/@Ja.KooLit)
+- Subscribe to my Youtube Channel [YouTube](https://www.youtube.com/@LinuxBeginnings)
 
 - you can also give support through coffee's or btc 😊
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jakoolit)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/linuxbeginnings)
 
 or
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/JaKooLit)
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/LinuxBeginnings)
 
 Or you can donate cryto on my btc wallet :)
 
@@ -352,7 +352,7 @@ Or you can donate cryto on my btc wallet :)
 </details>
 <details>
 <summary><strong> 📹 Youtube videos (Click to view and watch the playlist) 📹 </strong></summary>
-[![Youtube Playlist Thumbnail](https://raw.githubusercontent.com/JaKooLit/screenshots/main/Youtube.png)](https://youtube.com/playlist?list=PLDtGd5Fw5_GjXCznR0BzCJJDIQSZJRbxx&si=iaNjLulFdsZ6AV-t)
+[![Youtube Playlist Thumbnail](https://raw.githubusercontent.com/LinuxBeginnings/screenshots/main/Youtube.png)](https://youtube.com/playlist?list=PLDtGd5Fw5_GjXCznR0BzCJJDIQSZJRbxx&si=iaNjLulFdsZ6AV-t)
 </details>
 
 🥰🥰 💖💖 👍👍👍

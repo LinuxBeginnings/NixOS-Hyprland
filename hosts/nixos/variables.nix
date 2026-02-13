@@ -2,7 +2,7 @@
 # Variables
 {
   # Git Configuration ( For Pulling Software Repos )
-  gitUsername = "JaKooLit";
+  gitUsername = "LinuxBeginnings";
   gitEmail = "ejhay.games@gmail.com";
 
   # Hyprland Settings
