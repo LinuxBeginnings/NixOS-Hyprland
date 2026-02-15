@@ -2,6 +2,11 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 15 February 2026
+
+- Enabled `zsh`, `fish`, `bash` shells in `eza.nix`
+    - This resolved issues of `homeshell.aliases` not being created/updated
+
 ## 31 January 2026
 
 - Updated to unstable branch
