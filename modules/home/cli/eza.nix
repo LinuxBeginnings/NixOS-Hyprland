@@ -1,5 +1,19 @@
 # Eza is a ls replacement
 {
+  # Enable Shells you want to have the eza aliases
+  #  This does not change the default shell 
+  programs = {
+    zsh = {
+      enable = true;
+    };
+    fish = {
+      enable = true;
+    };
+    bash = {
+      enable = true;
+    };
+  };
+
   programs.eza = {
     enable = true;
     icons = "auto";
@@ -34,6 +48,7 @@
     dir = "exa -a --grid";
     jctl = "journalctl -p 3 -xb";
     notes = "nvim ~/notes.txt";
+    notes2 = "nvim ~/notes2.txt";
     ncg = "nix-collect-garbage --delete-old && sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
     man = "batman";
     dysk = "dysk -c label+default";
