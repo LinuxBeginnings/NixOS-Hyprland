@@ -153,6 +153,7 @@
     #nvtopPackages.full
     pamixer
     pavucontrol
+    pulseaudio
     playerctl
     #polkit
     # polkit_gnome
