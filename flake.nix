@@ -1,3 +1,9 @@
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 {
   description = "KooL's NixOS-Hyprland";
 
@@ -37,7 +43,7 @@
     }:
     let
       system = "x86_64-linux";
-      host = "jak-hl";
+      host = "KoolDots-hl";
       username = "dwilliams";
 
       pkgs = import nixpkgs {
