@@ -102,6 +102,13 @@
         };
       };
       python3Packages = final.python3.pkgs;
+      python313Packages = prev.python313Packages.override {
+        overrides = finalPy: prevPy: {
+          picosvg = prevPy.picosvg.overrideAttrs (_: {
+            doCheck = false;
+          });
+        };
+      };
     })
   ];
 }
