@@ -94,13 +94,14 @@
       });
 
       # picosvg tests currently fail on python3.13 in nixos-unstable; skip checks to unblock font builds
-      python3Packages = prev.python3Packages.override {
-        overrides = finalPy: prevPy: {
-          picosvg = prevPy.picosvg.overrideAttrs (old: {
+      python3 = prev.python3.override {
+        packageOverrides = finalPy: prevPy: {
+          picosvg = prevPy.picosvg.overrideAttrs (_: {
             doCheck = false;
           });
         };
       };
+      python3Packages = final.python3.pkgs;
     })
   ];
 }
