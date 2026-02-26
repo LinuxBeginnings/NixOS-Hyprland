@@ -92,6 +92,15 @@
             export PKG_CONFIG_PATH=${cxxoptsPcShim}/lib/pkgconfig:"$PKG_CONFIG_PATH"
           '';
       });
+
+      # picosvg tests currently fail on python3.13 in nixos-unstable; skip checks to unblock font builds
+      python3Packages = prev.python3Packages.override {
+        overrides = finalPy: prevPy: {
+          picosvg = prevPy.picosvg.overrideAttrs (old: {
+            doCheck = false;
+          });
+        };
+      };
     })
   ];
 }
