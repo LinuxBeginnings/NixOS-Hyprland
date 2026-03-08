@@ -125,11 +125,12 @@
     fd
     feh
     file-roller
-    glib # for gsettings to work
-    gsettings-qt
+    ghostty
     git
+    glib # for gsettings to work
     google-chrome
     gnome-system-monitor
+    gsettings-qt
     fastfetch
     jq
     gcc
