@@ -1,3 +1,9 @@
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 { pkgs
 , inputs
 , host
@@ -119,11 +125,12 @@
     fd
     feh
     file-roller
-    glib # for gsettings to work
-    gsettings-qt
+    ghostty
     git
+    glib # for gsettings to work
     google-chrome
     gnome-system-monitor
+    gsettings-qt
     fastfetch
     jq
     gcc
@@ -229,10 +236,8 @@
     ipfetch
     pfetch
     smartmontools
-    light
     lm_sensors
     mission-center
-    neofetch
 
     # Development related
     luarocks

@@ -2,6 +2,12 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 08 March 2026
+
+- Removed `neofetch` and `light` they are unmaintained
+- Disabled `modulces/home/terminals/ghostty.nix`
+    - Hyprland-Dots now has dynamic config for ghostty
+
 ## 15 February 2026
 
 - Enabled `zsh`, `fish`, `bash` shells in `eza.nix`

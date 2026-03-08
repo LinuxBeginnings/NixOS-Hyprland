@@ -1,3 +1,9 @@
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 {inputs, ...}: {
   nixpkgs.overlays = [
     (final: prev: rec {
@@ -86,6 +92,23 @@
             export PKG_CONFIG_PATH=${cxxoptsPcShim}/lib/pkgconfig:"$PKG_CONFIG_PATH"
           '';
       });
+
+      # picosvg tests currently fail on python3.13 in nixos-unstable; skip checks to unblock font builds
+      python3 = prev.python3.override {
+        packageOverrides = finalPy: prevPy: {
+          picosvg = prevPy.picosvg.overrideAttrs (_: {
+            doCheck = false;
+          });
+        };
+      };
+      python3Packages = final.python3.pkgs;
+      python313Packages = prev.python313Packages.override {
+        overrides = finalPy: prevPy: {
+          picosvg = prevPy.picosvg.overrideAttrs (_: {
+            doCheck = false;
+          });
+        };
+      };
     })
   ];
 }
