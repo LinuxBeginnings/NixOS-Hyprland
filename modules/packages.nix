@@ -235,10 +235,8 @@
     ipfetch
     pfetch
     smartmontools
-    light
     lm_sensors
     mission-center
-    neofetch
 
     # Development related
     luarocks
