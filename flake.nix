@@ -15,6 +15,8 @@
     nixvim.url = "github:nix-community/nixvim/main";
     #hyprland.url = "github:hyprwm/Hyprland"; # hyprland development
     alejandra.url = "github:kamadorueda/alejandra";
+    # Replacement for SWWW - which is archived
+    awww.url = "git+https://codeberg.org/LGFae/awww";
 
     ags = {
       type = "github";
