@@ -4,10 +4,11 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{ pkgs
-, inputs
-, host
-, ...
+{
+  pkgs,
+  inputs,
+  host,
+  ...
 }: {
   services.power-profiles-daemon.enable = true;
 
@@ -80,8 +81,8 @@
     # Hyprland Stuff
     hypridle
     hyprpolkitagent
-    pyprland
-    #uwsm
+    #pyprland
+    uwsm
     hyprlang
     hyprshot
     hyprcursor
@@ -126,7 +127,6 @@
     fd
     feh
     file-roller
-    ghostty
     git
     glib # for gsettings to work
     google-chrome
@@ -152,13 +152,11 @@
     libnotify
     libsForQt5.qtstyleplugin-kvantum # kvantum
     libsForQt5.qt5ct
-    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
     networkmanagerapplet
-    #nitrogen
-    #nvtopPackages.full
     pamixer
     pavucontrol
     pulseaudio
@@ -170,7 +168,6 @@
     # qt6ct
     #qt6.qtwayland
     #qt6Packages.qtstyleplugin-kvantum # kvantum
-    # gsettings-qt
     rofi
     slurp
     swappy
@@ -194,7 +191,6 @@
     (inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default)
 
     # Utils
-    #browsr # file browser   # Fails python build 11/14/2025
     ctop # container top
     erdtree # great tree util run: erd
     frogmouth # cli markdown renderer A
@@ -219,7 +215,7 @@
     ugrep
     unrar
     v4l-utils
-    obs-studio
+    #obs-studio
     zoxide
 
     # Hardware related
@@ -256,6 +252,7 @@
     vlc
 
     # Terminals
+    ghostty
     kitty
     wezterm
   ];
