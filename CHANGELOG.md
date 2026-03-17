@@ -2,6 +2,11 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 17 March 2026
+
+- Added `awww` flake for future upgrade from `swww`
+- Fixed bad package name, caused build failure
+
 ## 08 March 2026
 
 - Removed `neofetch` and `light` they are unmaintained
