@@ -2,6 +2,12 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 24 March 2026
+
+- Fixed eval warnings
+    - `git.signing.format` to `null`
+    - `lualine` theme to `auto`
+
 ## 17 March 2026
 
 - Added `awww` flake for future upgrade from `swww`
