@@ -1,6 +1,7 @@
-{lib, ...}: {
+{ lib, ... }: {
   programs.git = {
     enable = true;
+    signing.format = null;
 
     # If you want to set identity per-host, you can do it in a small overlay
     # or via host variables. Leaving these unset keeps git functional and avoids
