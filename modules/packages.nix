@@ -165,6 +165,7 @@
     #polkit
     # polkit_gnome
     kdePackages.polkit-kde-agent-1
+    xfce.xfce4-polkit
     # qt6ct
     #qt6.qtwayland
     #qt6Packages.qtstyleplugin-kvantum # kvantum
