@@ -8,6 +8,7 @@
   pkgs,
   inputs,
   host,
+  lib,
   ...
 }: {
   services.power-profiles-daemon.enable = true;
@@ -52,6 +53,33 @@
     ];
   };
   nixpkgs.config.allowUnfree = true;
+
+  systemd.user.services.polkit-agent = let
+    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+        exec "${lib.getExe pkgs.hyprpolkitagent}"
+      fi
+      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+      fi
+      echo "No supported polkit agent found." >&2
+      exit 1
+    '';
+  in {
+    Unit = {
+      Description = "Polkit authentication agent";
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+    };
+    Service = {
+      ExecStart = polkitAgentScript;
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
 
