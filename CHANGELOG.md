@@ -2,6 +2,13 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 27 March 2026
+
+- Fixed policy kit issue preventing permssion escalation 
+  - The solution b/c of the way `ly` works requires `UWSM` 
+    - Make sure the session type is `hyprland-uwsm`
+    - I will continue to look for another solution 
+
 ## 24 March 2026
 
 - Fixed eval warnings

@@ -8,6 +8,7 @@
   pkgs,
   inputs,
   host,
+  lib,
   ...
 }: {
   services.power-profiles-daemon.enable = true;
@@ -15,7 +16,7 @@
   programs = {
     hyprland = {
       enable = true;
-      withUWSM = false;
+      withUWSM = true;
       #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
       #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; #xdph-git
 
@@ -52,6 +53,29 @@
     ];
   };
   nixpkgs.config.allowUnfree = true;
+
+  systemd.user.services.polkit-agent = let
+    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+        exec "${lib.getExe pkgs.hyprpolkitagent}"
+      fi
+      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+      fi
+      echo "No supported polkit agent found." >&2
+      exit 1
+    '';
+  in {
+    description = "Polkit authentication agent";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      ExecStart = polkitAgentScript;
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
 
@@ -165,6 +189,7 @@
     #polkit
     # polkit_gnome
     kdePackages.polkit-kde-agent-1
+    mate-polkit
     # qt6ct
     #qt6.qtwayland
     #qt6Packages.qtstyleplugin-kvantum # kvantum
@@ -209,6 +234,7 @@
     ripgrep
     socat
     starship
+    timeshift  #snapshot / rsync util
     trippy # trace tool like mtr  run  sudo trip host/IP
     tldr
     tuptime # better uptime tool
