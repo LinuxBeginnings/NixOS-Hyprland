@@ -76,9 +76,7 @@
       Restart = "on-failure";
       RestartSec = 1;
     };
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
+    wantedBy = ["graphical-session.target"];
   };
 
   environment.systemPackages = with pkgs; [
