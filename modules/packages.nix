@@ -66,17 +66,15 @@
       exit 1
     '';
   in {
-    Unit = {
-      Description = "Polkit authentication agent";
-      After = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
-    };
-    Service = {
+    description = "Polkit authentication agent";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+    serviceConfig = {
       ExecStart = polkitAgentScript;
       Restart = "on-failure";
       RestartSec = 1;
     };
-    wantedBy = ["graphical-session.target"];
   };
 
   environment.systemPackages = with pkgs; [
