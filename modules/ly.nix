@@ -12,6 +12,7 @@
 }: {
   # Ensure greetd is not enabled anywhere by default (hosts can override if needed)
   services.greetd.enable = lib.mkDefault false;
+  services.displayManager.defaultSession = lib.mkDefault "hyprland-uwsm";
 
   # Animations  "doom", "colormix", "matrix"
   services.displayManager.ly = {

@@ -69,7 +69,7 @@
     description = "Polkit authentication agent";
     after = ["graphical-session.target"];
     partOf = ["graphical-session.target"];
-    wantedBy = ["graphical-session.target"];
+    wantedBy = ["default.target"];
     serviceConfig = {
       ExecStart = polkitAgentScript;
       Restart = "on-failure";
