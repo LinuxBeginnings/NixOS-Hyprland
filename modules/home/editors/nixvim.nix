@@ -1,15 +1,16 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ inputs
+, config
+, lib
+, pkgs
+, ...
+}:
+let
   # Use Stylix palette if present; otherwise fall back to Catppuccin Mocha background
-  notifyBg = lib.attrByPath ["lib" "stylix" "colors" "base01"] "1e1e2e" config;
-in {
+  notifyBg = lib.attrByPath [ "lib" "stylix" "colors" "base01" ] "1e1e2e" config;
+in
+{
   # Bring in Nixvim's Home Manager module so programs.nixvim options exist
-  imports = [inputs.nixvim.homeModules.nixvim];
+  imports = [ inputs.nixvim.homeModules.nixvim ];
 
   programs.nixvim = {
     enable = true;
@@ -37,7 +38,7 @@ in {
       updatetime = 200;
       cursorline = true;
       spell = true;
-      spelllang = ["en"];
+      spelllang = [ "en" ];
       # Send all yanks/deletes to the system clipboard (Wayland/X11)
       clipboard = "unnamedplus";
     };
@@ -57,7 +58,7 @@ in {
       lualine = {
         enable = true;
         settings = {
-          options = {theme = "catppuccin";};
+          options = { theme = "catppuccin"; };
         };
       };
       bufferline.enable = true;
@@ -110,7 +111,7 @@ in {
           fast_wrap = {
             enable = true;
             map = "<M-e>"; # Alt+e to fast-wrap
-            chars = ["{" "[" "(" "\"" "'" "`"];
+            chars = [ "{" "[" "(" "\"" "'" "`" ];
           };
         };
       };
@@ -118,7 +119,7 @@ in {
       # Terminal
       toggleterm = {
         enable = true;
-        settings = {direction = "float";};
+        settings = { direction = "float"; };
       };
 
       # Diagnostics UI
@@ -172,16 +173,16 @@ in {
         enable = true;
         settings = {
           formatters_by_ft = {
-            nix = ["nixpkgs_fmt"];
-            lua = ["stylua"];
-            javascript = ["prettierd"];
-            typescript = ["prettierd"];
-            javascriptreact = ["prettierd"];
-            typescriptreact = ["prettierd"];
-            css = ["prettierd"];
-            html = ["prettierd"];
-            markdown = ["prettierd"];
-            sh = ["shfmt"];
+            nix = [ "nixpkgs_fmt" ];
+            lua = [ "stylua" ];
+            javascript = [ "prettierd" ];
+            typescript = [ "prettierd" ];
+            javascriptreact = [ "prettierd" ];
+            typescriptreact = [ "prettierd" ];
+            css = [ "prettierd" ];
+            html = [ "prettierd" ];
+            markdown = [ "prettierd" ];
+            sh = [ "shfmt" ];
           };
           format_on_save = {
             lsp_fallback = true;
@@ -195,7 +196,7 @@ in {
       # Insert-mode escape
       {
         key = "jk";
-        mode = ["i"];
+        mode = [ "i" ];
         action = "<ESC>";
         options.desc = "Exit insert mode";
       }
@@ -203,13 +204,13 @@ in {
       # Telescope
       {
         key = "<leader>ff";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>Telescope find_files<cr>";
         options.desc = "Search files by name";
       }
       {
         key = "<leader>lg";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>Telescope live_grep<cr>";
         options.desc = "Search files by contents";
       }
@@ -217,7 +218,7 @@ in {
       # File tree (Neo-tree)
       {
         key = "<leader>fe";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>Neotree toggle<cr>";
         options.desc = "File browser toggle";
       }
@@ -225,7 +226,7 @@ in {
       # Terminal
       {
         key = "<leader>t";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>ToggleTerm<CR>";
         options.desc = "Toggle terminal";
       }
@@ -233,13 +234,13 @@ in {
       # Comment line (Doom Emacs style)
       {
         key = "<leader>.";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>";
         options.desc = "Comment line";
       }
       {
         key = "<leader>.";
-        mode = ["v"];
+        mode = [ "v" ];
         action = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>";
         options.desc = "Comment selection";
       }
@@ -247,25 +248,25 @@ in {
       # Diagnostics
       {
         key = "<leader>dj";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
         options.desc = "Go to next diagnostic";
       }
       {
         key = "<leader>dk";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
         options.desc = "Go to previous diagnostic";
       }
       {
         key = "<leader>dl";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>lua vim.diagnostic.open_float()<CR>";
         options.desc = "Show diagnostic details";
       }
       {
         key = "<leader>dt";
-        mode = ["n"];
+        mode = [ "n" ];
         action = "<cmd>Trouble diagnostics toggle<cr>";
         options.desc = "Toggle diagnostics list";
       }
@@ -273,14 +274,14 @@ in {
       # Disable accidental F1 across modes
       {
         key = "<F1>";
-        mode = ["n" "i" "v" "x" "s" "o" "t" "c"];
+        mode = [ "n" "i" "v" "x" "s" "o" "t" "c" ];
         action = "<Nop>";
         options.desc = "Disable accidental F1 help";
       }
       # Help mappings
       {
         key = "<leader>h";
-        mode = ["n"];
+        mode = [ "n" ];
         action = ":help<Space>";
         options = {
           desc = "Open :help prompt";
@@ -289,7 +290,7 @@ in {
       }
       {
         key = "<leader>H";
-        mode = ["n"];
+        mode = [ "n" ];
         action = ":help <C-r><C-w><CR>";
         options.desc = "Help for word under cursor";
       }
@@ -305,8 +306,8 @@ in {
       lazygit
       nixd
       hyprls
-      nodePackages.typescript-language-server
-      nodePackages.typescript
+      typescript-language-server
+      typescript
       vscode-langservers-extracted
       pyright
       lua-language-server
