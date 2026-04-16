@@ -5,6 +5,9 @@ A technical record of notable changes. Dates are in UTC.
 ## 14 April 2026
 
 - Changed `swww` to `awww`
+    - `swww` no longer maintained
+- Fixed polkit issue with QT kvantum apps
+    - Added: `qt5.qtdeclarative qt5.qtquickcontrols2 #kdePackages.qtdeclarative`
     - `swww` wallpaper engine no longer maintained
 
 ## 27 March 2026

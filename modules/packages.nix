@@ -172,12 +172,15 @@
     kdePackages.qt6ct
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum # kvantum
+    kdePackages.qtdeclarative
     lazydocker
     lazygit
     libappindicator
     libnotify
     libsForQt5.qtstyleplugin-kvantum # kvantum
     libsForQt5.qt5ct
+    qt5.qtdeclarative
+    qt5.qtquickcontrols2
     (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
