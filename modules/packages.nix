@@ -143,8 +143,9 @@
     cliphist
     cpufrequtils
     curl
-    dysk # disk usage tool
-    easyeffects # Audio tool
+    dysk
+    eog
+    easyeffects
     eza
     findutils
     figlet
@@ -202,7 +203,7 @@
     swappy
     serie #git cli tool
     swaynotificationcenter
-    swww
+    awww
     unzip
     wallust
     wdisplays
