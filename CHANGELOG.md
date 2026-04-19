@@ -2,6 +2,10 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 19 April 2026
+
+- Stopped `install.sh` from overwritting fastfetch config
+
 ## 14 April 2026
 
 - Changed `swww` to `awww`
