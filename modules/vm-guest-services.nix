@@ -5,15 +5,15 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
 # 💫 https://github.com/LinuxBeginnings 💫 #
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, pkgs
+, config
+, ...
 }:
 with lib; let
   cfg = config.vm.guest-services;
-in {
+in
+{
   options.vm.guest-services = {
     enable = mkEnableOption "Enable Virtual Machine Guest Services";
   };
@@ -21,6 +21,6 @@ in {
   config = mkIf cfg.enable {
     services.qemuGuest.enable = true;
     services.spice-vdagentd.enable = true;
-    services.spice-webdavd.enable = true;
+    services.spice-webdavd.enable = false; # fails to build 4/25/26
   };
 }
