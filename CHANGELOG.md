@@ -2,6 +2,14 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 25 April 2026
+
+- Disabled `webdavd` fails to build - upstream issue
+- Set default kernel to `latest` instead of `zen`
+    - 7.0 kernel is better than 6.19.zen
+    - This won't change existing hosts
+- Fixed `nixvim` LuaLines error
+
 ## 19 April 2026
 
 - Stopped `install.sh` from overwritting fastfetch config
