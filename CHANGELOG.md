@@ -2,6 +2,15 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## 06 May 2026
+
+- Disabled `noice` to remove prompt when staring NVIM
+    - Startup might tell you to migrate nvim projects
+    - Go `~/.local/share/nvim/project_nvim/` and remove the `.json` file there
+- Updated flake to prevent `deno` from being built from source
+    - Takes MANY hours to compile otherwise
+    - I.e. if you just did a rebuild instead of updating flake
+
 ## 25 April 2026
 
 - Disabled `webdavd` fails to build - upstream issue
