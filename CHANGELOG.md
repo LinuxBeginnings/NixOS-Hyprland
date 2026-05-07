@@ -2,8 +2,9 @@
 
 A technical record of notable changes. Dates are in UTC.
 
-## 06 May 2026
+## May 2026
 
+- Added `socat` needed for `Tak0` scripts
 - Disabled `noice` to remove prompt when staring NVIM
     - Startup might tell you to migrate nvim projects
     - Go `~/.local/share/nvim/project_nvim/` and remove the `.json` file there
