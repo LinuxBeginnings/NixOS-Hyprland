@@ -117,6 +117,7 @@
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
     socat # Needed for Tak0 scripts
+    ddcutil # Needed for ExternalBrightness script
 
     #  Apps
     power-profiles-daemon
