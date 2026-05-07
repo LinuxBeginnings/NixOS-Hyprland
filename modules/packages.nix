@@ -4,11 +4,12 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{ pkgs
-, inputs
-, host
-, lib
-, ...
+{
+  pkgs,
+  inputs,
+  host,
+  lib,
+  ...
 }: {
   services.power-profiles-daemon.enable = true;
 
@@ -53,33 +54,30 @@
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent =
-    let
-      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-          exec "${lib.getExe pkgs.hyprpolkitagent}"
-        fi
-        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-        fi
-        echo "No supported polkit agent found." >&2
-        exit 1
-      '';
-    in
-    {
-      description = "Polkit authentication agent";
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "default.target" ];
-      serviceConfig = {
-        ExecStart = polkitAgentScript;
-        Restart = "on-failure";
-        RestartSec = 1;
-      };
+  systemd.user.services.polkit-agent = let
+    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+        exec "${lib.getExe pkgs.hyprpolkitagent}"
+      fi
+      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+      fi
+      echo "No supported polkit agent found." >&2
+      exit 1
+    '';
+  in {
+    description = "Polkit authentication agent";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      ExecStart = polkitAgentScript;
+      Restart = "on-failure";
+      RestartSec = 1;
     };
+  };
 
   environment.systemPackages = with pkgs; [
-
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     alejandra
     onefetch
@@ -118,6 +116,8 @@
     waybar
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
+    socat # Needed for Tak0 scripts
+    ddcutil # Needed for ExternalBrightness script
 
     #  Apps
     power-profiles-daemon
@@ -181,7 +181,7 @@
     libsForQt5.qt5ct
     qt5.qtdeclarative
     qt5.qtquickcontrols2
-    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
