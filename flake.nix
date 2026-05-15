@@ -13,7 +13,10 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim/main";
-    #hyprland.url = "github:hyprwm/Hyprland"; # hyprland development
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     alejandra.url = "github:kamadorueda/alejandra";
     # Replacement for SWWW - which is archived
     awww.url = "git+https://codeberg.org/LGFae/awww";
