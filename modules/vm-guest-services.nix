@@ -20,7 +20,7 @@ in
 
   config = mkIf cfg.enable {
     services.qemuGuest.enable = true;
-    services.spice-vdagentd.enable = true;
-    services.spice-webdavd.enable = false; # fails to build 4/25/26
+    services.spice-vdagentd.enable = false; # Prevents 1920x1080 res
+    services.spice-webdavd.enable = true;
   };
 }
