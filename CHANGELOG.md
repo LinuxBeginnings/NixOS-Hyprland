@@ -2,20 +2,22 @@
 
 A technical record of notable changes. Dates are in UTC.
 
-## 25 April 2026
+## May 2026
+
+- Added:
+    - `luacheck`
+    - `lua`
+    - `socat` to fix `Tak0` scripts
+    - `ddcutil` to support external monitor brightness
+
+## April 2026
 
 - Disabled `webdavd` fails to build - upstream issue
 - Set default kernel to `latest` instead of `zen`
     - 7.0 kernel is better than 6.19.zen
     - This won't change existing hosts
 - Fixed `nixvim` LuaLines error
-
-## 19 April 2026
-
 - Stopped `install.sh` from overwritting fastfetch config
-
-## 14 April 2026
-
 - Changed `swww` to `awww`
     - `swww` no longer maintained
 - Fixed polkit issue with QT kvantum apps
@@ -28,20 +30,11 @@ A technical record of notable changes. Dates are in UTC.
     - The solution b/c of the way `ly` works requires `UWSM`
         - Make sure the session type is `hyprland-uwsm`
         - I will continue to look for another solution
-
-## 24 March 2026
-
 - Fixed eval warnings
     - `git.signing.format` to `null`
     - `lualine` theme to `auto`
-
-## 17 March 2026
-
 - Added `awww` flake for future upgrade from `swww`
 - Fixed bad package name, caused build failure
-
-## 08 March 2026
-
 - Removed `neofetch` and `light` they are unmaintained
 - Disabled `modulces/home/terminals/ghostty.nix`
     - Hyprland-Dots now has dynamic config for ghostty

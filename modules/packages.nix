@@ -267,6 +267,8 @@
     mission-center
 
     # Development related
+    lua
+    luacheck
     luarocks
     nh
 
