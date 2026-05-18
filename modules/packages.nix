@@ -4,12 +4,11 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  pkgs,
-  inputs,
-  host,
-  lib,
-  ...
+{ pkgs
+, inputs
+, host
+, lib
+, ...
 }: {
   services.power-profiles-daemon.enable = true;
 
@@ -22,7 +21,7 @@
       xwayland.enable = true;
     };
     zsh.enable = true;
-    firefox.enable = false;
+    firefox.enable = true;
     waybar.enable = false; #started by Hyprland dotfiles. Enabling causes two waybars
     hyprlock.enable = true;
     dconf.enable = true;
@@ -52,28 +51,30 @@
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent = let
-    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-        exec "${lib.getExe pkgs.hyprpolkitagent}"
-      fi
-      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-      fi
-      echo "No supported polkit agent found." >&2
-      exit 1
-    '';
-  in {
-    description = "Polkit authentication agent";
-    after = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      ExecStart = polkitAgentScript;
-      Restart = "on-failure";
-      RestartSec = 1;
+  systemd.user.services.polkit-agent =
+    let
+      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+          exec "${lib.getExe pkgs.hyprpolkitagent}"
+        fi
+        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+        fi
+        echo "No supported polkit agent found." >&2
+        exit 1
+      '';
+    in
+    {
+      description = "Polkit authentication agent";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig = {
+        ExecStart = polkitAgentScript;
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
     };
-  };
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
@@ -153,7 +154,7 @@
     file-roller
     git
     glib # for gsettings to work
-    google-chrome
+    #google-chrome   # moving to host pkgs
     gnome-system-monitor
     gsettings-qt
     fastfetch
@@ -179,7 +180,7 @@
     libsForQt5.qt5ct
     qt5.qtdeclarative
     qt5.qtquickcontrols2
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
@@ -199,7 +200,7 @@
     rofi
     slurp
     swappy
-    serie #git cli tool
+    # serie #git cli tool moving to host pkgs
     swaynotificationcenter
     awww
     unzip
@@ -244,22 +245,22 @@
     ugrep
     unrar
     v4l-utils
-    #obs-studio
+    #obs-studio   # move to host pkgs 
     zoxide
 
     # Hardware related
     atop # monitoring tool
     bandwhich # network monitor run with sudo
-    caligula # burn ISOs at cli FAST
-    cpufetch
-    cpuid
-    cpu-x
+    # caligula # burn ISOs at cli FAST
+    # cpufetch
+    # cpuid
+    # cpu-x
     cyme #list USB devices - very handy
     gdu # Dusk usage
     glances # system monitor tool
     gping # Graphical ping tool
     htop # system monitor tool
-    hyfetch
+    # hyfetch
     ipfetch
     pfetch
     smartmontools
@@ -268,12 +269,12 @@
 
     # Development related
     lua
-    luacheck
+    lua55Packages.luacheck
     luarocks
     nh
 
     # Internet
-    discord
+    #  discord  # Move to host pkgs
 
     # Virtuaizaiton
     virt-viewer
@@ -288,7 +289,7 @@
     wezterm
   ];
   environment.variables = {
-    JAKOS_NIXOS_VERSION = "0.0.5";
+    JAKOS_NIXOS_VERSION = "0.3.3";
     JAKOS = "true";
   };
 }

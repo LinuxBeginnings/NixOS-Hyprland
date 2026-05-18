@@ -9,6 +9,14 @@ A technical record of notable changes. Dates are in UTC.
     - `lua`
     - `socat` to fix `Tak0` scripts
     - `ddcutil` to support external monitor brightness
+- Disabled some pkgs
+    - Discord
+    - cpu id utils
+    - serie
+    - hyfetch
+    - caligula
+    - google-chrome
+    - Misc optional packages that should be added per host
 
 ## April 2026
 
