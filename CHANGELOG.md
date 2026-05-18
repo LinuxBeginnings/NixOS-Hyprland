@@ -19,12 +19,24 @@ A technical record of notable changes. Dates are in UTC.
     - Misc optional packages that should be added per host
 
 ## April 2026
+- Added `socat` needed for `Tak0` scripts
+- Disabled `noice` to remove prompt when staring NVIM
+    - Startup might tell you to migrate nvim projects
+    - Go `~/.local/share/nvim/project_nvim/` and remove the `.json` file there
+- Updated flake to prevent `deno` from being built from source
+    - Takes MANY hours to compile otherwise
+    - I.e. if you just did a rebuild instead of updating flake
+
+## 25 April 2026
 
 - Disabled `webdavd` fails to build - upstream issue
 - Set default kernel to `latest` instead of `zen`
     - 7.0 kernel is better than 6.19.zen
     - This won't change existing hosts
 - Fixed `nixvim` LuaLines error
+
+## 19 April 2026
+
 - Stopped `install.sh` from overwritting fastfetch config
 - Changed `swww` to `awww`
     - `swww` no longer maintained
