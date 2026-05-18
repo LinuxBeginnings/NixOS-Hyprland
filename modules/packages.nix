@@ -17,14 +17,12 @@
     hyprland = {
       enable = true;
       withUWSM = true;
-      #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
-      #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; #xdph-git
-
-      portalPackage = pkgs.xdg-desktop-portal-hyprland; # xdph none git
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; # hyprland-git
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdph-git
       xwayland.enable = true;
     };
     zsh.enable = true;
-    firefox.enable = false;
+    firefox.enable = true;
     waybar.enable = false; #started by Hyprland dotfiles. Enabling causes two waybars
     hyprlock.enable = true;
     dconf.enable = true;
@@ -155,7 +153,7 @@
     file-roller
     git
     glib # for gsettings to work
-    google-chrome
+    #google-chrome   # moving to host pkgs
     gnome-system-monitor
     gsettings-qt
     fastfetch
@@ -201,7 +199,7 @@
     rofi
     slurp
     swappy
-    serie #git cli tool
+    # serie #git cli tool moving to host pkgs
     swaynotificationcenter
     awww
     unzip
@@ -246,22 +244,22 @@
     ugrep
     unrar
     v4l-utils
-    #obs-studio
+    #obs-studio   # move to host pkgs 
     zoxide
 
     # Hardware related
     atop # monitoring tool
     bandwhich # network monitor run with sudo
-    caligula # burn ISOs at cli FAST
-    cpufetch
-    cpuid
-    cpu-x
+    # caligula # burn ISOs at cli FAST
+    # cpufetch
+    # cpuid
+    # cpu-x
     cyme #list USB devices - very handy
     gdu # Dusk usage
     glances # system monitor tool
     gping # Graphical ping tool
     htop # system monitor tool
-    hyfetch
+    # hyfetch
     ipfetch
     pfetch
     smartmontools
@@ -269,11 +267,13 @@
     mission-center
 
     # Development related
+    lua
+    lua55Packages.luacheck
     luarocks
     nh
 
     # Internet
-    discord
+    #  discord  # Move to host pkgs
 
     # Virtuaizaiton
     virt-viewer
@@ -288,7 +288,7 @@
     wezterm
   ];
   environment.variables = {
-    JAKOS_NIXOS_VERSION = "0.0.5";
+    JAKOS_NIXOS_VERSION = "0.3.3";
     JAKOS = "true";
   };
 }

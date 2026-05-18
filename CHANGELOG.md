@@ -4,6 +4,21 @@ A technical record of notable changes. Dates are in UTC.
 
 ## May 2026
 
+- Added:
+    - `luacheck`
+    - `lua`
+    - `socat` to fix `Tak0` scripts
+    - `ddcutil` to support external monitor brightness
+- Disabled some pkgs
+    - Discord
+    - cpu id utils
+    - serie
+    - hyfetch
+    - caligula
+    - google-chrome
+    - Misc optional packages that should be added per host
+
+## April 2026
 - Added `socat` needed for `Tak0` scripts
 - Disabled `noice` to remove prompt when staring NVIM
     - Startup might tell you to migrate nvim projects
@@ -23,9 +38,6 @@ A technical record of notable changes. Dates are in UTC.
 ## 19 April 2026
 
 - Stopped `install.sh` from overwritting fastfetch config
-
-## 14 April 2026
-
 - Changed `swww` to `awww`
     - `swww` no longer maintained
 - Fixed polkit issue with QT kvantum apps
@@ -38,20 +50,11 @@ A technical record of notable changes. Dates are in UTC.
     - The solution b/c of the way `ly` works requires `UWSM`
         - Make sure the session type is `hyprland-uwsm`
         - I will continue to look for another solution
-
-## 24 March 2026
-
 - Fixed eval warnings
     - `git.signing.format` to `null`
     - `lualine` theme to `auto`
-
-## 17 March 2026
-
 - Added `awww` flake for future upgrade from `swww`
 - Fixed bad package name, caused build failure
-
-## 08 March 2026
-
 - Removed `neofetch` and `light` they are unmaintained
 - Disabled `modulces/home/terminals/ghostty.nix`
     - Hyprland-Dots now has dynamic config for ghostty

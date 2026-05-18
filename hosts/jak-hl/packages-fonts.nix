@@ -1,6 +1,7 @@
 # 💫 https://github.com/LinuxBeginnings 💫 #
 # Packages for this host only
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   python-packages = pkgs.python3.withPackages (
     ps:
       with ps; [
@@ -8,13 +9,14 @@
         pyquery # needed for hyprland-dots Weather script
       ]
   );
-in {
+in
+{
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages =
     (with pkgs; [
       # System Packages
-      fastfetch
+      google-chrome
     ])
     ++ [
       python-packages
