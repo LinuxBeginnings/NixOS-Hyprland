@@ -77,6 +77,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+    inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar
     alejandra
     onefetch
     atop
@@ -111,7 +112,7 @@
     nwg-displays
     nwg-look
     waypaper
-    waybar
+    #waybar   # disabled trying source build for lua and other issues
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
     socat # Needed for Tak0 scripts
@@ -244,7 +245,7 @@
     ugrep
     unrar
     v4l-utils
-    #obs-studio   # move to host pkgs 
+    #obs-studio   # move to host pkgs
     zoxide
 
     # Hardware related
