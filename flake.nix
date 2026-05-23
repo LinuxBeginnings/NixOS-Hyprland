@@ -5,21 +5,25 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
 {
-  description = "KooL's NixOS-Hyprland";
+  description = "KoolDots -- NixOS-Hyprland";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim/main";
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland = {
+    #   url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     alejandra.url = "github:kamadorueda/alejandra";
     # Replacement for SWWW - which is archived
     awww.url = "git+https://codeberg.org/LGFae/awww";
+
+    waybar = {
+      url = "github:alexays/waybar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ags = {
       type = "github";

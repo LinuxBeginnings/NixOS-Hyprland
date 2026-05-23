@@ -4,12 +4,11 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  pkgs,
-  inputs,
-  host,
-  lib,
-  ...
+{ pkgs
+, inputs
+, host
+, lib
+, ...
 }: {
   services.power-profiles-daemon.enable = true;
 
@@ -17,8 +16,8 @@
     hyprland = {
       enable = true;
       withUWSM = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; # hyprland-git
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdph-git
+      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; # hyprland-git
+      # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdph-git
       xwayland.enable = true;
     };
     zsh.enable = true;
@@ -52,31 +51,35 @@
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent = let
-    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-        exec "${lib.getExe pkgs.hyprpolkitagent}"
-      fi
-      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-      fi
-      echo "No supported polkit agent found." >&2
-      exit 1
-    '';
-  in {
-    description = "Polkit authentication agent";
-    after = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      ExecStart = polkitAgentScript;
-      Restart = "on-failure";
-      RestartSec = 1;
+  systemd.user.services.polkit-agent =
+    let
+      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+          exec "${lib.getExe pkgs.hyprpolkitagent}"
+        fi
+        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+        fi
+        echo "No supported polkit agent found." >&2
+        exit 1
+      '';
+    in
+    {
+      description = "Polkit authentication agent";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig = {
+        ExecStart = polkitAgentScript;
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
     };
-  };
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+    inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar
+    #waybar
     alejandra
     onefetch
     atop
@@ -106,12 +109,13 @@
     uwsm
     hyprlang
     hyprshot
+    hyprshutdown
     hyprcursor
     mesa
     nwg-displays
     nwg-look
     waypaper
-    waybar
+    #waybar   # disabled trying source build for lua and other issues
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
     socat # Needed for Tak0 scripts
@@ -123,6 +127,7 @@
     appimage-run
     bc
     brightnessctl
+    # To eanble GPU load monitoring in btop
     (btop.override {
       cudaSupport = true;
       rocmSupport = true;
@@ -151,6 +156,7 @@
     fd
     feh
     file-roller
+    gcc
     git
     glib # for gsettings to work
     #google-chrome   # moving to host pkgs
@@ -159,6 +165,7 @@
     fastfetch
     jq
     gcc
+    gearlever # manage appimages
     git
     gnumake
     grim
@@ -179,7 +186,7 @@
     libsForQt5.qt5ct
     qt5.qtdeclarative
     qt5.qtquickcontrols2
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
@@ -244,7 +251,7 @@
     ugrep
     unrar
     v4l-utils
-    #obs-studio   # move to host pkgs 
+    #obs-studio   # move to host pkgs
     zoxide
 
     # Hardware related
@@ -270,6 +277,8 @@
     lua
     lua55Packages.luacheck
     luarocks
+    lua-language-server
+    stylua
     nh
 
     # Internet

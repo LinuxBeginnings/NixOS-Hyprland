@@ -1,7 +1,7 @@
 # Eza is a ls replacement
 {
   # Enable Shells you want to have the eza aliases
-  #  This does not change the default shell 
+  #  This does not change the default shell
   programs = {
     zsh = {
       enable = true;

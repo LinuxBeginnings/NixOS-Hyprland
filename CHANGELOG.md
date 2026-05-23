@@ -4,21 +4,43 @@ A technical record of notable changes. Dates are in UTC.
 
 ## May 2026
 
-- Added:
+## Added:
+
+    - `hyprshutdown`
     - `luacheck`
     - `lua`
+    - `stylua`
+    - `lua-language-server`
     - `socat` to fix `Tak0` scripts
     - `ddcutil` to support external monitor brightness
-- Disabled some pkgs
+    - `gearlever` for managing  `AppImages`
+    -  Check for user `waybar` service
+       - If found it will stop, disable, then mask it
+
+## Updated:
+
+    - Hyprland built from NixPkgs not source
+       - Hyprland 0.55.2 now available
+       - Much faster rebuild, update times
+       - Source build config is just commented out just in case
+
+## Disabled:
+
+    - Hyprland being built from source
+    - Hyprland cacheix servers, not needed for Hyprland from NixPkgs
     - Discord
     - cpu id utils
     - serie
     - hyfetch
     - caligula
     - google-chrome
-    - Misc optional packages that should be added per host
+
+## Misc:
+
+- Packages like Chrome, etc, should be added per host
 
 ## April 2026
+
 - Added `socat` needed for `Tak0` scripts
 - Disabled `noice` to remove prompt when staring NVIM
     - Startup might tell you to migrate nvim projects
@@ -26,17 +48,11 @@ A technical record of notable changes. Dates are in UTC.
 - Updated flake to prevent `deno` from being built from source
     - Takes MANY hours to compile otherwise
     - I.e. if you just did a rebuild instead of updating flake
-
-## 25 April 2026
-
 - Disabled `webdavd` fails to build - upstream issue
 - Set default kernel to `latest` instead of `zen`
     - 7.0 kernel is better than 6.19.zen
     - This won't change existing hosts
 - Fixed `nixvim` LuaLines error
-
-## 19 April 2026
-
 - Stopped `install.sh` from overwritting fastfetch config
 - Changed `swww` to `awww`
     - `swww` no longer maintained
@@ -44,7 +60,7 @@ A technical record of notable changes. Dates are in UTC.
     - Added: `qt5.qtdeclarative qt5.qtquickcontrols2 #kdePackages.qtdeclarative`
     - `swww` wallpaper engine no longer maintained
 
-## 27 March 2026
+## March 2026
 
 - Fixed policy kit issue preventing permssion escalation
     - The solution b/c of the way `ly` works requires `UWSM`
@@ -59,45 +75,36 @@ A technical record of notable changes. Dates are in UTC.
 - Disabled `modulces/home/terminals/ghostty.nix`
     - Hyprland-Dots now has dynamic config for ghostty
 
-## 15 February 2026
+## February 2026
 
 - Enabled `zsh`, `fish`, `bash` shells in `eza.nix`
     - This resolved issues of `homeshell.aliases` not being created/updated
 
-## 31 January 2026
+## January 2026
 
 - Updated to unstable branch
     - To get Hyprland to v0.53.x
     - Needed for feature parity with dotfiles
 
-## 23 December 2025
+## December 2025
 
 - Added additional nerd fonts
 - Added Spanish Translations
     - `CODE_OF_CONDUCT.es.md`
     - `COMMIT_MESSAGE_GUIDELINES.es.md`
     - `CONTRIBUTING.es.md`
-
-## 15 December 2025
-
 - Added color and clock to `ly` login manager
 - Added `nh` NIX helper for rebuilds, cleanup
 - Added `alejandra` nix formatter to flake
     - Ran `nix fmt ./` to properly NIX format all files
     - Provides consistent and NIX standard formatting for merges
 - Added `power-profiles-daemon` service and package
-
-## 04 December 2025
-
 - Pinned `nixvim` to stable branch, v25.11
-
-## 01 December 2025
-
 - Pinned NixOS to v25.11 Stable Branch
 - Updated quickshell `overview` code to newest version
     - Gets updated by `Hyprland-Dots` after initial install
 
-## 14 November 2025
+## November 2025
 
 - Updated Flake
 - Updated: Hyprland now v0.52.1
@@ -125,10 +132,6 @@ A technical record of notable changes. Dates are in UTC.
 
 - Fixed: poor output formating in install scripts
 - Fixed: path issue in auto-install.sh and install.sh scripts
-
-## 1 November 2025
-
-- Updated Flake
 - Removed `greetd-tui`, replaced with `ly` login manager
 - Added Home Manager for a small subset of apps
     - NeoVim via NIXVIM
@@ -144,14 +147,14 @@ A technical record of notable changes. Dates are in UTC.
 
 - Added cheatsheets for TMUX and NeoVIM in English and Spanish.
 
-## 19 October 2025
+## October 2025
 
 - Changed from `nixos-rebuild switch` to `nixos-rebuild boot`
 - Modified both `auto-install.sh` and `install.sh`
 - This is a best practice especially if currently running a Login Display Mgr
 - The switch will reload services and common result is black screen
 
-## 19 September 2025
+## September 2025
 
 - Added
     - AGS re-added; quickshell updates were failing on some non-NixOS environments
@@ -186,98 +189,52 @@ A technical record of notable changes. Dates are in UTC.
     - Installers now toggle drivers/vm settings on the selected host rather than
       the default.
 
-## 23 July 2025
+## July 2025
 
 - switched to unstable channel
 - removed AGS from the option
 - return to main Hyprland-Dots repo
-
-## 17 July 2025
-
 - Diverted KooLs Dots to download from specific branch until I figure out how to
   install quickshell on NixOS
 
-## 20 March 2025
+## March 2025
 
 - added findutils as dependencies
-
-## 10 March 2025
-
 - Dropped pyprland in favor of hyprland built in tool for a drop down like
   terminal and Desktop magnifier
-
-## 09 Mar 2025
-
 - replaced eza with lsd
 
-## 23 Feb 2025
+## Feb 2025
 
 - added Victor Mono Font for proper hyprlock font rendering for Dots v2.3.12
 - added Fantasque Sans Mono Nerd for Kitty
-
-## 22 Feb 2025
-
 - replaced eog with loupe
-
-## 15 Feb 2025
-
 - Returning AGS overview option :)
-
-## 13 Feb 2025
-
 - disabled AGS permanently as it is trying to install version 2.2.1 even I set
   override
 - switched to latest kernel (from zen kernel) to unstable channel (from 24.11)
 
-## 30 Jan 2025
+## Jan 2025
 
 - AGS (aylurs gtk shell) v1 is now optional
-
-## 27 Jan 2025
-
 - switched to zen kernel for now until NixOS team fix the Kernel 6.13 plague
-
-## 26 Jan 2025
-
 - time will now be based via location
 - switched to full stable branch
-
-## 12 Jan 2025
-
 - switch to final version of aylurs-gtk-shell-v1
 - default oh-my-zsh theme was changed to `funky`
-
-### 07 Jan 2025
-
 - switched to non-development Hyprland
 
-### 27 Dec 2024
+### Dec 2024
 
 - moved Packages and Fonts in a separate.nix. Thanks to @dwilliam62 for the lead
 
-### 22 Oct 2024
+### Oct 2024
 
 - added brightnessctl
 - updated packages names
 
-### 18 Sep 2024
+### Sep 2024
 
 - removed neovim
 - nvim config will be downloaded or copied into ~/.config anymore
-
-### 08 Sep 2024
-
-- officially released
-
-### 07 Sep 2024
-
-- Beta stage 🫰
 - added zram
-
-### 06 Sep 2024
-
-- Alpha v2 Stage 😊
-
-### 05 Sept 2024
-
-- Initial Alpha Stage
