@@ -6,6 +6,7 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Added:
 
+    - `hyprshutdown`
     - `luacheck`
     - `lua`
     - `stylua`
