@@ -251,6 +251,19 @@ fi
 #return to NixOS-Hyprland
 cd ~/NixOS-Hyprland
 
+# Disable user waybar service when present to avoid duplicate bars with dotfiles-managed startup
+if command -v systemctl >/dev/null 2>&1; then
+    if systemctl --user list-unit-files --no-pager 2>/dev/null | grep -q '^waybar\.service'; then
+        echo "$NOTE Found user waybar.service. Masking it to prevent duplicate Waybar startup."
+        systemctl --user stop waybar.service >/dev/null 2>&1 || true
+        systemctl --user disable waybar.service >/dev/null 2>&1 || true
+        systemctl --user mask waybar.service >/dev/null 2>&1 || true
+        echo "$OK waybar.service has been masked for the user session."
+    else
+        echo "$INFO No user waybar.service unit detected."
+    fi
+fi
+
 printf "\n%.0s" {1..2}
 if command -v Hyprland &>/dev/null; then
     printf "\n${OK} Yey! Installation Completed.${RESET}\n"

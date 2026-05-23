@@ -13,7 +13,8 @@ A technical record of notable changes. Dates are in UTC.
     - `socat` to fix `Tak0` scripts
     - `ddcutil` to support external monitor brightness
     - `gearlever` for managing  `AppImages`
-    -
+    -  Check for user `waybar` service
+       - If found it will stop, disable, then mask it
 
 ## Updated:
 
