@@ -19,10 +19,7 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Updated:
 
-    - `yazi` config files
-      - Previous .NIX files weren't  `yazi v26.x` compatible
-      - Using home manager to copy the raw files
-      - It's my current config and eventually convert back to .nix
+    - `yazi` config files now in `Hyprland-Dots`
     - Hyprland built from NixPkgs not source
        - Hyprland 0.55.2 now available
        - Much faster rebuild, update times
