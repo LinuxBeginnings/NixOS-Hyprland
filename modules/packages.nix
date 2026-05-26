@@ -9,7 +9,14 @@
 , host
 , lib
 , ...
-}: {
+}:
+let
+  waybarPkg =
+    inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
+      doCheck = false;
+      mesonFlags = (old.mesonFlags or []) ++ [ "-Dtests=disabled" ];
+    });
+in {
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -78,7 +85,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
-    inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar
+    waybarPkg
     #waybar
     alejandra
     onefetch
