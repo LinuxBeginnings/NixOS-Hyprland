@@ -76,16 +76,14 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 > The install scripts assumes a clean installation of NixOS or the understanding that it will replace any existing configuration
 > It will not merge into an existing NixOS configuration.
 
-> [!WARNING] Use this code at your on your own risk!
-
+> [!WARNING]
+> Use this code at your own risk!
 > Currently, this project is on the unstable nixpkgs channel.
 
 > [!NOTE]
-
-- Being on the unstable channel is a bigger challenge to maintain.
-- An NIX package update, can prevent a rebuild, or require updating nix settings.
-
-- Make sure to read Hyprland's [WIKI](https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/)
+> - Being on the unstable channel is a bigger challenge to maintain.
+> - A Nix package update can prevent a rebuild, or require updating nix settings.
+> - Make sure to read Hyprland's [WIKI](https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/)
 
 <summary><strong> 🪧🪧🪧 Important announcement 🪧🪧🪧 </strong></summary>  
 <br>    
@@ -118,7 +116,8 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 - GTK Themes and Icons will be pulled from [`LINK`](https://github.com/LinuxBeginnings/GTK-themes-icons), including Bibata Cursor Modern Ice
 - You will be prompted if you want to download wallpapers from here: [`REPO`](https://github.com/LinuxBeginnings/Wallpaper-Bank)
 
-> [Note:] The wallpapers contain AI generated and AI enhanced images. If this is an issue for you enter "N" when prompted to download them
+> [!NOTE]
+> The wallpapers contain AI generated and AI enhanced images. If this is an issue for you enter "N" when prompted to download them
 
 </div>
 <br>
@@ -129,7 +128,8 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 <details>
 <summary><strong>👋 👋 👋 Requirements </strong></summary>
 
-> [!WARNING] The flake will update system to current unstable branch
+> [!WARNING]
+> The flake will update system to current unstable branch
 
 - You must be running on NixOS 25.11+
 - 26.05+ recommended
@@ -179,7 +179,7 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 - [KooL's Hyprland Dots on NixOS](https://youtu.be/nJLnRgnLPWI)
 
 <details>
-<summary>📜 1. Using auto install Script: <</summary>
+<summary>📜 1. Using auto install Script:</summary>
 <br>
 <div id="autoinstall">
     
@@ -196,7 +196,7 @@ sh <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/ma
 
 > [!NOTE]
 > pciutils is necessary to detect if you have an Nvidia card.
-> </div?
+</div>
 
 </details>
 
@@ -297,7 +297,8 @@ Hope you enjoy! 🎉
 - Tmux Cheatsheet [`English`](assets/tmux.cheatsheet.md) | [`Español`](assets/tmux.cheatsheet.es.md)
 - Intro to Neovim [`English`](assets/Intro-to-Neovim.md) | [`Español`](assets/Intro-to-Neovim.es.md)
 
-    <br> > [!TIP] > KooL's Dots v2.3.7 has a searchable keybind function via rofi. (SUPER SHIFT K) or right click the `HINTS` waybar button
+> [!TIP]
+> KooL's Dots v2.3.7 has a searchable keybind function via rofi. (SUPER SHIFT K) or right click the `HINTS` waybar button
 
 <details>
 <summary><strong>⌚ Setting timezone </strong></summary>
