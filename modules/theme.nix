@@ -10,6 +10,10 @@
   config,
   ...
 }: {
+  # Catppuccin theme configuration
+  catppuccin.enable = true;
+  catppuccin.autoEnable = true;
+
   # Install themes/cursors that we reference
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme

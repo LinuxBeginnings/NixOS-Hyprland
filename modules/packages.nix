@@ -14,9 +14,10 @@ let
   waybarPkg =
     inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
       doCheck = false;
-      mesonFlags = (old.mesonFlags or []) ++ [ "-Dtests=disabled" ];
+      mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
     });
-in {
+in
+{
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -85,6 +86,8 @@ in {
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+    # inputs.antigravity-cli-repo.packages.${pkgs.system}.antigravity-cli
+
     waybarPkg
     #waybar
     alejandra
