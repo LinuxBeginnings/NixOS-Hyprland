@@ -4,6 +4,8 @@
     ./terminals/tmux.nix
     #./terminals/ghostty.nix
     ./editors/nixvim.nix
+    ./editors/micro.nix
+    ./editors/nano.nix
     ./cli/bat.nix
     ./cli/btop.nix
     ./cli/bottom.nix
