@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Install Ghostty theme(s) so referenced names resolve even if the package's share/themes doesn't include them
   home.file = {
     ".config/ghostty/themes/catppuccin-mocha".source = ./ghostty-themes/catppuccin-mocha;

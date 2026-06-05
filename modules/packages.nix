@@ -4,19 +4,20 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{ pkgs
-, inputs
-, host
-, lib
-, ...
+{
+  pkgs,
+  inputs,
+  host,
+  lib,
+  ...
 }:
 let
-  waybarPkg =
-    inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
-      doCheck = false;
-      mesonFlags = (old.mesonFlags or []) ++ [ "-Dtests=disabled" ];
-    });
-in {
+  waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
+    doCheck = false;
+    mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
+  });
+in
+{
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -29,7 +30,7 @@ in {
     };
     zsh.enable = true;
     firefox.enable = true;
-    waybar.enable = false; #started by Hyprland dotfiles. Enabling causes two waybars
+    waybar.enable = false; # started by Hyprland dotfiles. Enabling causes two waybars
     hyprlock.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
@@ -85,12 +86,16 @@ in {
 
   environment.systemPackages = with pkgs; [
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+    # inputs.antigravity-cli-repo.packages.${pkgs.system}.antigravity-cli
+
     waybarPkg
     #waybar
     alejandra
+    nixfmt
+    nixfmt-tree
     onefetch
     atop
-    go #needed for waybar-weather compile
+    go # needed for waybar-weather compile
 
     # Update flkake script
     (pkgs.writeShellScriptBin "update" ''
@@ -226,7 +231,7 @@ in {
     xarchiver
     yad
     yazi
-    xdg-user-dirs #needed for copy.sh
+    xdg-user-dirs # needed for copy.sh
     yt-dlp
 
     (inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default)
@@ -251,7 +256,7 @@ in {
     ripgrep
     socat
     starship
-    timeshift #snapshot / rsync util
+    timeshift # snapshot / rsync util
     trippy # trace tool like mtr  run  sudo trip host/IP
     tldr
     tuptime # better uptime tool
@@ -268,7 +273,7 @@ in {
     # cpufetch
     # cpuid
     # cpu-x
-    cyme #list USB devices - very handy
+    cyme # list USB devices - very handy
     gdu # Dusk usage
     glances # system monitor tool
     gping # Graphical ping tool

@@ -4,7 +4,8 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.nh = {
     enable = true;
     clean = {
