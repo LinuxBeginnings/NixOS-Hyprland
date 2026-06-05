@@ -24,6 +24,16 @@ A technical record of notable changes. Dates are in UTC.
                catppuccin.enable = true;
                catppuccin.autoEnable = true;
             ```
+    - Lightly themed w/syntax highlighting
+
+- Updated to NixOS v26.11
+- Fixed eval warnings for `catppuccin` in `modules/theme.nix`
+
+    ```nix
+       # Catppuccin theme configuration
+       catppuccin.enable = true;
+       catppuccin.autoEnable = true;
+    ```
 
 ## May 2026
 
