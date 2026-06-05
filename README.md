@@ -6,7 +6,7 @@
 <!-- ================================================== -->
 <div align="center">
 
-# 💌 ** KooL's ❄️ NixOS-Hyprland Install Script ** 💌
+# 💌 ** KooL ❄️ NixOS-Hyprland Install Script ** 💌
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/LinuxBeginnings/Hyprland-Dots/main/assets/latte.png" width="400" />
@@ -74,11 +74,16 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 
 > [!IMPORTANT]
 > The install scripts assumes a clean installation of NixOS or the understanding that it will replace any existing configuration
-> It will not merge into an existing NixOS configuration. You can use this code at your on your own risk.
+> It will not merge into an existing NixOS configuration.
 
-> Currently, this project is on the unstable nixpkgs channel. When 25.11 becomes the new stable branch, the plan it to stay there, then move to the next stable
+> [!WARNING] Use this code at your on your own risk!
 
-- Being on the unstable channel is a bigger challenge to support. An update can't prevent a rebuild, or require updating nix settings.
+> Currently, this project is on the unstable nixpkgs channel.
+
+> [!NOTE]
+
+- Being on the unstable channel is a bigger challenge to maintain.
+- An NIX package update, can prevent a rebuild, or require updating nix settings.
 
 - Make sure to read Hyprland's [WIKI](https://wiki.hyprland.org/Nix/Hyprland-on-NixOS/)
 
@@ -87,24 +92,27 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 <div id="announcement">
 
 - ** This Repo does not contain Hyprland configuration files. (Dotfiles)! **
-    - You can either, use KoolDots's, create your own configuration, or try to use another project's config.
+    - You can either, use `KoolDots`, create your own configuration, or try to use another project's config.
     - Make sure you have all the requirements first. I.e. fonts, supporting packages, at the correct version
 
 - This new release adds Home Manger, but only manages a small set of packages
-    - NeoVim via NIXVIM
-    - Ghostty
     - bat
     - bottom
     - btop
     - eza
     - fzf
+    - ghostty
     - git
+    - micro editor (theme and syntax highligts)
+    - nano editor (theme and syntax highligts)
+    - NeoVim (via NIXVIM)
     - tealdir
     - yazi
 
+> [!NOTE]
 > ** Not all of the configuration files in this project are written in NIX language **
 
-- The `auto-install.sh` script will install Hyprland config files, (Dotfiles) from [`KooL's Hyprland-Dots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
+- The `auto-install.sh` script will install the Hyprland config files, (Dotfiles) from [`KooLDots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
 - These Hyprland dotfiles are constantly evolving / improving
 - You can check the CHANGELOG here [`Hyprland-Dots-Changelogs`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Changelogs)
 - GTK Themes and Icons will be pulled from [`LINK`](https://github.com/LinuxBeginnings/GTK-themes-icons), including Bibata Cursor Modern Ice
@@ -114,21 +122,21 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 
 </div>
 <br>
+
 > [!IMPORTANT]
 > Take note of the requirements
-> 
+
 <details>
 <summary><strong>👋 👋 👋 Requirements </strong></summary>
 
-- You must be running on NixOS 24.11+
-- 25.05+ recommended
+> [!WARNING] The flake will update system to current unstable branch
+
+- You must be running on NixOS 25.11+
+- 26.05+ recommended
 - BARE minimum space required is 64GB. 128GB+ is recommended as NixOS is a space-hungry distro
 - Must have installed NIXOS using **GPT partition ** & Boot **UEFI**
 - `/boot` must be at least 1GB. (Some are now recommending 2GB b/c of firmware size increases)
 - Systemd-boot is configured as the default bootloader
-
-> [!TIP]
-> if you use GRUB as bootloader you need to edit `hosts/default/config.nix` before install and `flake.nix` for additional grub themes
 
 </details>
 <details>
@@ -185,9 +193,11 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 nix-shell -p git vim curl pciutils
 sh <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
 ```
+
 > [!NOTE]
-> pciutils is necessary to detect if you have an Nvidia card. 
-</div?
+> pciutils is necessary to detect if you have an Nvidia card.
+> </div?
+
 </details>
 
 <details>

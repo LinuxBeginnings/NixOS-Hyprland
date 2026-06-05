@@ -11,7 +11,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.url = "github:nix-community/nixvim/main";
+    nixvim = {
+      url = "github:nix-community/nixvim/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #  To build from source, not recommended
     # hyprland = {
@@ -131,6 +134,6 @@
         };
       };
       # Code formatter
-      formatter.x86_64-linux = alejandra.defaultPackage.x86_64-linux;
+      formatter.x86_64-linux = alejandra.packages.x86_64-linux.default;
     };
 }
