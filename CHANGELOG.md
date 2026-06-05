@@ -4,6 +4,11 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Jun 2026
 
+- Added:
+    - `modules/home/editors/micro.nix`
+    - `modules/home/editors/nano.nix`
+    - Lightly themed w/syntax highlighting
+
 - Updated to NixOS v26.11
 - Fixed eval warnings for `catppuccin` in `modules/theme.nix`
 
