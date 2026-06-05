@@ -3,11 +3,10 @@
 { inputs, pkgs, ... }:
 let
   python-packages = pkgs.python3.withPackages (
-    ps:
-      with ps; [
-        requests
-        pyquery # needed for hyprland-dots Weather script
-      ]
+    ps: with ps; [
+      requests
+      pyquery # needed for hyprland-dots Weather script
+    ]
   );
 in
 {

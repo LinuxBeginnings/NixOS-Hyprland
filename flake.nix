@@ -13,7 +13,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim/main";
 
-    #  To build from source, not recommended 
+    #  To build from source, not recommended
     # hyprland = {
     #   url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -53,11 +53,12 @@
   };
 
   outputs =
-    inputs @ { self
-    , nixpkgs
-    , ags
-    , alejandra
-    , ...
+    inputs@{
+      self,
+      nixpkgs,
+      ags,
+      alejandra,
+      ...
     }:
     let
       system = "x86_64-linux";
@@ -106,7 +107,14 @@
               home-manager.backupFileExtension = "hm-bak";
 
               # Ensure HM modules can access flake inputs (e.g., inputs.nixvim)
-              home-manager.extraSpecialArgs = { inherit inputs system username host; };
+              home-manager.extraSpecialArgs = {
+                inherit
+                  inputs
+                  system
+                  username
+                  host
+                  ;
+              };
 
               home-manager.users.${username} = {
                 home.username = username;
