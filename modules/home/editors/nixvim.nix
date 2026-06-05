@@ -15,6 +15,8 @@ in
 
   programs.nixvim = {
     enable = true;
+    pkgs = pkgs;
+    nixpkgs.source = inputs.nixpkgs;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;

@@ -7,16 +7,23 @@ A technical record of notable changes. Dates are in UTC.
 - Added:
     - `modules/home/editors/micro.nix`
     - `modules/home/editors/nano.nix`
-    - Lightly themed w/syntax highlighting
+        - Lightly themed w/syntax highlighting
+    - `nixvim.nix` now follows NixPkgs
 
-- Updated to NixOS v26.11
-- Fixed eval warnings for `catppuccin` in `modules/theme.nix`
+- Updated:
+    - `flake.nix` to NixOS v26.11 current unstable branch
+    - `README.md` clarified and updated text
 
-    ```nix
-       # Catppuccin theme configuration
-       catppuccin.enable = true;
-       catppuccin.autoEnable = true;
-    ```
+- Fixed:
+    - Eval warnings:
+        - `alejandra` formatter pkg name
+        - `catppuccin` in `modules/theme.nix`
+
+            ```nix
+               # Catppuccin theme configuration
+               catppuccin.enable = true;
+               catppuccin.autoEnable = true;
+            ```
 
 ## May 2026
 
