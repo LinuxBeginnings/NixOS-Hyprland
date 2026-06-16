@@ -13,6 +13,7 @@ A technical record of notable changes. Dates are in UTC.
 - Updated:
     - `flake.nix` to NixOS v26.11 current unstable branch
     - `README.md` clarified and updated text
+    - `nixvim.nix` Removed `pkgs = pkgs` option not longer supported
 
 - Fixed:
     - Eval warnings:
@@ -24,6 +25,7 @@ A technical record of notable changes. Dates are in UTC.
                catppuccin.enable = true;
                catppuccin.autoEnable = true;
             ```
+
     - Lightly themed w/syntax highlighting
 
 - Updated to NixOS v26.11
