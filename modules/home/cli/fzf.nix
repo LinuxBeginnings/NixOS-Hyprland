@@ -30,12 +30,12 @@ in
       "--no-bold"
     ];
     # File-specific options via environment variables
-    fileWidgetOptions = [
+    fileWidget.options = [
       "--preview='bat --style=numbers --color=always --line-range :500 {}'"
       "--preview-window=right:60%:wrap"
     ];
     # History-specific options (keep it simple for Ctrl+R)
-    historyWidgetOptions = [
+    historyWidget.options = [
       "--prompt='history> '"
     ];
   };
