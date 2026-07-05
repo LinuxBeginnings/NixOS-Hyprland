@@ -1,4 +1,4 @@
-{ lib, python3, gtk4, libadwaita, pkg-config, gobject-introspection, libcanberra-gtk3, hyprmodSrc }:
+{ lib, python3, gtk4, libadwaita, pkg-config, gobject-introspection, libcanberra-gtk3, wrapGAppsHook4, hyprmodSrc, hyprlandBindings }:
 python3.pkgs.buildPythonApplication rec {
   pname = "hyprmod";
   version = "0.4.0";
@@ -10,17 +10,17 @@ python3.pkgs.buildPythonApplication rec {
     pkg-config
     gobject-introspection
     hatchling
+  ] ++ [
+    wrapGAppsHook4
   ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
-    # Hyprland-related Python packages; these may need to be added as overlays
-    # if they are not in nixpkgs. For now, they are listed as placeholders:
-    # hyprland-config
-    # hyprland-schema
-    # hyprland-state
-    # hyprland-monitors
-    # hyprland-socket
+    hyprlandBindings.hyprland-config
+    hyprlandBindings.hyprland-monitors
+    hyprlandBindings.hyprland-schema
+    hyprlandBindings.hyprland-socket
+    hyprlandBindings.hyprland-state
   ];
 
   buildInputs = [
@@ -31,14 +31,23 @@ python3.pkgs.buildPythonApplication rec {
 
   # GObject introspection requires these environment variables at build time
   postUnpack = ''
-    # GTK and GObject introspection expect these
+    # GTK4 and libadwaita typelibs for build phase
     export GI_TYPELIB_PATH="${gtk4}/lib/girepository-1.0:${libadwaita}/lib/girepository-1.0:$GI_TYPELIB_PATH"
   '';
 
-  # Ensure the app can find GTK libraries at runtime
+  # Create desktop file for application launcher integration
   postInstall = ''
-    wrapProgram $out/bin/hyprmod \
-      --prefix GI_TYPELIB_PATH : "${gtk4}/lib/girepository-1.0:${libadwaita}/lib/girepository-1.0"
+    mkdir -p $out/share/applications
+    cat > $out/share/applications/hyprmod.desktop << 'EOF'
+[Desktop Entry]
+Type=Application
+Name=Hyprmod
+Comment=Hyprland configuration manager
+Exec=$out/bin/hyprmod
+Icon=org.gnome.Settings
+Categories=Utility;Settings;
+Terminal=false
+EOF
   '';
 
   # Hyprmod doesn't have tests in the main package currently
