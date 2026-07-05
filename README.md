@@ -89,7 +89,7 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 
 <summary><strong> 🪧🪧🪧 Important announcement 🪧🪧🪧 </strong></summary>  
 <br>    
-<div id="announcement">
+<div id="announcement"></div>
 
 - ** This Repo does not contain Hyprland configuration files. (Dotfiles)! **
     - You can either, use `KoolDots`, create your own configuration, or try to use another project's config.
@@ -118,9 +118,9 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 - GTK Themes and Icons will be pulled from [`LINK`](https://github.com/LinuxBeginnings/GTK-themes-icons), including Bibata Cursor Modern Ice
 - You will be prompted if you want to download wallpapers from here: [`REPO`](https://github.com/LinuxBeginnings/Wallpaper-Bank)
 
-> [Note:] The wallpapers contain AI generated and AI enhanced images. If this is an issue for you enter "N" when prompted to download them
+> [!NOTE]
+> The wallpapers contain AI generated and AI enhanced images. If this is an issue for you enter "N" when prompted to download them
 
-</div>
 <br>
 
 > [!IMPORTANT]
@@ -179,9 +179,9 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 - [KooL's Hyprland Dots on NixOS](https://youtu.be/nJLnRgnLPWI)
 
 <details>
-<summary>📜 1. Using auto install Script: <</summary>
+<summary>📜 1. Using auto install Script:</summary>
 <br>
-<div id="autoinstall">
+<div id="autoinstall"></div>
     
 - This is the easiest and recommended way of starting out. 
 - This script is NOT meant to allow you to change every option that you can in the flake.
@@ -196,14 +196,15 @@ sh <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/ma
 
 > [!NOTE]
 > pciutils is necessary to detect if you have an Nvidia card.
-> </div?
+ 
+</div>
 
 </details>
 
 <details>
 <summary>🦽 2. Manual: </summary>
 <br>
-<div id="manualinstall">
+<div id="manualinstall"></div>
 
 - Run this command to ensure git, curl, vim & pciutils are installed: Note: or nano if you prefer nano for editing
 
@@ -241,7 +242,6 @@ sudo nixos-rebuild switch --flake .#hostname
 
 Once done, you can install the GTK Themes and Hyprland-Dots. Links are above
 
-</div>
 </details>
 
 <details>
@@ -297,7 +297,8 @@ Hope you enjoy! 🎉
 - Tmux Cheatsheet [`English`](assets/tmux.cheatsheet.md) | [`Español`](assets/tmux.cheatsheet.es.md)
 - Intro to Neovim [`English`](assets/Intro-to-Neovim.md) | [`Español`](assets/Intro-to-Neovim.es.md)
 
-    <br> > [!TIP] > KooL's Dots v2.3.7 has a searchable keybind function via rofi. (SUPER SHIFT K) or right click the `HINTS` waybar button
+> [!TIP]
+> KooL's Dots v2.3.7 has a searchable keybind function via rofi. (SUPER SHIFT K) or right click the `HINTS` waybar button
 
 <details>
 <summary><strong>⌚ Setting timezone </strong></summary>
@@ -315,7 +316,7 @@ Hope you enjoy! 🎉
 <details>
 <summary><strong>🔙 Reverting back to your default configs </strong></summary>
 <br>
-<div id="revertconfigs">
+<div id="revertconfigs"></div>
     
 - If you use flakes, you can just simply locate your default or previous configs. CD into it and execute `sudo nixos-rebuild switch --flake .#<your-previous-flake-hostname>`
 - If you didn't have flakes enabled previously, simply running `sudo nixos-rebuild switch` will revert you to your default configs contained in `/etc/nixos/` 
@@ -341,8 +342,6 @@ Hope you enjoy! 🎉
 
 - [`Hyprland`](https://hyprland.org/) Of course to Hyprland and @vaxerski for this awesome Dynamic Tiling Manager.
 - [`ZaneyOS`](https://gitlab.com/Zaney/zaneyos) - template including auto installation script and idea. ZaneyOS is a NixOS-Hyprland with home-manager. Written in pure nix language
-
-</div>
 
 <details>
 <summary><strong>💖 Support </strong></summary>

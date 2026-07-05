@@ -212,6 +212,22 @@
         "type": "github"
       }
     },
+    "hyprmod-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782974369,
+        "narHash": "sha256-Q/9w3zkXvn5e24a4DA7nwJ1krtX0FDQTDPYrUjtPO2M=",
+        "owner": "BlueManCZ",
+        "repo": "hyprmod",
+        "rev": "26667176d8f9b0dbe895664a0d365f471750bfac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BlueManCZ",
+        "repo": "hyprmod",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1725634671,
@@ -327,6 +343,7 @@
         "awww": "awww",
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
+        "hyprmod-src": "hyprmod-src",
         "nixpkgs": "nixpkgs_4",
         "nixvim": "nixvim",
         "quickshell": "quickshell",

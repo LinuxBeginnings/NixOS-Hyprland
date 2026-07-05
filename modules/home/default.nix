@@ -16,5 +16,8 @@
     ./cli/tealdeer.nix
     ./yazi
     ./overview.nix
+    #experimenting with getting dark to work
+    # If set here it will break KoolDots theming
+    # ./gtk.nix 
   ];
 }
