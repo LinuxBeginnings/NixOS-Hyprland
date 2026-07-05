@@ -2,6 +2,13 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## Jul 2026
+
+- Fixed:
+    - `fzf` eval warnings
+    - Home Manager activation errors on rebuilds
+    - Build errors on `pkgs = pkgs` in `nixvim.nix` no longer supported
+
 ## Jun 2026
 
 - Added:
@@ -24,6 +31,7 @@ A technical record of notable changes. Dates are in UTC.
                catppuccin.enable = true;
                catppuccin.autoEnable = true;
             ```
+
     - Lightly themed w/syntax highlighting
 
 - Updated to NixOS v26.11

@@ -29,7 +29,6 @@ in
     kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-      "systemd.mask=systemd-vconsole-setup.service"
       "systemd.mask=dev-tpmrm0.device" # this is to mask that stupid 1.5 mins systemd bug
       "nowatchdog"
       "modprobe.blacklist=sp5100_tco" # watchdog for AMD
