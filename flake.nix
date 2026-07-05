@@ -53,6 +53,11 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprmod-src = {
+      url = "github:BlueManCZ/hyprmod";
+      flake = false;
+    };
   };
 
   outputs =
@@ -61,6 +66,7 @@
       nixpkgs,
       ags,
       alejandra,
+      hyprmod-src,
       ...
     }:
     let
@@ -75,10 +81,12 @@
         };
       };
       waybarWeatherPkg = pkgs.callPackage ./pkgs/waybar-weather.nix { };
+      hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix { hyprmodSrc = hyprmod-src; };
     in
     {
       packages.${system} = {
         waybar-weather = waybarWeatherPkg;
+        hyprmod = hyprmodPkg;
       };
       nixosConfigurations = {
         "${host}" = nixpkgs.lib.nixosSystem rec {
