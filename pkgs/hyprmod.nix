@@ -6,9 +6,10 @@ python3.pkgs.buildPythonApplication rec {
 
   src = hyprmodSrc;
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with python3.pkgs; [
     pkg-config
     gobject-introspection
+    hatchling
   ];
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -42,6 +43,7 @@ python3.pkgs.buildPythonApplication rec {
 
   # Hyprmod doesn't have tests in the main package currently
   doCheck = false;
+  dontCheckRuntimeDeps = true;
 
   meta = with lib; {
     description = "A native GTK4/libadwaita settings app for Hyprland";

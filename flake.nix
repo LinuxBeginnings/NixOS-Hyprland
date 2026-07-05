@@ -95,6 +95,7 @@
             inherit inputs;
             inherit username;
             inherit host;
+            customPkgs = { inherit hyprmodPkg; };
           };
           modules = [
             ./hosts/${host}/config.nix
