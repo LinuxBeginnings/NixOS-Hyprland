@@ -81,7 +81,11 @@
         };
       };
       waybarWeatherPkg = pkgs.callPackage ./pkgs/waybar-weather.nix { };
-      hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix { hyprmodSrc = hyprmod-src; };
+      hyprlandBindings = pkgs.callPackage ./pkgs/hyprland-python-bindings.nix { };
+      hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix { 
+        hyprmodSrc = hyprmod-src;
+        inherit hyprlandBindings;
+      };
     in
     {
       packages.${system} = {
@@ -95,6 +99,7 @@
             inherit inputs;
             inherit username;
             inherit host;
+            customPkgs = { inherit hyprmodPkg; };
           };
           modules = [
             ./hosts/${host}/config.nix

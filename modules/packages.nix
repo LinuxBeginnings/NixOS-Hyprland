@@ -9,6 +9,7 @@
   inputs,
   host,
   lib,
+  customPkgs ? {},
   ...
 }:
 let
@@ -130,7 +131,7 @@ in
     #waybar   # disabled trying source build for lua and other issues
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
-    # hyprmod  # custom package (flake output .#hyprmod); uncomment when hyprland-* deps are available or packaged
+    # customPkgs.hyprmodPkg  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema, hyprland-socket, hyprland-state on PyPI or as local overlays
     socat # Needed for Tak0 scripts
     ddcutil # Needed for ExternalBrightness script
 
