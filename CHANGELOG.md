@@ -4,6 +4,9 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Jul 2026
 
+- Added:
+    - `qt5compact.GrahicalEffects` to support `qs-hyprview`
+
 - Fixed:
     - `fzf` eval warnings
     - Home Manager activation errors on rebuilds
