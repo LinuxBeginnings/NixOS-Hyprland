@@ -2,6 +2,15 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## Aug 2026
+
+- Removed:
+    - gtk-marrine
+    - Uses GTK2 which is unsupported
+
+- Updated:
+    - Flake to get current kernel and Hyprland
+
 ## Jul 2026
 
 - Added:

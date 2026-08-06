@@ -4,13 +4,12 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  pkgs,
-  inputs,
-  host,
-  lib,
-  customPkgs ? {},
-  ...
+{ pkgs
+, inputs
+, host
+, lib
+, customPkgs ? { }
+, ...
 }:
 let
   waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
@@ -184,7 +183,6 @@ in
     gnumake
     grim
     grimblast
-    gtk-engine-murrine # for gtk themes
     inxi
     imagemagick
     killall
