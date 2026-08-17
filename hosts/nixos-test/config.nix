@@ -1,11 +1,10 @@
 # 💫 https://github.com/LinuxBeginnings 💫 #
 # Main default config
-{
-  pkgs,
-  host,
-  username,
-  options,
-  ...
+{ pkgs
+, host
+, username
+, options
+, ...
 }:
 let
   inherit (import ./variables.nix) keyboardLayout;
@@ -254,9 +253,10 @@ in
   #};
 
   # Extra Logitech Support
+  programs.solaar.enable = false;
   hardware = {
     logitech.wireless.enable = false;
-    logitech.wireless.enableGraphical = false;
+    #logitech.wireless.enableGraphical = false;
   };
 
   services.pulseaudio.enable = false; # stable branch
