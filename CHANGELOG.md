@@ -4,9 +4,13 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Aug 2026
 
+- Added:
+    - Overlay for `dwarfs` needed by `gearlever`
+
 - Removed:
     - gtk-marrine
     - Uses GTK2 which is unsupported
+    - Old entries in `modules/overlays.nix`
 
 - Updated:
     - Flake to get current kernel and Hyprland
