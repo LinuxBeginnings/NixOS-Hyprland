@@ -125,6 +125,7 @@ in
     hyprcursor
     mesa
     nwg-displays
+    nwg-dock-hyprland
     nwg-look
     waypaper
     #waybar   # disabled trying source build for lua and other issues
