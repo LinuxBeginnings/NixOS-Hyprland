@@ -6,7 +6,7 @@ A technical record of notable changes. Dates are in UTC.
 
 - Added:
     - Overlay for `dwarfs` needed by `gearlever`
-    - `nwg-dock-hyprland` `CTRL+ALT+D`
+    - `nwg-dock-hyprland` and created `Dock.sh` `CTRL+ALT+D`
 
 - Removed:
     - gtk-marrine
