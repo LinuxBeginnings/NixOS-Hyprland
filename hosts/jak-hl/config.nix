@@ -97,7 +97,7 @@ in
       magicOrExtension = ''\x7fELF....AI\x02'';
     };
 
-    plymouth.enable = true;
+    plymouth.enable = false;
   };
 
   # GRUB Bootloader theme. Of course you need to enable GRUB above.. duh! and also, enable it on flake.nix
@@ -191,14 +191,14 @@ in
     openssh.enable = true;
     flatpak.enable = true;
 
-    blueman.enable = true;
+    blueman.enable = false;
 
     #hardware.openrgb.enable = true;
     #hardware.openrgb.motherboard = "amd";
 
-    fwupd.enable = true;
+    fwupd.enable = false;
 
-    upower.enable = true;
+    upower.enable = false;
 
     gnome.gnome-keyring.enable = true;
 
@@ -266,12 +266,12 @@ in
   # Bluetooth
   hardware = {
     bluetooth = {
-      enable = true;
-      powerOnBoot = true;
+      enable = false;
+      powerOnBoot = false;
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";
-          Experimental = true;
+          Experimental = false;
         };
       };
     };
@@ -352,11 +352,5 @@ in
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 }
