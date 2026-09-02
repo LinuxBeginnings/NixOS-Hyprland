@@ -14,6 +14,8 @@ A technical record of notable changes. Dates are in UTC.
     - Old entries in `modules/overlays.nix`
 
 - Updated:
+    - The shebang wasn't on first line
+    - Year in banner to 2026
     - Flake to get current kernel and Hyprland
 
 ## Jul 2026
