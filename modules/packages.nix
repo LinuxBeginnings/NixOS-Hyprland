@@ -29,7 +29,7 @@ in
       xwayland.enable = true;
     };
     zsh.enable = true;
-    firefox.enable = true;
+    firefox.enable = false;
     waybar.enable = false; # started by Hyprland dotfiles. Enabling causes two waybars
     hyprlock.enable = true;
     dconf.enable = true;
@@ -95,7 +95,7 @@ in
     nixfmt-tree
     onefetch
     atop
-    go # needed for waybar-weather compile
+    #go # needed for waybar-weather compile
 
     # Update flkake script
     (pkgs.writeShellScriptBin "update" ''
@@ -127,7 +127,7 @@ in
     nwg-displays
     nwg-dock-hyprland
     nwg-look
-    waypaper
+    #waypaper
     #waybar   # disabled trying source build for lua and other issues
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
@@ -155,8 +155,8 @@ in
     duf
     cava
     cargo
-    clang
-    cmake
+    #clang
+    # cmake
     cliphist
     cpufrequtils
     curl
@@ -181,7 +181,7 @@ in
     gcc
     gearlever # manage appimages
     git
-    gnumake
+    #gnumake
     grim
     grimblast
     inxi
@@ -191,7 +191,7 @@ in
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum # kvantum
     kdePackages.qtdeclarative
-    lazydocker
+    #lazydocker
     lazygit
     libappindicator
     libnotify
@@ -241,11 +241,11 @@ in
     # Utils
     ctop # container top
     erdtree # great tree util run: erd
-    frogmouth # cli markdown renderer A
+    #frogmouth # cli markdown renderer A
     lstr # another tree util
     lolcat
     lsd # ls replacement util
-    macchina # fetch tool
+    #macchina # fetch tool
     mcat # show images in terminal
     mdcat # Markdown tool
     parallel-disk-usage # fast disk space tool run: pdu
@@ -310,7 +310,7 @@ in
     wezterm
   ];
   environment.variables = {
-    JAKOS_NIXOS_VERSION = "0.3.3";
+    JAKOS_NIXOS_VERSION = "0.4.3";
     JAKOS = "true";
   };
 }

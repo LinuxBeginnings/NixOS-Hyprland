@@ -16,8 +16,8 @@
       iosevka
       nerd-fonts.iosevka-term
       nerd-fonts.iosevka-term-slab
-      ibm-plex
-      inter
+      #ibm-plex
+      #inter
       lilex
       material-icons
       material-symbols
@@ -26,11 +26,11 @@
       jetbrains-mono
       material-icons
       maple-mono.NF
-      minecraftia
-      nerd-fonts.im-writing
-      nerd-fonts.blex-mono
-      nerd-fonts.caskaydia-cove
-      nerd-fonts.caskaydia-mono
+      #minecraftia
+      #nerd-fonts.im-writing
+      #nerd-fonts.blex-mono
+      #nerd-fonts.caskaydia-cove
+      #nerd-fonts.caskaydia-mono
       nerd-fonts.code-new-roman
       noto-fonts
       noto-fonts-color-emoji
@@ -39,19 +39,19 @@
       noto-fonts-monochrome-emoji
       nerd-fonts.hack
       nerd-fonts.jetbrains-mono
-      nerd-fonts.im-writing
+      #nerd-fonts.im-writing
       nerd-fonts.iosevka
       nerd-fonts.lilex
       nerd-fonts.meslo-lg
       nerd-fonts.fira-mono
-      nerd-fonts.space-mono
+      #nerd-fonts.space-mono
       nerd-fonts.ubuntu
       powerline-fonts
       roboto
       roboto-mono
-      #symbola
+      symbola
       terminus_font
-      victor-mono
+      #victor-mono
     ];
   };
 }
