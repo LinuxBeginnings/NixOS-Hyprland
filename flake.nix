@@ -27,11 +27,6 @@
     # Replacement for SWWW - which is archived
     awww.url = "git+https://codeberg.org/LGFae/awww";
 
-    antigravity-cli-repo = {
-      url = "github:Hy4ri/antigravity-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     waybar = {
       url = "github:alexays/waybar";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,13 +56,12 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      ags,
-      alejandra,
-      hyprmod-src,
-      ...
+    inputs@{ self
+    , nixpkgs
+    , ags
+    , alejandra
+    , hyprmod-src
+    , ...
     }:
     let
       system = "x86_64-linux";
@@ -82,7 +76,7 @@
       };
       waybarWeatherPkg = pkgs.callPackage ./pkgs/waybar-weather.nix { };
       hyprlandBindings = pkgs.callPackage ./pkgs/hyprland-python-bindings.nix { };
-      hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix { 
+      hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix {
         hyprmodSrc = hyprmod-src;
         inherit hyprlandBindings;
       };

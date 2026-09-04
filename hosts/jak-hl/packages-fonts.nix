@@ -15,8 +15,6 @@ in
   environment.systemPackages =
     (with pkgs; [
 
-      inputs.antigravity-cli-repo.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
-
       # System Packages
       google-chrome
     ])
