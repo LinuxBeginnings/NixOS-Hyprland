@@ -6,7 +6,9 @@ A technical record of notable changes. Dates are in UTC.
 
 - Added:
     - Overlay for `dwarfs` needed by `gearlever`
+        - Disabled `gearlever` it causes large source build
     - `nwg-dock-hyprland` and created `Dock.sh` `CTRL+ALT+D`
+    - `brave-origin`
 
 - Removed:
     - gtk-marrine

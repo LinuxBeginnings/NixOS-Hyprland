@@ -148,6 +148,7 @@ in
     bottom
     baobab
     btrfs-progs
+    brave-origin
     cmatrix
     distrobox
     dua
