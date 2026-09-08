@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ==================================================
 #  KoolDots (2026)
 #  Project URL: https://github.com/LinuxBeginnings
@@ -6,7 +8,6 @@
 # ==================================================
 # 💫 https://github.com/LinuxBeginnings 💫 #
 
-#!/usr/bin/env bash
 clear
 
 printf "\n%.0s" {1..2}
