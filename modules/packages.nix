@@ -176,7 +176,7 @@ in {
     fastfetch
     jq
     gcc
-    gearlever # manage appimages
+    #gearlever # manage appimages
     git
     #gnumake
     grim
