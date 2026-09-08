@@ -181,6 +181,9 @@ if ! sudo nixos-rebuild switch $buildFlags --flake ~/NixOS-Hyprland/#"${hostName
     sudo nixos-rebuild boot $buildFlags --flake ~/NixOS-Hyprland/#"${hostName}"
 fi
 
+# Ensure newly built system binaries are in PATH for subsequent scripts (copy.sh, etc.)
+export PATH="/run/current-system/sw/bin:/nix/var/nix/profiles/system/sw/bin:/etc/profiles/per-user/$USER/bin:$PATH"
+
 echo "-----"
 printf "\n%.0s" {1..2}
 
