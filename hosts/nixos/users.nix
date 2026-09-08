@@ -4,11 +4,9 @@
   pkgs,
   username,
   ...
-}:
-let
+}: let
   inherit (import ./variables.nix) gitUsername;
-in
-{
+in {
   users = {
     mutableUsers = true;
     users."${username}" = {
@@ -34,7 +32,7 @@ in
     defaultUserShell = pkgs.zsh;
   };
 
-  environment.shells = with pkgs; [ zsh ];
+  environment.shells = with pkgs; [zsh];
   environment.systemPackages = with pkgs; [
     lsd
     fzf
@@ -48,7 +46,7 @@ in
       enableCompletion = true;
       ohMyZsh = {
         enable = true;
-        plugins = [ "git" ];
+        plugins = ["git"];
         theme = "agnoster";
       };
 

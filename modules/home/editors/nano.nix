@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Ensure nano is installed for the user
-  home.packages = [ pkgs.nano ];
+  home.packages = [pkgs.nano];
 
   # Manage ~/.nanorc with a Catppuccin-like dark UI and sensible defaults
   home.file.".nanorc".text = ''

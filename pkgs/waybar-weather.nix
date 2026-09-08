@@ -16,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-QdT0vKnCO+7DezbH8NUgPV18p6zmIMmLkK2XGWL8+3o=";
 
-  subPackages = [ "cmd/waybar-weather" ];
+  subPackages = ["cmd/waybar-weather"];
   ldflags = [
     "-s"
     "-w"

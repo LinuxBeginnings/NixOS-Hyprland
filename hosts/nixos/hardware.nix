@@ -7,8 +7,7 @@
   pkgs,
   modulesPath,
   ...
-}:
-{
+}: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -21,9 +20,9 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e5fc1006-4d0b-41db-8c43-22b3cb8110c6";
@@ -45,7 +44,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/a6e9dd8b-6767-44f4-84fa-30d02d90d087"; }
+    {device = "/dev/disk/by-uuid/a6e9dd8b-6767-44f4-84fa-30d02d90d087";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

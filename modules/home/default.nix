@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./terminals/tmux.nix
     #./terminals/ghostty.nix
@@ -18,6 +17,6 @@
     ./overview.nix
     #experimenting with getting dark to work
     # If set here it will break KoolDots theming
-    # ./gtk.nix 
+    # ./gtk.nix
   ];
 }

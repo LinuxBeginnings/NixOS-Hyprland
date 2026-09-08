@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   programs.bottom = {
     enable = true;
     settings = {
@@ -76,14 +75,14 @@
         {
           ratio = 2;
           child = [
-            { type = "cpu"; }
-            { type = "temp"; }
+            {type = "cpu";}
+            {type = "temp";}
           ];
         }
         {
           ratio = 2;
           child = [
-            { type = "network"; }
+            {type = "network";}
           ];
         }
         {

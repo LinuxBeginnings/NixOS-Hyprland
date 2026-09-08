@@ -4,11 +4,9 @@
   pkgs,
   username,
   ...
-}:
-let
+}: let
   inherit (import ./variables.nix) gitUsername;
-in
-{
+in {
   users = {
     mutableUsers = true;
     users."${username}" = {
@@ -34,7 +32,7 @@ in
     defaultUserShell = pkgs.zsh;
   };
 
-  environment.shells = with pkgs; [ zsh ];
+  environment.shells = with pkgs; [zsh];
   environment.systemPackages = with pkgs; [
     lsd
     fzf
@@ -45,7 +43,7 @@ in
       ohMyZsh = {
         enable = true;
         theme = "agnoster";
-        plugins = [ "git" ];
+        plugins = ["git"];
       };
       # Enable zsh plugins via NixOS module options
       autosuggestions.enable = true;

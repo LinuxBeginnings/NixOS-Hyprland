@@ -4,6 +4,11 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Aug 2026
 
+- Fixed:
+    - Build error during install
+        - `awww` now a nixpkg, not built from source
+        - `alejandra` also now nixpkg
+
 - Added:
     - Overlay for `dwarfs` needed by `gearlever`
         - Disabled `gearlever` it causes large source build

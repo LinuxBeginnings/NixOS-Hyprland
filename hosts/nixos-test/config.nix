@@ -1,15 +1,14 @@
 # 💫 https://github.com/LinuxBeginnings 💫 #
 # Main default config
-{ pkgs
-, host
-, username
-, options
-, ...
-}:
-let
-  inherit (import ./variables.nix) keyboardLayout;
-in
 {
+  pkgs,
+  host,
+  username,
+  options,
+  ...
+}: let
+  inherit (import ./variables.nix) keyboardLayout;
+in {
   imports = [
     ./hardware.nix
     ./users.nix
@@ -47,7 +46,7 @@ in
         "usbhid"
         "sd_mod"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
     };
 
     # Needed For Some Steam Games
@@ -124,7 +123,7 @@ in
   networking = {
     networkmanager.enable = true;
     hostName = "${host}";
-    timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+    timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
   };
 
   # Set your time zone.
@@ -226,7 +225,7 @@ in
   };
 
   systemd.services.flatpak-repo = {
-    path = [ pkgs.flatpak ];
+    path = [pkgs.flatpak];
     script = ''
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';

@@ -1,4 +1,15 @@
-{ lib, python3, gtk4, libadwaita, pkg-config, gobject-introspection, libcanberra-gtk3, wrapGAppsHook4, hyprmodSrc, hyprlandBindings }:
+{
+  lib,
+  python3,
+  gtk4,
+  libadwaita,
+  pkg-config,
+  gobject-introspection,
+  libcanberra-gtk3,
+  wrapGAppsHook4,
+  hyprmodSrc,
+  hyprlandBindings,
+}:
 python3.pkgs.buildPythonApplication rec {
   pname = "hyprmod";
   version = "0.4.0";
@@ -6,13 +17,15 @@ python3.pkgs.buildPythonApplication rec {
 
   src = hyprmodSrc;
 
-  nativeBuildInputs = with python3.pkgs; [
-    pkg-config
-    gobject-introspection
-    hatchling
-  ] ++ [
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = with python3.pkgs;
+    [
+      pkg-config
+      gobject-introspection
+      hatchling
+    ]
+    ++ [
+      wrapGAppsHook4
+    ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3
@@ -37,17 +50,17 @@ python3.pkgs.buildPythonApplication rec {
 
   # Create desktop file for application launcher integration
   postInstall = ''
-    mkdir -p $out/share/applications
-    cat > $out/share/applications/hyprmod.desktop << 'EOF'
-[Desktop Entry]
-Type=Application
-Name=Hyprmod
-Comment=Hyprland configuration manager
-Exec=$out/bin/hyprmod
-Icon=org.gnome.Settings
-Categories=Utility;Settings;
-Terminal=false
-EOF
+        mkdir -p $out/share/applications
+        cat > $out/share/applications/hyprmod.desktop << 'EOF'
+    [Desktop Entry]
+    Type=Application
+    Name=Hyprmod
+    Comment=Hyprland configuration manager
+    Exec=$out/bin/hyprmod
+    Icon=org.gnome.Settings
+    Categories=Utility;Settings;
+    Terminal=false
+    EOF
   '';
 
   # Hyprmod doesn't have tests in the main package currently
@@ -60,6 +73,6 @@ EOF
     license = licenses.gpl3Plus;
     mainProgram = "hyprmod";
     platforms = platforms.linux;
-    maintainers = [ maintainers.dwilliams ];
+    maintainers = [maintainers.dwilliams];
   };
 }

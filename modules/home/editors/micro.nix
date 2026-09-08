@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  home.packages = [ pkgs.micro ];
+{pkgs, ...}: {
+  home.packages = [pkgs.micro];
 
   # Catppuccin Mocha theme for micro
   home.file.".config/micro/colorschemes/catppuccin-mocha.micro".text = ''

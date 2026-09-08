@@ -167,7 +167,10 @@ printf "\n%.0s" {1..1}
 # Set the Nix configuration for experimental features
 NIX_CONFIG="experimental-features = nix-command flakes"
 #sudo nix flake update
-sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#"${hostName}"
+if ! sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#"${hostName}"; then
+    echo "$NOTE 'nixos-rebuild switch' encountered pre-switch checks (e.g. service inhibitors). Setting up boot configuration instead..."
+    sudo nixos-rebuild boot --flake ~/NixOS-Hyprland/#"${hostName}"
+fi
 
 echo "-----"
 printf "\n%.0s" {1..2}
