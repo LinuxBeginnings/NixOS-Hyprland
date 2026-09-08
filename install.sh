@@ -166,10 +166,19 @@ printf "\n%.0s" {1..1}
 
 # Set the Nix configuration for experimental features
 NIX_CONFIG="experimental-features = nix-command flakes"
+# Ensure sufficient swap and safe build concurrency for low-memory environments
+if type nhl_ensure_build_memory >/dev/null 2>&1; then
+    nhl_ensure_build_memory
+fi
+buildFlags=""
+if type nhl_get_build_flags >/dev/null 2>&1; then
+    buildFlags=$(nhl_get_build_flags)
+fi
+
 #sudo nix flake update
-if ! sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#"${hostName}"; then
+if ! sudo nixos-rebuild switch $buildFlags --flake ~/NixOS-Hyprland/#"${hostName}"; then
     echo "$NOTE 'nixos-rebuild switch' encountered pre-switch checks (e.g. service inhibitors). Setting up boot configuration instead..."
-    sudo nixos-rebuild boot --flake ~/NixOS-Hyprland/#"${hostName}"
+    sudo nixos-rebuild boot $buildFlags --flake ~/NixOS-Hyprland/#"${hostName}"
 fi
 
 echo "-----"

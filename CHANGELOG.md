@@ -8,6 +8,11 @@ A technical record of notable changes. Dates are in UTC.
     - Build error during install
         - `awww` now a nixpkg, not built from source
         - `alejandra` also now nixpkg
+        - No swap causes OOM errors
+            - zram doesn't take effect until reboot
+            - `install.sh` checks for zero swap and < 16GB RAM
+            - Creates temp swapfile
+            - Limits `--max-jobs 2` and `--max-cores 4`
 
 - Added:
     - Overlay for `dwarfs` needed by `gearlever`

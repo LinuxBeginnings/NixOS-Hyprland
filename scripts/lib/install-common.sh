@@ -168,3 +168,47 @@ nhl_check_go_version() {
   echo "${ERROR} Unable to determine Go version. Please ensure Go ${min_version}+ is available."
   exit 1
 }
+
+nhl_ensure_build_memory() {
+  local total_swap total_mem
+  total_swap=$(free -m 2>/dev/null | awk '/^Swap:/ {print $2}' || echo 0)
+  total_mem=$(free -m 2>/dev/null | awk '/^Mem:/ {print $2}' || echo 0)
+  total_swap=${total_swap:-0}
+  total_mem=${total_mem:-0}
+
+  if [ "$total_swap" -eq 0 ] && [ "$total_mem" -lt 16000 ]; then
+    echo "$NOTE Low memory ($((total_mem / 1024))GB RAM, 0 swap) detected."
+    echo "$NOTE Setting up temporary swap to prevent out-of-memory errors during build..."
+    local swap_created=false
+    if command -v btrfs >/dev/null 2>&1; then
+      if sudo btrfs filesystem mkswapfile --size 8G /swapfile_install 2>/dev/null; then
+        if sudo swapon /swapfile_install 2>/dev/null; then
+          swap_created=true
+        fi
+      fi
+    fi
+    if [ "$swap_created" = false ]; then
+      if (sudo fallocate -l 4G /swapfile_install 2>/dev/null || sudo dd if=/dev/zero of=/swapfile_install bs=1M count=4096 2>/dev/null); then
+        sudo chmod 600 /swapfile_install 2>/dev/null
+        sudo mkswap /swapfile_install >/dev/null 2>&1
+        if sudo swapon /swapfile_install 2>/dev/null; then
+          swap_created=true
+        fi
+      fi
+    fi
+    if [ "$swap_created" = true ]; then
+      echo "$OK Temporary swap activated successfully."
+    else
+      echo "$WARN Could not create temporary swapfile. Build will proceed with restricted concurrency."
+    fi
+  fi
+}
+
+nhl_get_build_flags() {
+  local total_mem
+  total_mem=$(free -m 2>/dev/null | awk '/^Mem:/ {print $2}' || echo 16000)
+  total_mem=${total_mem:-16000}
+  if [ "$total_mem" -lt 12000 ]; then
+    echo "--max-jobs 2 --cores 4"
+  fi
+}
