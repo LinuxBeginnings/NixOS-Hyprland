@@ -4,19 +4,20 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  pkgs,
-  inputs,
-  host,
-  lib,
-  customPkgs ? {},
-  ...
-}: let
+{ pkgs
+, inputs
+, host
+, lib
+, customPkgs ? { }
+, ...
+}:
+let
   waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
     doCheck = false;
-    mesonFlags = (old.mesonFlags or []) ++ ["-Dtests=disabled"];
+    mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
   });
-in {
+in
+{
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -58,31 +59,32 @@ in {
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent = let
-    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-        exec "${lib.getExe pkgs.hyprpolkitagent}"
-      fi
-      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-      fi
-      echo "No supported polkit agent found." >&2
-      exit 1
-    '';
-  in {
-    description = "Polkit authentication agent";
-    after = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      ExecStart = polkitAgentScript;
-      Restart = "on-failure";
-      RestartSec = 1;
+  systemd.user.services.polkit-agent =
+    let
+      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+          exec "${lib.getExe pkgs.hyprpolkitagent}"
+        fi
+        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+        fi
+        echo "No supported polkit agent found." >&2
+        exit 1
+      '';
+    in
+    {
+      description = "Polkit authentication agent";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig = {
+        ExecStart = polkitAgentScript;
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
     };
-  };
 
   environment.systemPackages = with pkgs; [
-    # inputs.antigravity-cli-repo.packages.${pkgs.system}.antigravity-cli
 
     waybarPkg
     #waybar
@@ -113,7 +115,6 @@ in {
     # Hyprland Stuff
     hypridle
     hyprpolkitagent
-    #pyprland
     uwsm
     hyprlang
     hyprshot
@@ -123,8 +124,6 @@ in {
     nwg-displays
     nwg-dock-hyprland
     nwg-look
-    #waypaper
-    #waybar   # disabled trying source build for lua and other issues
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
     # customPkgs.hyprmodPkg  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema, hyprland-socket, hyprland-state on PyPI or as local overlays
@@ -170,15 +169,13 @@ in {
     gcc
     git
     glib # for gsettings to work
-    #google-chrome   # moving to host pkgs
     gnome-system-monitor
     gsettings-qt
     fastfetch
     jq
     gcc
-    #gearlever # manage appimages
     git
-    #gnumake
+    gnumake
     grim
     grimblast
     inxi
@@ -188,7 +185,6 @@ in {
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum # kvantum
     kdePackages.qtdeclarative
-    #lazydocker
     lazygit
     libappindicator
     libnotify
@@ -196,7 +192,7 @@ in {
     libsForQt5.qt5ct
     qt5.qtdeclarative
     qt5.qtquickcontrols2
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
@@ -206,17 +202,14 @@ in {
     pulseaudio
     playerctl
     rsync
-    #polkit
-    # polkit_gnome
     kdePackages.polkit-kde-agent-1
     mate-polkit
-    # qt6ct
-    #qt6.qtwayland
-    #qt6Packages.qtstyleplugin-kvantum # kvantum
+    qt6Packages.qt6ct
+    qt6.qtwayland
+    qt6Packages.qtstyleplugin-kvantum # kvantum
     rofi
     slurp
     swappy
-    # serie #git cli tool moving to host pkgs
     swaynotificationcenter
     awww
     unzip

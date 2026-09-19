@@ -7,6 +7,9 @@ A technical record of notable changes. Dates are in UTC.
 - Removed old overlay
     - Caused long source builds
     - Moved to `ioseka-bin` also
+- Removed anitgravity-cli flake
+- Trimmed pkgs
+- Added qt6ct
 
 ## Aug 2026
 

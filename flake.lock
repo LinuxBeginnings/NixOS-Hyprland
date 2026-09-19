@@ -20,26 +20,6 @@
         "type": "github"
       }
     },
-    "antigravity-cli-repo": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1789759447,
-        "narHash": "sha256-mOU68lInAVqYuGcN88AREkwA2pCIZ1LEmxlP2p+sr/w=",
-        "owner": "Hy4ri",
-        "repo": "antigravity-flake",
-        "rev": "1192b3e43db9dabc954a088d4d37381ed634b93d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Hy4ri",
-        "repo": "antigravity-flake",
-        "type": "github"
-      }
-    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -212,7 +192,6 @@
     "root": {
       "inputs": {
         "ags": "ags",
-        "antigravity-cli-repo": "antigravity-cli-repo",
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprmod-src": "hyprmod-src",
