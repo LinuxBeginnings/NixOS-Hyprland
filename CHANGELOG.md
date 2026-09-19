@@ -2,6 +2,12 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## Sept 2026
+
+- Removed old overlay
+    - Caused long source builds
+    - Moved to `ioseka-bin` also
+
 ## Aug 2026
 
 - Fixed:

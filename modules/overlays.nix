@@ -8,19 +8,6 @@
   nixpkgs.overlays = [
     (final: prev: {
       waybar-weather = final.callPackage ../pkgs/waybar-weather.nix {};
-
-      # Fix dwarfs 0.14.0 build with modern GCC (missing <cstring>) and fmt 12 incompatibility
-      dwarfs =
-        (prev.dwarfs.override {
-          fmt = prev.fmt_11;
-        }).overrideAttrs
-        (old: {
-          preConfigure =
-            (old.preConfigure or "")
-            + ''
-              export CXXFLAGS="-include cstring ''${CXXFLAGS:-}"
-            '';
-        });
     })
   ];
 }

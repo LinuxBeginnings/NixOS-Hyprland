@@ -12,7 +12,7 @@
       fira-code-symbols
       font-awesome
       hackgen-nf-font
-      iosevka
+      iosevka-bin
       nerd-fonts.iosevka-term
       nerd-fonts.iosevka-term-slab
       #ibm-plex
@@ -23,8 +23,6 @@
       maple-mono.NF
       meslo-lg
       jetbrains-mono
-      material-icons
-      maple-mono.NF
       #minecraftia
       #nerd-fonts.im-writing
       #nerd-fonts.blex-mono
