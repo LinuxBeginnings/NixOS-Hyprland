@@ -10,6 +10,7 @@ A technical record of notable changes. Dates are in UTC.
 - Removed anitgravity-cli flake
 - Trimmed pkgs
 - Added qt6ct
+- Removed QT5
 
 ## Aug 2026
 
