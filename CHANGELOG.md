@@ -4,6 +4,9 @@ A technical record of notable changes. Dates are in UTC.
 
 ## Sept 2026
 
+- Quickshell now nixpkg
+    - Removed flake input
+    - No more building from source
 - Removed old overlay
     - Caused long source builds
     - Moved to `ioseka-bin` also

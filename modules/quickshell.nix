@@ -4,14 +4,15 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ lib
+, pkgs
+, inputs
+, ...
 }: {
   environment.systemPackages = with pkgs; [
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # Using nixpkgs quickshell 
+    quickshell
 
     # Qt6 dependencies for quickshell
     qt6.qtbase
