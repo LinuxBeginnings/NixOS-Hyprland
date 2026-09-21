@@ -2,8 +2,11 @@
 
 A technical record of notable changes. Dates are in UTC.
 
-## Sept 2026
+## Sep 2026
 
+- Fixed:
+    - Refactored auto-install.sh (as well as install.sh for consistency)
+    - To check whether ~/.zshrc is a symbolic link before attempting to copy assets/.zshrc.
 - Quickshell now nixpkg
     - Removed flake input
     - No more building from source
@@ -14,7 +17,6 @@ A technical record of notable changes. Dates are in UTC.
 - Trimmed pkgs
 - Added qt6ct
 - Removed QT5
-
 ## Aug 2026
 
 - Fixed:

@@ -188,13 +188,21 @@ echo "-----"
 printf "\n%.0s" {1..2}
 
 # for initial zsh
-# Check if ~/.zshrc and  exists, create a backup, and copy the new configuration
-if [ -f "$HOME/.zshrc" ]; then
-    cp -b "$HOME/.zshrc" "$HOME/.zshrc-backup" || true
-fi
+# Check if ~/.zshrc is a symlink (e.g. managed by Home Manager in /nix/store)
+if [ -L "$HOME/.zshrc" ]; then
+    echo "$NOTE ~/.zshrc is a symlink (managed by Home Manager), skipping copy."
+else
+    # Check if ~/.zshrc exists, create a backup, and copy the new configuration
+    if [ -f "$HOME/.zshrc" ]; then
+        cp -b "$HOME/.zshrc" "$HOME/.zshrc-backup" || true
+    fi
 
-# Copying the preconfigured zsh themes and profile
-cp -r 'assets/.zshrc' ~/
+    # Copying the preconfigured zsh themes and profile
+    if [ -f 'assets/.zshrc' ]; then
+        echo "$NOTE Copying assets/.zshrc to $HOME/.zshrc..."
+        cp 'assets/.zshrc' "$HOME/.zshrc"
+    fi
+fi
 
 # GTK Themes and Icons installation
 printf "Installing GTK-Themes and Icons..\n"
