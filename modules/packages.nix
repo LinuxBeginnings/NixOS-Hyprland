@@ -4,20 +4,19 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{ pkgs
-, inputs
-, host
-, lib
-, customPkgs ? { }
-, ...
-}:
-let
+{
+  pkgs,
+  inputs,
+  host,
+  lib,
+  customPkgs ? {},
+  ...
+}: let
   waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
     doCheck = false;
-    mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
+    mesonFlags = (old.mesonFlags or []) ++ ["-Dtests=disabled"];
   });
-in
-{
+in {
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -59,30 +58,28 @@ in
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent =
-    let
-      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-          exec "${lib.getExe pkgs.hyprpolkitagent}"
-        fi
-        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-        fi
-        echo "No supported polkit agent found." >&2
-        exit 1
-      '';
-    in
-    {
-      description = "Polkit authentication agent";
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "default.target" ];
-      serviceConfig = {
-        ExecStart = polkitAgentScript;
-        Restart = "on-failure";
-        RestartSec = 1;
-      };
+  systemd.user.services.polkit-agent = let
+    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+        exec "${lib.getExe pkgs.hyprpolkitagent}"
+      fi
+      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+      fi
+      echo "No supported polkit agent found." >&2
+      exit 1
+    '';
+  in {
+    description = "Polkit authentication agent";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      ExecStart = polkitAgentScript;
+      Restart = "on-failure";
+      RestartSec = 1;
     };
+  };
 
   environment.systemPackages = with pkgs; [
     waybarPkg
@@ -92,6 +89,7 @@ in
     nixfmt-tree
     onefetch
     atop
+    flock
     #go # needed for waybar-weather compile
 
     # Update flkake script
@@ -187,7 +185,7 @@ in
     lazygit
     libappindicator
     libnotify
-    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
