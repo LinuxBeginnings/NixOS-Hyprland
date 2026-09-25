@@ -89,7 +89,7 @@ in {
     nixfmt-tree
     onefetch
     atop
-    flock
+    util-linux
     #go # needed for waybar-weather compile
 
     # Update flkake script
