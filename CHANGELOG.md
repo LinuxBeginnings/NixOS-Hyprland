@@ -2,6 +2,12 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## Oct 2026
+
+- Added:
+    - `hyprland-qtutils` to system packages (provides `hyprland-dialog`)
+    - Verified `lua` (provides `luac`) is included in default system packages
+
 ## Sep 2026
 
 - Fixed:
