@@ -123,6 +123,7 @@ in {
     nwg-look
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
+    hyprland-qtutils # provides hyprland-dialog
     # customPkgs.hyprmodPkg  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema, hyprland-socket, hyprland-state on PyPI or as local overlays
     socat # Needed for Tak0 scripts
     ddcutil # Needed for ExternalBrightness script
