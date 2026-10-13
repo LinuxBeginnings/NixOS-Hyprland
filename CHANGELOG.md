@@ -8,6 +8,19 @@ A technical record of notable changes. Dates are in UTC.
     - `hyprland-qtutils` to system packages (provides `hyprland-dialog`)
     - Verified `lua` (provides `luac`) is included in default system packages
 
+- Fixed:
+    - Build failure from a stale pnpm dependency hash for `typescript-language-server` 6.0.2
+        - Nixpkgs `7fd4004` (nixos-unstable, Oct 11 2026) declares the wrong `pnpmDeps` hash,
+          so the fixed-output derivation failed with a hash mismatch and the
+          `nixvim`/`neovim` wrapper could not build
+        - `modules/overlays.nix` now overrides that hash with the value the fetcher
+          produces, matching the upstream fix (NixOS/nixpkgs@ac7b1aa)
+        - `modules/home/editors/nixvim.nix` now sets `nixpkgs.pkgs = pkgs` instead of
+          `nixpkgs.source`, so nixvim reuses the host `pkgs` instance
+            - It previously evaluated a second nixpkgs without `nixpkgs.overlays`,
+              pulling an unpatched `typescript-language-server` into the wrapper
+              alongside the patched one
+
 ## Sep 2026
 
 - Fixed:

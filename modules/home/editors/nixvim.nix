@@ -13,7 +13,12 @@ in {
 
   programs.nixvim = {
     enable = true;
-    nixpkgs.source = inputs.nixpkgs;
+    # Reuse the host's pkgs instance (system pkgs, with nixpkgs.overlays applied)
+    # rather than letting nixvim build a second nixpkgs evaluation from
+    # `nixpkgs.source`. That second instance bypassed our overlays and pulled an
+    # unpatched typescript-language-server (stale pnpm deps hash) into the
+    # neovim wrapper next to the patched one, which broke the build.
+    nixpkgs.pkgs = pkgs;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
