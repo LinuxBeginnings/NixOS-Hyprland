@@ -20,6 +20,18 @@ A technical record of notable changes. Dates are in UTC.
             - It previously evaluated a second nixpkgs without `nixpkgs.overlays`,
               pulling an unpatched `typescript-language-server` into the wrapper
               alongside the patched one
+    - Build failure for `waybar` `0.15.0+date=2026-10-28_f6f73c8` after updating the flake
+        - The `alexays/waybar` input changed `subprojects/libcava.wrap` from a
+          `[wrap-file]` tarball (`directory = cava-1.0.0`) to a `[wrap-git]` clone with
+          no `directory` key, so meson now looks for `subprojects/libcava`
+        - Nix builds meson with `--wrap-mode=nodownload` and nixpkgs' `waybar` passes
+          `-Dcava=enabled`, so `dependency('libcava', version: '>=1.0.0')` could not fall
+          back to the subproject and `configurePhase` failed with
+          "Automatic wrap-based subproject downloading is disabled"
+        - `modules/packages.nix` now vendors the cava 1.0.0 sources into
+          `subprojects/libcava` in `postUnpack`, so cava support stays enabled
+        - TODO: drop this shim once the `alexays/waybar` flake vendors cava under
+          `subprojects/libcava`
 
 ## Sep 2026
 

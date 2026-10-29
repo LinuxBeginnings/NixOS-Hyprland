@@ -12,9 +12,34 @@
   customPkgs ? {},
   ...
 }: let
+  # cava sources vendored by the waybar flake (github:alexays/waybar); keep in sync
+  # with the hash it uses there.
+  libcavaSrc = pkgs.fetchFromGitHub {
+    owner = "LukashonakV";
+    repo = "cava";
+    tag = "1.0.0";
+    hash = "sha256-0r5aAmTs+FcmS501tNYKxG9H+Pq6i32BDRBEjWW6M74=";
+  };
+
   waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
     doCheck = false;
     mesonFlags = (old.mesonFlags or []) ++ ["-Dtests=disabled"];
+
+    # Upstream waybar switched subprojects/libcava.wrap from a [wrap-file] tarball
+    # (directory = cava-1.0.0) to a [wrap-git] clone with no directory key, so meson
+    # now looks for subprojects/libcava. Nix runs meson with --wrap-mode=nodownload,
+    # and the waybar flake still vendors cava into subprojects/cava-1.0.0, so
+    # dependency('libcava') cannot be satisfied and configurePhase fails with
+    # "Automatic wrap-based subproject downloading is disabled".
+    # TODO: drop this once the waybar flake vendors cava into subprojects/libcava.
+    postUnpack =
+      (old.postUnpack or "")
+      + ''
+        pushd "$sourceRoot"
+        cp -R --no-preserve=mode,ownership ${libcavaSrc} subprojects/libcava
+        patchShebangs subprojects/libcava
+        popd
+      '';
   });
 in {
   services.power-profiles-daemon.enable = true;
