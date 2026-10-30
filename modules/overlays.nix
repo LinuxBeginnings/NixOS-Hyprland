@@ -10,6 +10,14 @@
       waybar-weather = final.callPackage ../pkgs/waybar-weather.nix {};
     })
 
+    #  Packages from the justaguylinux flake inputs (justaguy.dev/drew).
+    #  Exposed through pkgs so modules consume pkgs.ghee / pkgs.butterpal
+    #  instead of reaching into inputs.* directly.
+    (final: prev: {
+      ghee = inputs.ghee.packages.${final.stdenv.hostPlatform.system}.ghee;
+      butterpal = inputs.butterpal.packages.${final.stdenv.hostPlatform.system}.butterpal;
+    })
+
     # typescript-language-server 6.0.2 (used by nixvim/neovim) ships a stale
     # pnpm dependency hash in the pinned nixpkgs revision (7fd4004, Oct 11 2026):
     #   declared: sha256-MUSxDMlbG21KSesGdEvqa2kEpuVfLlXRUX1qV/FGsSo=

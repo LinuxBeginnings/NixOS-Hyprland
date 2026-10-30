@@ -245,6 +245,8 @@ in {
 
     # Utils
     ctop # container top
+    ghee # git TUI explorer
+    butterpal # wallpaper palette generator for the butter setups
     erdtree # great tree util run: erd
     #frogmouth # cli markdown renderer A
     lstr # another tree util

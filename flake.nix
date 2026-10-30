@@ -39,6 +39,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    #  ghee - git, as a place you leave open (packaged by upstream)
+    ghee = {
+      url = "git+https://justaguy.dev/drew/ghee";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #  butterpal - wallpaper palette generator for the butter setups
+    butterpal = {
+      url = "git+https://justaguy.dev/drew/butterpal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #  quickshell = {
     #    url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
     #    inputs.nixpkgs.follows = "nixpkgs";

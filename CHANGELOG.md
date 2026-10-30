@@ -7,6 +7,13 @@ A technical record of notable changes. Dates are in UTC.
 - Added:
     - `hyprland-qtutils` to system packages (provides `hyprland-dialog`)
     - Verified `lua` (provides `luac`) is included in default system packages
+    - `ghee` and `butterpal` to system packages, from two new flake inputs
+        - `ghee` 0.1.3 - git TUI over every repo in a folder (Zig), `git+https://justaguy.dev/drew/ghee`
+        - `butterpal` 0.3.1 - prints a wallpaper's 24-colour palette (C), `git+https://justaguy.dev/drew/butterpal`
+        - Both are packaged by upstream and exposed as `pkgs.ghee` / `pkgs.butterpal`
+          by `modules/overlays.nix`, so `modules/packages.nix` only refers to `pkgs`
+        - `inputs.nixpkgs.follows = "nixpkgs"` on both, so neither pulls in a
+          second nixpkgs revision
 
 - Fixed:
     - Build failure from a stale pnpm dependency hash for `typescript-language-server` 6.0.2

@@ -20,6 +20,26 @@
         "type": "github"
       }
     },
+    "butterpal": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793324397,
+        "narHash": "sha256-SY1tKCOq+TZbt7qUKdVjRszfFZGv5sKRc7wt5eL4VFY=",
+        "ref": "refs/heads/main",
+        "rev": "94f6648d282e55679250f9284e4bfce2ebf61657",
+        "revCount": 6,
+        "type": "git",
+        "url": "https://justaguy.dev/drew/butterpal"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://justaguy.dev/drew/butterpal"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -75,6 +95,26 @@
         "owner": "hercules-ci",
         "repo": "flake-parts",
         "type": "github"
+      }
+    },
+    "ghee": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792777635,
+        "narHash": "sha256-7QvHjrYL+uSUYcGgHJ8XPhLI97+jCvLasXLO16u4sGc=",
+        "ref": "refs/heads/main",
+        "rev": "83354a22c69abedf373b98be97f63716850e7e1e",
+        "revCount": 17,
+        "type": "git",
+        "url": "https://justaguy.dev/drew/ghee"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://justaguy.dev/drew/ghee"
       }
     },
     "home-manager": {
@@ -172,7 +212,9 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "butterpal": "butterpal",
         "catppuccin": "catppuccin",
+        "ghee": "ghee",
         "home-manager": "home-manager",
         "hyprmod-src": "hyprmod-src",
         "nixpkgs": "nixpkgs_2",
