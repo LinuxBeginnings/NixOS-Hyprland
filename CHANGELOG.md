@@ -30,6 +30,37 @@ A technical record of notable changes. Dates are in UTC.
         - Named `freebuff-cli` and routed through `npx` because a global install
           or a desktop build called `freebuff` can shadow the CLI, while
           `npx freebuff` always resolves the npm CLI package
+        - The wrapper now exits with an explanation when nix-ld is missing,
+          instead of letting the downloaded binary die with the stub-ld message
+        - It tests `/run/current-system/sw/share/nix-ld/lib/ld.so`, not
+          `command -v nix-ld`: the nix-ld module puts only a buildEnv of
+          libraries in `systemPackages`, so there is no `nix-ld` binary on `PATH`
+        - npm stays at the version bundled with `pkgs.nodejs` (11.19.0 today)
+          and cannot self-update under Nix, so the npm notice is not actionable
+    - `programs.nix-ld` in `modules/packages.nix`
+        - NixOS defaults `environment.ldso` to `stub-ld`, which refuses to start
+          foreign ELF binaries, and the freebuff launcher unpacks exactly such a
+          binary into `~/.config/manicode`
+        - `nixos/modules/config/ldso.nix` links the configured loader to
+          `/lib64/ld-linux-x86-64.so.2` with a systemd-tmpfiles `L+` rule, so
+          nothing appears in the activation script
+        - Libraries: `alsa-lib`, `libpulseaudio`, `glib`, `libsecret`
+            - `listOf` options merge, so they add to the module's default set
+              (zlib, zstd, `stdenv.cc.cc`, curl, openssl, util-linux, xz,
+              systemd) rather than replacing it
+    - `file` to system packages, for identifying foreign binaries
+    - Verified the nix-ld wiring and the wrapper guard
+        - Built system carries `sw/bin/file` -> `file-5.48` and
+          `sw/share/nix-ld/lib/ld.so` -> `glibc-2.44-57/lib/ld-linux-x86-64.so.2`
+        - After activation `freebuff-cli --version` prints `0.2.35`, and
+          `file --version` reports `file-5.48`
+        - Negative case: the same wrapper with the loader path pointed at a
+          missing file prints the nix-ld message and exits 1
+        - `NIX_LD` and `NIX_LD_LIBRARY_PATH` are empty outside a PAM session,
+          since the module sets them with `environment.sessionVariables`
+        - TODO: confirm which loader serves foreign binaries here, because
+          `/lib64/ld-linux-x86-64.so.2` resolves to the glibc loader rather
+          than to nix-ld's `libexec/nix-ld`
 
 - Updated:
     - `flake.nix` imports `./modules/hyprland.nix` and is reformatted

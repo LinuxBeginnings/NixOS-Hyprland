@@ -50,11 +50,13 @@
   # unpacks a platform binary into ~/.config/manicode on first run. nix-ld
   # installs a real loader at that path and points it at the libraries below.
   #
-  # The binary itself only needs glibc (libc, libpthread, libdl, libm), so the
-  # list covers the libraries its bundled libopentui*.so opens at runtime.
+  # The binary itself only needs glibc, which the loader brings with it, and
+  # the module already defaults to zlib, zstd, stdenv.cc.cc, curl, openssl,
+  # util-linux, xz and systemd. These are the extras its bundled
+  # libopentui*.so opens lazily. listOf options merge, so they add to that
+  # default set instead of replacing it.
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc.lib # libstdc++ / libgcc_s for the bundled libopentui*.so
     alsa-lib # audio output
     libpulseaudio # PulseAudio / PipeWire
     glib # GLib and GObject
