@@ -13,6 +13,7 @@
     ./cli/git.nix
     ./cli/htop.nix
     ./cli/tealdeer.nix
+    ./cli/freebuff-cli.nix
     ./yazi
     ./hyprland.nix
     ./overview.nix

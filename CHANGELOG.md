@@ -20,10 +20,20 @@ A technical record of notable changes. Dates are in UTC.
           ecosystem, Wayland desktop tooling, Qt theming and dotfile helpers
         - Now owns the waybar `libcava` vendoring shim, including the cava 1.0.0
           fetch and the `postUnpack` copy into `subprojects/libcava`
+    - `modules/home/cli/freebuff-cli.nix` for the freebuff coding agent
+        - Installs a `freebuff-cli` wrapper that runs `npx --yes freebuff`, with
+          `pkgs.nodejs` pinned into the wrapper's `PATH`
+        - `freebuff` ships to npm as a thin launcher package whose `index.js` and
+          `launcher.js` download the sha256-verified native binary into
+          `~/.config/manicode` on first run, so there is no self-contained
+          derivation to build here
+        - Named `freebuff-cli` and routed through `npx` because a global install
+          or a desktop build called `freebuff` can shadow the CLI, while
+          `npx freebuff` always resolves the npm CLI package
 
 - Updated:
     - `flake.nix` imports `./modules/hyprland.nix` and is reformatted
-    - `modules/home/default.nix` imports `./hyprland.nix`
+    - `modules/home/default.nix` imports `./hyprland.nix` and `./cli/freebuff-cli.nix`
     - `modules/packages.nix` no longer carries the Hyprland packages
         - `programs.hyprland`, `programs.hyprlock`, `programs.waybar.enable` and the
           `polkit-agent` unit moved to `modules/hyprland.nix`
