@@ -42,6 +42,25 @@
       tumbler
     ];
   };
+
+  # Foreign dynamically linked binaries. NixOS ships stub-ld at
+  # /lib64/ld-linux-x86-64.so.2, which refuses to start them, so anything that
+  # fetches a prebuilt executable at runtime fails. freebuff-cli (see
+  # modules/home/cli/freebuff-cli.nix) is the case here: its npm launcher
+  # unpacks a platform binary into ~/.config/manicode on first run. nix-ld
+  # installs a real loader at that path and points it at the libraries below.
+  #
+  # The binary itself only needs glibc (libc, libpthread, libdl, libm), so the
+  # list covers the libraries its bundled libopentui*.so opens at runtime.
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib # libstdc++ / libgcc_s for the bundled libopentui*.so
+    alsa-lib # audio output
+    libpulseaudio # PulseAudio / PipeWire
+    glib # GLib and GObject
+    libsecret # secret storage
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -101,6 +120,7 @@
     figlet
     ffmpeg
     fd
+    file # identify file types
     file-roller
     gcc
     git

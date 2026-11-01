@@ -11,6 +11,11 @@
 #  binaryChecksums in its package.json) into ~/.config/manicode on first run,
 #  so there is no self-contained derivation to build here.
 #
+#  That download is a generic dynamically linked ELF (interpreter
+#  /lib64/ld-linux-x86-64.so.2, DT_NEEDED only glibc), so it depends on
+#  programs.nix-ld in modules/packages.nix. Without nix-ld, NixOS' stub-ld
+#  refuses to start it with "Could not start dynamically linked executable".
+#
 #  The wrapper deliberately resolves the package through npx and is named
 #  freebuff-cli rather than freebuff: a globally installed or desktop build
 #  called `freebuff` can shadow the CLI, while `npx freebuff` always resolves
