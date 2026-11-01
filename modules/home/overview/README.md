@@ -38,7 +38,7 @@ https://github.com/user-attachments/assets/79ceb141-6b9e-4956-8e09-aaf72b66550c
 
 ### Prerequisites
 
-- **Hyprland** compositor
+- **Hyprland** compositor (0.57 or newer — configuration is Lua-based)
 - **Quickshell** ([installation guide](https://quickshell.org/docs/v0.1.0/guide/install-setup/))
 - **Qt 6** with modules: QtQuick, QtQuick.Controls, Qt5Compat.GraphicalEffects
 
@@ -49,20 +49,33 @@ https://github.com/user-attachments/assets/79ceb141-6b9e-4956-8e09-aaf72b66550c
    git clone https://github.com/Shanu-Kumawat/quickshell-overview ~/.config/quickshell/overview
    ```
 
-2. **Add keybind** to your Hyprland config (`~/.config/hypr/hyprland.conf`):
-   ```conf
-   bind = Super, TAB, exec, qs ipc -c overview call overview toggle
+2. **Add keybind** to your Hyprland config. Hyprland 0.57+ configures through Lua, so this belongs in a `.lua` file loaded by `~/.config/hypr/hyprland.lua`:
+   ```lua
+   hl.bind("SUPER + TAB", hl.dsp.exec_cmd("qs ipc -c overview call overview toggle"), { description = "Toggle overview" })
    ```
 
-3. **Auto-start** the overview (add to Hyprland config):
-   ```conf
-   exec-once = qs -c overview
+3. **Auto-start** the overview (add to your Hyprland Lua config):
+   ```lua
+   hl.on("hyprland.start", function()
+     hl.exec_cmd("qs -c overview")
+   end)
    ```
 
 4. **Reload Hyprland**:
    ```bash
    hyprctl reload
    ```
+   Hyprland's built-in autoreload only watches `hyprland.lua` itself, so edits to any other Lua file need an explicit `hyprctl reload`.
+
+### Hyprland Lua integration
+
+Hyprland 0.57+ dropped the hyprlang parser and configures through Lua: config loads from `~/.config/hypr/hyprland.lua`, which pulls in the rest with `dofile`, and runtime writes use `hyprctl eval` instead of `hyprctl keyword`.
+
+With KooLDots (the dotfiles this repo installs) the overview is already wired up:
+
+- **Keybind** — `SUPER + A` runs `$HOME/.config/hypr/scripts/OverviewToggle.sh`, which calls `qs ipc -c overview call overview toggle` and falls back to AGS
+- **Autostart** — `qs ... -c overview` is in `lua/startup.lua`; to add your own, put `exec_once("qs -c overview")` in `~/.config/hypr/UserConfigs/user_startup.lua`
+- **Layer rule** — `quickshell:overview` gets `blur = true` from `~/.config/hypr/configs/system_layer_rules.lua`
 
 ### Manual Start (if needed)
 
@@ -132,7 +145,7 @@ Edit `~/.config/quickshell/overview/common/Appearance.qml` to customize:
 
 ## 📋 Requirements
 
-- **Hyprland** compositor (tested on latest versions)
+- **Hyprland** compositor 0.57+ (Lua configuration)
 - **Quickshell** (Qt6-based shell framework)
 - **Qt 6** with the following modules:
   - QtQuick
@@ -155,25 +168,31 @@ The following features were removed to make it standalone:
 ## 📁 File Structure
 
 ```
-~/.config/quickshell/overview/
+~/.config/quickshell/overview/          # modules/home/overview/ in this repo
 ├── shell.qml                      # Main entry point
 ├── README.md                      # This file
-├── hyprland-config.conf          # Configuration reference
+├── assets/
+│   └── image.png                  # Preview screenshot
 ├── common/
+│   ├── qmldir
 │   ├── Appearance.qml            # Theme and styling
 │   ├── Config.qml                # Configuration options
 │   ├── functions/
+│   │   ├── qmldir
 │   │   └── ColorUtils.qml        # Color manipulation utilities
 │   └── widgets/
+│       ├── qmldir
 │       ├── StyledText.qml        # Styled text component
 │       ├── StyledRectangularShadow.qml
 │       ├── StyledToolTip.qml
 │       └── StyledToolTipContent.qml
 ├── services/
+│   ├── qmldir
 │   ├── GlobalStates.qml          # Global state management
 │   └── HyprlandData.qml          # Hyprland data provider
 └── modules/
     └── overview/
+        ├── qmldir
         ├── Overview.qml          # Main overview component
         ├── OverviewWidget.qml    # Workspace grid widget
         └── OverviewWindow.qml    # Individual window preview

@@ -4,59 +4,19 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{ pkgs
-, inputs
-, host
-, lib
-, customPkgs ? { }
-, ...
-}:
-let
-  # cava sources vendored by the waybar flake (github:alexays/waybar); keep in sync
-  # with the hash it uses there.
-  libcavaSrc = pkgs.fetchFromGitHub {
-    owner = "LukashonakV";
-    repo = "cava";
-    tag = "1.0.0";
-    hash = "sha256-0r5aAmTs+FcmS501tNYKxG9H+Pq6i32BDRBEjWW6M74=";
-  };
-
-  waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
-    doCheck = false;
-    mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
-
-    # Upstream waybar switched subprojects/libcava.wrap from a [wrap-file] tarball
-    # (directory = cava-1.0.0) to a [wrap-git] clone with no directory key, so meson
-    # now looks for subprojects/libcava. Nix runs meson with --wrap-mode=nodownload,
-    # and the waybar flake still vendors cava into subprojects/cava-1.0.0, so
-    # dependency('libcava') cannot be satisfied and configurePhase fails with
-    # "Automatic wrap-based subproject downloading is disabled".
-    # TODO: drop this once the waybar flake vendors cava into subprojects/libcava.
-    postUnpack =
-      (old.postUnpack or "")
-      + ''
-        pushd "$sourceRoot"
-        cp -R --no-preserve=mode,ownership ${libcavaSrc} subprojects/libcava
-        patchShebangs subprojects/libcava
-        popd
-      '';
-  });
-in
+#  Hyprland-specific packages and the session itself now live in
+#  modules/hyprland.nix and modules/home/hyprland.nix.
 {
+  pkgs,
+  inputs,
+  host,
+  ...
+}: {
   services.power-profiles-daemon.enable = true;
 
   programs = {
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; # hyprland-git
-      # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdph-git
-      xwayland.enable = true;
-    };
     zsh.enable = true;
     firefox.enable = false;
-    waybar.enable = false; # started by Hyprland dotfiles. Enabling causes two waybars
-    hyprlock.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
     fuse.userAllowOther = true;
@@ -84,34 +44,7 @@ in
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent =
-    let
-      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-          exec "${lib.getExe pkgs.hyprpolkitagent}"
-        fi
-        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-        fi
-        echo "No supported polkit agent found." >&2
-        exit 1
-      '';
-    in
-    {
-      description = "Polkit authentication agent";
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "default.target" ];
-      serviceConfig = {
-        ExecStart = polkitAgentScript;
-        Restart = "on-failure";
-        RestartSec = 1;
-      };
-    };
-
   environment.systemPackages = with pkgs; [
-    waybarPkg
-    #waybar
     alejandra
     nixfmt
     nixfmt-tree
@@ -137,30 +70,11 @@ in
       nix-collect-garbage --delete-old && sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot
     '')
 
-    # Hyprland Stuff
-    hypridle
-    hyprpolkitagent
-    uwsm
-    hyprlang
-    hyprshot
-    hyprshutdown
-    hyprcursor
-    mesa
-    nwg-displays
-    nwg-dock-hyprland
-    nwg-look
-    waybar-weather
-    hyprland-qt-support # for hyprland-qt-support
-    # customPkgs.hyprmodPkg  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema, hyprland-socket, hyprland-state on PyPI or as local overlays
-    socat # Needed for Tak0 scripts
-    ddcutil # Needed for ExternalBrightness script
-
     #  Apps
     power-profiles-daemon
     loupe
     appimage-run
     bc
-    brightnessctl
     # To eanble GPU load monitoring in btop
     (btop.override {
       cudaSupport = true;
@@ -174,11 +88,9 @@ in
     distrobox
     dua
     duf
-    cava
     cargo
     #clang
     # cmake
-    cliphist
     cpufrequtils
     curl
     dysk
@@ -189,7 +101,6 @@ in
     figlet
     ffmpeg
     fd
-    feh
     file-roller
     gcc
     git
@@ -201,46 +112,25 @@ in
     gcc
     git
     gnumake
-    grim
-    grimblast
     inxi
     imagemagick
     killall
-    kdePackages.qt6ct
-    kdePackages.qtwayland
-    kdePackages.qtstyleplugin-kvantum # kvantum
-    kdePackages.qtdeclarative
     lazygit
     libappindicator
     libnotify
-    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
     networkmanagerapplet
-    pamixer
     pavucontrol
     pulseaudio
-    playerctl
     rsync
-    kdePackages.polkit-kde-agent-1
-    mate-polkit
-    rofi
-    slurp
-    swappy
-    swaynotificationcenter
-    awww
     unzip
-    wallust
-    wdisplays
-    wl-clipboard
-    wlr-randr
-    wlogout
     wget
     xarchiver
     yad
     yazi
-    xdg-user-dirs # needed for copy.sh
     yt-dlp
 
     (inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default)
@@ -264,7 +154,6 @@ in
     ncftp
     netop # network mon tool run: sudo netop
     ripgrep
-    socat
     starship
     timeshift # snapshot / rsync util
     trippy # trace tool like mtr  run  sudo trip host/IP

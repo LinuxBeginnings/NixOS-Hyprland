@@ -14,6 +14,7 @@
     ./cli/htop.nix
     ./cli/tealdeer.nix
     ./yazi
+    ./hyprland.nix
     ./overview.nix
     #experimenting with getting dark to work
     # If set here it will break KoolDots theming

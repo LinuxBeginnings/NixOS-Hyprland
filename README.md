@@ -92,7 +92,8 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 <div id="announcement"></div>
 
 - ** This Repo does not contain Hyprland configuration files. (Dotfiles)! **
-    - You can either, use `KoolDots`, create your own configuration, or try to use another project's config.
+    - The Hyprland configuration lives in [`KooLDots`](https://github.com/LinuxBeginnings/Hyprland-Dots) and is written in **Lua**
+    - You can either, use `KooLDots`, create your own configuration, or try to use another project's config.
     - Make sure you have all the requirements first. I.e. fonts, supporting packages, at the correct version
 
 - This new release adds Home Manger, but only manages a small set of packages
@@ -111,9 +112,17 @@ https://github.com/user-attachments/assets/49bc12b2-abaf-45de-a21c-67aacd9bb872
 
 > [!NOTE]
 > ** Not all of the configuration files in this project are written in NIX language **
+> ** The Hyprland dotfiles are written in Lua **
 
-- The `auto-install.sh` script will install the Hyprland config files, (Dotfiles) from [`KooLDots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
+- The `auto-install.sh` script will install the Hyprland Lua config files, (Dotfiles) from [`KooLDots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
 - These Hyprland dotfiles are constantly evolving / improving
+- The Hyprland config is Lua-based (Hyprland 0.57+):
+    - Entrypoint: `~/.config/hypr/hyprland.lua`, which loads modules with `dofile`
+    - Shipped defaults: `~/.config/hypr/configs/system_*.lua`
+    - Your own settings: `~/.config/hypr/UserConfigs/user_*.lua` (preserved on upgrade)
+    - Runtime changes go through `hyprctl eval`, not `hyprctl keyword`
+    - Legacy `.conf` files are archived under `LegacyConfigs/<timestamp>`; `hypridle.conf`, `hyprlock*.conf` and application configs stay as native `.conf`
+- See the [`KooLDots User Guide`](https://github.com/LinuxBeginnings/Hyprland-Dots/blob/main/docs/KooLDots-UserGuide.md) for the Lua layout and user settings
 - You can check the CHANGELOG here [`Hyprland-Dots-Changelogs`](https://github.com/LinuxBeginnings/Hyprland-Dots/wiki/Changelogs)
 - GTK Themes and Icons will be pulled from [`LINK`](https://github.com/LinuxBeginnings/GTK-themes-icons), including Bibata Cursor Modern Ice
 - You will be prompted if you want to download wallpapers from here: [`REPO`](https://github.com/LinuxBeginnings/Wallpaper-Bank)
@@ -333,6 +342,7 @@ Hope you enjoy! 🎉
 <summary><strong>✍️ Contributing </strong></summary>
     
 - As stated above, these script does not contain actual config files. These are only the installer of packages
+- The Hyprland Lua configuration files live in [`KooLDots`](https://github.com/LinuxBeginnings/Hyprland-Dots)
 - If you want to contribute and/or test the Hyprland-Dotfiles (development branch), [`Hyprland-Dots-Development`](https://github.com/LinuxBeginnings/Hyprland-Dots/tree/development)
 - Want to contribute on KooL-Hyprland-Dots Click [`HERE`](https://github.com/LinuxBeginnings/Hyprland-Dots/blob/main/CONTRIBUTING.md) for a guide how to contribute
 - Want to contribute on This Installer? Click [`HERE`](https://github.com/LinuxBeginnings/NixOS-Hyprland/blob/main/CONTRIBUTING.md) for a guide how to contribute

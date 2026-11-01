@@ -2,6 +2,53 @@
 
 A technical record of notable changes. Dates are in UTC.
 
+## Nov 2026
+
+- Added:
+    - `modules/hyprland.nix` for the system-level Hyprland session
+        - `programs.hyprland` with UWSM and XWayland, and `programs.hyprlock`
+        - `programs.waybar.enable = false`, since the dotfiles start Waybar themselves
+        - `polkit-agent` systemd user unit, preferring `hyprpolkitagent` and falling
+          back to `mate-polkit`
+        - Session packages: `uwsm`, `hyprpolkitagent`, `mate-polkit`,
+          `kdePackages.polkit-kde-agent-1`
+        - Records why Home Manager's `wayland.windowManager.hyprland` must stay
+          disabled: it writes `~/.config/hypr/hyprland.conf`, which Hyprland loads
+          in preference to the dotfiles' `hyprland.lua`
+    - `modules/home/hyprland.nix` for user-session Hyprland and Wayland tooling
+        - Home Manager packages only: the bar and its modules, the Hyprland
+          ecosystem, Wayland desktop tooling, Qt theming and dotfile helpers
+        - Now owns the waybar `libcava` vendoring shim, including the cava 1.0.0
+          fetch and the `postUnpack` copy into `subprojects/libcava`
+
+- Updated:
+    - `flake.nix` imports `./modules/hyprland.nix` and is reformatted
+    - `modules/home/default.nix` imports `./hyprland.nix`
+    - `modules/packages.nix` no longer carries the Hyprland packages
+        - `programs.hyprland`, `programs.hyprlock`, `programs.waybar.enable` and the
+          `polkit-agent` unit moved to `modules/hyprland.nix`
+        - The Hyprland, Wayland, Qt theming and helper packages moved to
+          `modules/home/hyprland.nix`
+        - The module signature no longer takes `lib` or `customPkgs`
+    - `README.md` Hyprland config references now describe the Lua workflow
+        - The dotfiles are Lua-based (Hyprland 0.57+), not hyprlang `.conf`
+        - Documents the `hyprland.lua` entrypoint, `configs/system_*.lua` defaults
+          and `UserConfigs/user_*.lua` user settings
+        - Notes runtime writes go through `hyprctl eval`, and that legacy `.conf`
+          files are archived under `LegacyConfigs/<timestamp>`
+    - `modules/home/overview/README.md` converted to Hyprland's Lua config API
+        - Keybind example is now `hl.bind("SUPER + TAB", hl.dsp.exec_cmd(...))`
+        - Autostart example is now `hl.on("hyprland.start", ...)` calling `hl.exec_cmd`
+        - Added a `Hyprland Lua integration` section covering the KooLDots keybind,
+          autostart and the `quickshell:overview` layer rule
+
+- Fixed:
+    - `modules/home/overview/README.md` file tree no longer lists `hyprland-config.conf`
+        - The file does not exist in the module, and a Hyprland config does not
+          belong in the Quickshell config directory
+        - Added the missing `assets/` directory and the five `qmldir` files
+        - Tree verified against the module contents
+
 ## Oct 2026
 
 - Added:
