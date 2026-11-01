@@ -4,14 +4,14 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-{
-  pkgs,
-  inputs,
-  host,
-  lib,
-  customPkgs ? {},
-  ...
-}: let
+{ pkgs
+, inputs
+, host
+, lib
+, customPkgs ? { }
+, ...
+}:
+let
   # cava sources vendored by the waybar flake (github:alexays/waybar); keep in sync
   # with the hash it uses there.
   libcavaSrc = pkgs.fetchFromGitHub {
@@ -23,7 +23,7 @@
 
   waybarPkg = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar.overrideAttrs (old: {
     doCheck = false;
-    mesonFlags = (old.mesonFlags or []) ++ ["-Dtests=disabled"];
+    mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Dtests=disabled" ];
 
     # Upstream waybar switched subprojects/libcava.wrap from a [wrap-file] tarball
     # (directory = cava-1.0.0) to a [wrap-git] clone with no directory key, so meson
@@ -41,7 +41,8 @@
         popd
       '';
   });
-in {
+in
+{
   services.power-profiles-daemon.enable = true;
 
   programs = {
@@ -83,28 +84,30 @@ in {
   };
   nixpkgs.config.allowUnfree = true;
 
-  systemd.user.services.polkit-agent = let
-    polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
-      if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
-        exec "${lib.getExe pkgs.hyprpolkitagent}"
-      fi
-      if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
-        exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
-      fi
-      echo "No supported polkit agent found." >&2
-      exit 1
-    '';
-  in {
-    description = "Polkit authentication agent";
-    after = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      ExecStart = polkitAgentScript;
-      Restart = "on-failure";
-      RestartSec = 1;
+  systemd.user.services.polkit-agent =
+    let
+      polkitAgentScript = pkgs.writeShellScript "polkit-agent" ''
+        if [ -x "${lib.getExe pkgs.hyprpolkitagent}" ]; then
+          exec "${lib.getExe pkgs.hyprpolkitagent}"
+        fi
+        if [ -x "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}" ]; then
+          exec "${lib.getExe' pkgs.mate-polkit "polkit-mate-authentication-agent-1"}"
+        fi
+        echo "No supported polkit agent found." >&2
+        exit 1
+      '';
+    in
+    {
+      description = "Polkit authentication agent";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig = {
+        ExecStart = polkitAgentScript;
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
     };
-  };
 
   environment.systemPackages = with pkgs; [
     waybarPkg
@@ -148,7 +151,6 @@ in {
     nwg-look
     waybar-weather
     hyprland-qt-support # for hyprland-qt-support
-    hyprland-qtutils # provides hyprland-dialog
     # customPkgs.hyprmodPkg  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema, hyprland-socket, hyprland-state on PyPI or as local overlays
     socat # Needed for Tak0 scripts
     ddcutil # Needed for ExternalBrightness script
@@ -211,7 +213,7 @@ in {
     lazygit
     libappindicator
     libnotify
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
