@@ -200,7 +200,7 @@ sudo nixos-rebuild switch --flake ~/NixOS-Hyprland/#<hostName>
 - Simply copy this and run it:
 ```
 nix-shell -p git vim curl pciutils
-sh <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
+bash <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
 ```
 
 > [!NOTE]

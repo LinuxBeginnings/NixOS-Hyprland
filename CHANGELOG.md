@@ -61,6 +61,31 @@ A technical record of notable changes. Dates are in UTC.
         - TODO: confirm which loader serves foreign binaries here, because
           `/lib64/ld-linux-x86-64.so.2` resolves to the glibc loader rather
           than to nix-ld's `libexec/nix-ld`
+    - NVIDIA Prime bus IDs are detected automatically by the installers
+        - `nhl_pci_bus_id` takes the first VGA/3D/Display device per vendor from
+          `lspci` and converts the hex `BB:DD.F` address to Xorg's decimal
+          `PCI:bus:dev:func` form, dropping the PCI domain the same way
+          `modules/nvidia-prime-drivers.nix` already did
+        - `nhl_set_prime_bus_ids` fills `drivers.nvidia-prime.{intelBusID,nvidiaBusID}`
+          for the `nvidia-laptop` profile, and never rewrites a value that is
+          already set: matching IDs are reported as already correct, different
+          ones need a `y` (default `n`), and a half-filled pair only gets the
+          empty side filled
+        - When detection fails the configured IDs are kept; with both IDs empty
+          the installer warns and prints the manual `lspci` command instead of
+          guessing
+    - Hardware summary printed before the rebuild
+        - `nhl_print_hardware_summary` reports user, CPU, RAM total/available,
+          every display device, the driver profile, the Prime bus IDs (hybrid
+          only) and the flake target once the host files are staged
+        - Missing `lspci` or `free` degrade to `none detected` / `unknown` rather
+          than aborting under `set -e`
+    - The completion message reports the installed Hyprland version and the
+      driver modules enabled in `hosts/<host>/config.nix`
+        - `nhl_hyprland_version` prefers the `Tag:` line of `Hyprland --version`
+          and falls back to the version in parentheses in the build banner
+        - `nhl_enabled_drivers` reads `drivers.{amdgpu,intel,nvidia,nvidia-prime}.enable`
+          through the new scope-aware `nhl_get_nix_value` / `nhl_get_bool_value`
 
 - Updated:
     - `flake.nix` imports `./modules/hyprland.nix` and is reformatted
@@ -82,6 +107,17 @@ A technical record of notable changes. Dates are in UTC.
         - Autostart example is now `hl.on("hyprland.start", ...)` calling `hl.exec_cmd`
         - Added a `Hyprland Lua integration` section covering the KooLDots keybind,
           autostart and the `quickshell:overview` layer rule
+    - Installers consolidated onto one shared flow
+        - `install.sh` and `auto-install.sh` are now thin entry points that resolve
+          the repository and call `nhl_install_flow`; `auto-install.sh` keeps only
+          its inline preflight, backup and clone bootstrap before sourcing the
+          library from the clone
+        - Settings live in `NHL_*` tunables, and prompts read from
+          `NHL_PROMPT_SOURCE` so the flow can also be driven non-interactively
+        - `nhl_nix_set` edits `hosts/<host>/*.nix` scope-awarely, replacing the
+          dotted `sed` patterns that assumed one option per line
+        - `README.md` install command uses `bash <(curl ...)`, matching the
+          `BASH_SOURCE` handling in the scripts
 
 - Fixed:
     - `modules/home/overview/README.md` file tree no longer lists `hyprland-config.conf`
@@ -89,6 +125,17 @@ A technical record of notable changes. Dates are in UTC.
           belong in the Quickshell config directory
         - Added the missing `assets/` directory and the five `qmldir` files
         - Tree verified against the module contents
+    - Installer GPU/driver toggles never matched `hosts/default/config.nix`
+        - The old `sed` patterns expected one option per line, but the shipped
+          config uses `amdgpu.enable = true;` inside `drivers = { ... }`, so the
+          detected GPU profile was silently not applied to the host config
+    - Unsafe shell handling in the installers
+        - Unquoted expansions, `echo -e` and `cd` without a failure check are gone
+          in favour of `[[ ]]`, arrays, `printf` and `cd ... ||`
+        - Nix file edits go through `mktemp` and only replace the target on
+          success, so a failed edit cannot truncate `config.nix`
+        - The installers no longer run `git config --global user.name/email`, and
+          `git add` is scoped to `flake.nix` and `hosts/`
 
 ## Oct 2026
 

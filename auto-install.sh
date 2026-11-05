@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # ==================================================
 #  KoolDots (2026)
 #  Project URL: https://github.com/LinuxBeginnings
@@ -7,326 +6,85 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
 # 💫 https://github.com/LinuxBeginnings 💫 #
+#
+# Self-contained bootstrap installer (safe to pipe into bash):
+#   bash <(curl -L https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh)
+#
+# It only does the preflight checks and the clone itself; everything after that
+# is the shared flow in scripts/lib/install-common.sh, which ships with the
+# repository that is cloned below.
 
-clear
+set -euo pipefail
 
-printf "\n%.0s" {1..2}
-echo -e "\e[35m
-	╦╔═┌─┐┌─┐╦    ╦ ╦┬ ┬┌─┐┬─┐┬  ┌─┐┌┐┌┌┬┐
-	╠╩╗│ ││ │║    ╠═╣└┬┘├─┘├┬┘│  ├─┤│││ ││ 2025
-	╩ ╩└─┘└─┘╩═╝  ╩ ╩ ┴ ┴  ┴└─┴─┘┴ ┴┘└┘─┴┘ 
-\e[0m"
-printf "\n%.0s" {1..1}
+REPO_URL="https://github.com/LinuxBeginnings/NixOS-Hyprland.git"
+INSTALLER_URL="https://github.com/LinuxBeginnings/NixOS-Hyprland/raw/refs/heads/main/auto-install.sh"
+REPO_DIR="$HOME/NixOS-Hyprland"
+BACKUP_ROOT="$HOME/NixOS-Hyprland-backups"
 
-# Set some colors for output messages
-OK="$(tput setaf 2)[OK]$(tput sgr0)"
-ERROR="$(tput setaf 1)[ERROR]$(tput sgr0)"
-NOTE="$(tput setaf 3)[NOTE]$(tput sgr0)"
-INFO="$(tput setaf 4)[INFO]$(tput sgr0)"
-WARN="$(tput setaf 1)[WARN]$(tput sgr0)"
-CAT="$(tput setaf 6)[ACTION]$(tput sgr0)"
-MAGENTA="$(tput setaf 5)"
-ORANGE="$(tput setaf 214)"
-WARNING="$(tput setaf 1)"
-YELLOW="$(tput setaf 3)"
-GREEN="$(tput setaf 2)"
-BLUE="$(tput setaf 4)"
-SKY_BLUE="$(tput setaf 6)"
-RESET="$(tput sgr0)"
-
-set -e
-
-# Common installer functions
-if [ -f "scripts/lib/install-common.sh" ]; then
-    # shellcheck source=/dev/null
-    . "scripts/lib/install-common.sh"
-fi
-
-if [ -n "$(grep -i nixos </etc/os-release)" ]; then
-    echo "${OK} Verified this is NixOS."
-    echo "-----"
-else
-    echo "$ERROR This is not NixOS or the distribution information is not available."
+# The library is not available until the repository has been cloned.
+bootstrap_die() {
+    printf '[ERROR] %s\n' "$*" >&2
     exit 1
-fi
+}
 
-if command -v git &>/dev/null; then
-    echo "$OK Git is installed, continuing with installation."
-    echo "-----"
-else
-    echo "$ERROR Git is not installed. Please install Git and try again."
-    echo "Example: nix-shell -p git"
-    exit 1
-fi
-
-# Check for pciutils (lspci)
-if ! command -v lspci >/dev/null 2>&1; then
-    echo "$ERROR pciutils is not installed. Please install pciutils and try again."
-    echo "Example: nix-shell -p pciutils"
-    exit 1
-fi
-
-# Check Go version (from nixpkgs or local) for waybar-weather
-if type nhl_check_go_version >/dev/null 2>&1; then
-    nhl_check_go_version
-fi
-
-echo "$NOTE Ensure In Home Directory"
-cd || exit
-
-echo "-----"
-
-backupname=$(date "+%Y-%m-%d-%H-%M-%S")
-if [ -d "NixOS-Hyprland" ]; then
-    echo "$NOTE NixOS-Hyprland exists, backing up to NixOS-Hyprland-backups directory."
-    if [ -d "NixOS-Hyprland-backups" ]; then
-        echo "Moving current version of NixOS-Hyprland to backups directory."
-        sudo mv "$HOME"/NixOS-Hyprland NixOS-Hyprland-backups/"$backupname"
-        sleep 1
-    else
-        echo "$NOTE Creating the backups directory & moving NixOS-Hyprland to it."
-        mkdir -p NixOS-Hyprland-backups
-        sudo mv "$HOME"/NixOS-Hyprland NixOS-Hyprland-backups/"$backupname"
-        sleep 1
+bootstrap_print_banner() {
+    if [ -t 1 ] && command -v clear >/dev/null 2>&1; then
+        clear
     fi
-else
-    echo "$OK Thank you for choosing KooL's NixOS-Hyprland"
+    printf '\n\n\033[35m\n\t╦╔═┌─┐┌─┐╦    ╦ ╦┬ ┬┌─┐┬─┐┬  ┌─┐┌┐┌┌┬┐\n\t╠╩╗│ ││ │║    ╠═╣└┬┘├─┘├┬┘│  ├─┤│││ ││ 2026\n\t╩ ╩└─┘└─┘╩═╝  ╩ ╩ ┴ ┴  ┴└─┴─┘┴ ┴┘└┘─┴┘ \n\033[0m\n\n'
+}
+
+bootstrap_print_banner
+
+# --- preflight (duplicated from the library on purpose: it does not exist yet) ---
+if [ -z "${BASH_VERSION:-}" ]; then
+    bootstrap_die "This installer requires bash. Run it with: bash <(curl -L $INSTALLER_URL)"
 fi
 
-echo "-----"
-
-echo "$NOTE Cloning & Entering NixOS-Hyprland Repository"
-git clone --depth 1 https://github.com/LinuxBeginnings/NixOS-Hyprland.git ~/NixOS-Hyprland
-cd ~/NixOS-Hyprland || exit
-
-printf "\n%.0s" {1..2}
-
-echo "-----"
-printf "\n%.0s" {1..1}
-
-echo "$NOTE Default options are in brackets []"
-echo "$NOTE Just press ${MAGENTA}ENTER${RESET} to select the default"
-sleep 1
-
-echo "-----"
-
-read -rp "$CAT Enter Your New Hostname: [ default ] " hostName </dev/tty
-if [ -z "$hostName" ]; then
-    hostName="default"
+if [ "$(id -u)" -eq 0 ]; then
+    bootstrap_die "Do not run this installer as root; run it as your normal user."
 fi
 
-echo "-----"
-
-# Create directory for the new hostname, unless the default is selected
-if [ "$hostName" != "default" ]; then
-    mkdir -p hosts/"$hostName"
-    cp hosts/default/*.nix hosts/"$hostName"
-else
-    echo "Default hostname selected, no extra hosts directory created."
+os_id=""
+if [ -r /etc/os-release ]; then
+    os_id=$(. /etc/os-release && printf '%s' "${ID:-}")
+fi
+if [ "$os_id" != "nixos" ]; then
+    bootstrap_die "This installer only supports NixOS (detected: ${os_id:-unknown})."
 fi
 
-# GPU/VM detection and toggles (operate on selected host)
-if type nhl_detect_gpu_and_toggle >/dev/null 2>&1; then
-    nhl_detect_gpu_and_toggle "$hostName"
-fi
-echo "-----"
-
-read -rp "$CAT Enter your keyboard layout: [ us ] " keyboardLayout </dev/tty
-if [ -z "$keyboardLayout" ]; then
-    keyboardLayout="us"
+command -v git >/dev/null 2>&1 || bootstrap_die "git is not installed. Example: nix-shell -p git"
+command -v lspci >/dev/null 2>&1 ||
+    bootstrap_die "pciutils is not installed (needed to detect your GPU). Example: nix-shell -p pciutils"
+if ! (: </dev/tty) 2>/dev/null; then
+    bootstrap_die "This installer needs an interactive terminal."
 fi
 
-sed -i 's/keyboardLayout\s*=\s*"\([^"]*\)"/keyboardLayout = "'"$keyboardLayout"'"/' ./hosts/$hostName/variables.nix
+# --- fresh checkout -----------------------------------------------------------
+cd -- "$HOME" || bootstrap_die "Cannot change to $HOME."
 
-# Timezone and console keymap
-if type nhl_prompt_timezone_console >/dev/null 2>&1; then
-    nhl_prompt_timezone_console "$hostName" "$keyboardLayout"
-fi
-
-echo "-----"
-
-installusername=$(echo $USER)
-sed -i 's/username\s*=\s*"\([^"]*\)"/username = "'"$installusername"'"/' ./flake.nix
-
-echo "$NOTE Generating The Hardware Configuration"
-attempts=0
-max_attempts=3
-hardware_file="./hosts/$hostName/hardware.nix"
-
-while [ $attempts -lt $max_attempts ]; do
-    sudo nixos-generate-config --show-hardware-config >"$hardware_file" 2>/dev/null
-
-    if [ -f "$hardware_file" ]; then
-        echo "${OK} Hardware configuration successfully generated."
-        break
-    else
-        echo "${WARN} Failed to generate hardware configuration. Attempt $(($attempts + 1)) of $max_attempts."
-        attempts=$(($attempts + 1))
-
-        # Exit if this was the last attempt
-        if [ $attempts -eq $max_attempts ]; then
-            echo "${ERROR} Unable to generate hardware configuration after $max_attempts attempts."
-            exit 1
-        fi
+if [ -e "$REPO_DIR" ]; then
+    backup_dir="$BACKUP_ROOT/$(date +%Y-%m-%d-%H-%M-%S)"
+    if [ -e "$backup_dir" ]; then
+        backup_dir="$backup_dir-$$"
     fi
-done
-
-echo "-----"
-
-echo "$NOTE Setting Required Nix Settings Then Going To Install"
-git config --global user.name "installer"
-git config --global user.email "installer@gmail.com"
-git add .
-# Update host in flake.nix (first occurrence of host = "...")
-sed -i -E '0,/(^\s*host\s*=\s*")([^"]*)(";)/s//\1'"$hostName"'\3/' ./flake.nix
-# Verify
-echo "$OK Hostname updated in flake.nix:"
-grep -E "^[[:space:]]*host[[:space:]]*=" ./flake.nix | head -1 || true
-
-printf "\n%.0s" {1..2}
-
-echo "$NOTE Rebuilding NixOS..... so pls be patient.."
-echo "-----"
-echo "$CAT In the meantime, go grab a coffee and stretch your legs or at least do something!!..."
-echo "-----"
-echo "$ERROR YES!!! YOU read it right!!.. you staring too much at your monitor ha ha... joke :)......"
-printf "\n%.0s" {1..2}
-echo "-----"
-printf "\n%.0s" {1..1}
-
-# Set the Nix configuration for experimental features
-NIX_CONFIG="experimental-features = nix-command flakes"
-# Ensure sufficient swap and safe build concurrency for low-memory environments
-if type nhl_ensure_build_memory >/dev/null 2>&1; then
-    nhl_ensure_build_memory
-fi
-buildFlags=""
-if type nhl_get_build_flags >/dev/null 2>&1; then
-    buildFlags=$(nhl_get_build_flags)
-fi
-
-#sudo nix flake update
-if ! sudo nixos-rebuild switch $buildFlags --flake ~/NixOS-Hyprland/#"${hostName}"; then
-    echo "$NOTE 'nixos-rebuild switch' encountered pre-switch checks (e.g. service inhibitors). Setting up boot configuration instead..."
-    sudo nixos-rebuild boot $buildFlags --flake ~/NixOS-Hyprland/#"${hostName}"
-fi
-
-# Ensure newly built system binaries are in PATH for subsequent scripts (copy.sh, etc.)
-export PATH="/run/current-system/sw/bin:/nix/var/nix/profiles/system/sw/bin:/etc/profiles/per-user/$USER/bin:$PATH"
-
-echo "-----"
-printf "\n%.0s" {1..2}
-
-# for initial zsh
-# Check if ~/.zshrc is a symlink (e.g. managed by Home Manager in /nix/store)
-if [ -L "$HOME/.zshrc" ]; then
-    echo "$NOTE ~/.zshrc is a symlink (managed by Home Manager), skipping copy."
+    printf '[NOTE] Backing up %s to %s\n' "$REPO_DIR" "$backup_dir"
+    mkdir -p -- "$BACKUP_ROOT" || bootstrap_die "Could not create $BACKUP_ROOT."
+    mv -- "$REPO_DIR" "$backup_dir" || bootstrap_die "Could not move $REPO_DIR out of the way."
 else
-    # Check if ~/.zshrc exists, create a backup, and copy the new configuration
-    if [ -f "$HOME/.zshrc" ]; then
-        cp -b "$HOME/.zshrc" "$HOME/.zshrc-backup" || true
-    fi
-
-    # Copying the preconfigured zsh themes and profile
-    if [ -f 'assets/.zshrc' ]; then
-        echo "$NOTE Copying assets/.zshrc to $HOME/.zshrc..."
-        cp 'assets/.zshrc' "$HOME/.zshrc"
-    fi
+    printf '[OK] Thank you for choosing KooL'"'"'s NixOS-Hyprland\n'
 fi
 
-# GTK Themes and Icons installation
-printf "Installing GTK-Themes and Icons..\n"
+printf '[NOTE] Cloning NixOS-Hyprland into %s...\n' "$REPO_DIR"
+git clone --depth 1 "$REPO_URL" "$REPO_DIR" ||
+    bootstrap_die "Failed to clone $REPO_URL; check your network connection and try again."
 
-if [ -d "GTK-themes-icons" ]; then
-    echo "$NOTE GTK themes and Icons directory exist..deleting..."
-    rm -rf "GTK-themes-icons"
+NHL_LIB="$REPO_DIR/scripts/lib/install-common.sh"
+if [ ! -r "$NHL_LIB" ]; then
+    bootstrap_die "$NHL_LIB is missing; the clone looks incomplete."
 fi
 
-echo "$NOTE Cloning GTK themes and Icons repository..."
-if git clone --depth 1 https://github.com/LinuxBeginnings/GTK-themes-icons.git; then
-    cd GTK-themes-icons
-    chmod +x auto-extract.sh
-    ./auto-extract.sh
-    cd ..
-    echo "$OK Extracted GTK Themes & Icons to ~/.icons & ~/.themes directories"
-else
-    echo "$ERROR Download failed for GTK themes and Icons.."
-fi
+# shellcheck source=/dev/null
+. "$NHL_LIB"
 
-echo "-----"
-printf "\n%.0s" {1..2}
-
-# Check for existing configs and copy if does not exist
-for DIR1 in gtk-3.0 Thunar xfce4; do
-    DIRPATH=~/.config/$DIR1
-    if [ -d "$DIRPATH" ]; then
-        echo -e "${NOTE} Config for $DIR1 found, no need to copy."
-    else
-        echo -e "${NOTE} Config for $DIR1 not found, copying from assets."
-        cp -r assets/$DIR1 ~/.config/ && echo "Copy $DIR1 completed!" || echo "Error: Failed to copy $DIR1 config files."
-    fi
-done
-
-echo "-----"
-printf "\n%.0s" {1..3}
-
-# Clean up
-# GTK Themes and Icons
-if [ -d "GTK-themes-icons" ]; then
-    echo "$NOTE GTK themes and Icons directory exist..deleting..."
-    rm -rf "GTK-themes-icons"
-fi
-
-echo "-----"
-printf "\n%.0s" {1..3}
-
-# Cloning Hyprland-Dots repo to home directory
-# KooL's Dots installation
-printf "$NOTE Downloading Hyprland-Dots to HOME directory..\n"
-if [ -d ~/Hyprland-Dots ]; then
-    cd ~/Hyprland-Dots
-    git stash
-    git pull
-    chmod +x copy.sh
-    ./copy.sh
-else
-    if git clone --depth 1 https://github.com/LinuxBeginnings/Hyprland-Dots ~/Hyprland-Dots; then
-        cd ~/Hyprland-Dots || exit 1
-        chmod +x copy.sh
-        ./copy.sh
-    else
-        echo -e "$ERROR Can't download Hyprland-Dots"
-    fi
-fi
-
-#return to NixOS-Hyprland
-cd ~/NixOS-Hyprland
-
-# copy fastfetch config if nixos image is not present
-if [ ! -f "$HOME/.config/fastfetch/nixos.png" ] && [ ! -f "$HOME/.config/fastfetch/images/nixos.png" ]; then
-    cp -r assets/fastfetch "$HOME/.config/"
-fi
-
-printf "\n%.0s" {1..2}
-
-if command -v Hyprland &>/dev/null; then
-    printf "\n${OK} Yey! Installation Completed.${RESET}\n"
-    sleep 2
-    printf "\n${NOTE} You can start Hyprland by typing Hyprland (note the capital H!).${RESET}\n"
-    printf "\n${NOTE} It is highly recommended to reboot your system.${RESET}\n\n"
-
-    # Prompt user to reboot
-    read -rp "${CAT} Would you like to reboot now? (y/n): ${RESET}" HYP
-
-    if [[ "$HYP" =~ ^[Yy]$ ]]; then
-        # If user confirms, reboot the system
-        systemctl reboot
-    else
-        # Print a message if the user does not want to reboot
-        echo "Reboot skipped."
-    fi
-else
-    # Print error message if Hyprland is not installed
-    printf "\n${WARN} Hyprland failed to install. Please check Install-Logs...${RESET}\n\n"
-    exit 1
-fi
+nhl_install_flow "$REPO_DIR" || exit 1
