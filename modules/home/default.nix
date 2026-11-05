@@ -21,4 +21,7 @@
     # If set here it will break KoolDots theming
     # ./gtk.nix
   ];
+
+  # Update checks surface as desktop notifications; no bar module is generated.
+  programs.freebuff-cli.enable = true;
 }

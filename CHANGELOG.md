@@ -21,6 +21,14 @@ A technical record of notable changes. Dates are in UTC.
         - Now owns the waybar `libcava` vendoring shim, including the cava 1.0.0
           fetch and the `postUnpack` copy into `subprojects/libcava`
     - `modules/home/cli/freebuff-cli.nix` for the freebuff coding agent
+        - Now a portable Home Manager module, shared with ddubsos:
+          `programs.freebuff-cli.{enable,notifications.enable,checkForUpdates.enable,checkForUpdates.interval}`
+        - A `freebuff-cli-check` systemd user timer checks every four hours and
+          reports new npm releases through `notify-send` (`--notify`), one
+          notification per published version
+        - Bar wiring stays with each project: `--status` still emits one JSON
+          line for a Noctalia stdout widget or a Waybar custom module, and no
+          bar configuration is generated
         - Installs a `freebuff-cli` wrapper that runs `npx --yes freebuff`, with
           `pkgs.nodejs` pinned into the wrapper's `PATH`
         - `freebuff` ships to npm as a thin launcher package whose `index.js` and
