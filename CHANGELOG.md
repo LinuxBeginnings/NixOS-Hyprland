@@ -86,6 +86,13 @@ A technical record of notable changes. Dates are in UTC.
           and falls back to the version in parentheses in the build banner
         - `nhl_enabled_drivers` reads `drivers.{amdgpu,intel,nvidia,nvidia-prime}.enable`
           through the new scope-aware `nhl_get_nix_value` / `nhl_get_bool_value`
+    - `rebuild-boot` and `update-boot` generated scripts
+        - Same shape as `rebuild` / `update`, but they call `nh os boot` instead of
+          `nh os switch`, so the new generation is made the boot default without
+          activating it in the running session
+        - `update-boot` keeps the `-u` flake update that `update` does
+        - Written for the case where a change should land on the next reboot and
+          not in the session that is currently running
 
 - Updated:
     - `flake.nix` imports `./modules/hyprland.nix` and is reformatted

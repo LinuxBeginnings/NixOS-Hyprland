@@ -80,10 +80,22 @@
       nh os switch -u -H ${host} .
     '')
 
+    # Update flake script, activate on next boot instead of now
+    (pkgs.writeShellScriptBin "update-boot" ''
+      cd ~/NixOS-Hyprland
+      nh os boot -u -H ${host} .
+    '')
+
     # Rebuild flkake script
     (pkgs.writeShellScriptBin "rebuild" ''
       cd ~/NixOS-Hyprland
       nh os switch -H ${host} .
+    '')
+
+    # Rebuild flake script, activate on next boot instead of now
+    (pkgs.writeShellScriptBin "rebuild-boot" ''
+      cd ~/NixOS-Hyprland
+      nh os boot -H ${host} .
     '')
 
     # clean up old generations
