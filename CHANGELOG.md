@@ -136,6 +136,22 @@ A technical record of notable changes. Dates are in UTC.
           success, so a failed edit cannot truncate `config.nix`
         - The installers no longer run `git config --global user.name/email`, and
           `git add` is scoped to `flake.nix` and `hosts/`
+    - `typescript-language-server` build failure after the flake update
+        - The update moved nixpkgs to `1d060086` (nixos-unstable, Nov 3 2026),
+          which ships `typescript-language-server` 6.0.3 built against a newer
+          pnpm lockfile (pnpm 12.9.0, `fetcherVersion = 5`)
+        - `modules/overlays.nix` still forced the 6.0.2 `pnpmDeps` hash
+          (`sha256-xR/EF60lVBsITKgH7wCM2wHM46PFQevD51KfCENSUH4=`), so the fetcher
+          reused the 6.0.2 store and the build died in `configurePhase` with
+          `ERR_PNPM_NO_OFFLINE_TARBALL` for `ansi-regex@6.5.0`, taking the
+          `nixvim`/`neovim` wrapper and the system closure down with it
+        - Dropped the override, because the pinned nixpkgs now declares the
+          correct hash (`sha256-klxImN6Bp5/t6V0LfsmYNBvSzYq9Qz9dIU2mkvScx5k=`);
+          verified by building `pkgs.typescript-language-server` unpatched
+        - `nixpkgs.pkgs = pkgs` in `modules/home/editors/nixvim.nix` stays, since
+          it is what keeps nixvim on the host `pkgs` instance
+        - Reverting `flake.lock` to the previous revision brings back the 6.0.2
+          package, which still needs the override
 
 ## Oct 2026
 
