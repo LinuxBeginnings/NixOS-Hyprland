@@ -138,8 +138,12 @@
         "type": "github"
       }
     },
-    "hyprmod-src": {
-      "flake": false,
+    "hyprmod": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
         "lastModified": 1791555169,
         "narHash": "sha256-x8/LWtNX2i1rhw1Mi2VYaMN54Aa15NtQatHwPeSbBxU=",
@@ -216,7 +220,7 @@
         "catppuccin": "catppuccin",
         "ghee": "ghee",
         "home-manager": "home-manager",
-        "hyprmod-src": "hyprmod-src",
+        "hyprmod": "hyprmod",
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
         "waybar": "waybar"

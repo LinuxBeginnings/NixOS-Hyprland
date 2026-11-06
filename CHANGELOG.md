@@ -5,6 +5,51 @@ A technical record of notable changes. Dates are in UTC.
 ## Nov 2026
 
 - Added:
+    - hyprmod consumed as its upstream flake instead of a local derivation
+        - `hyprmod` flake input with `inputs.nixpkgs.follows = "nixpkgs"`, replacing
+          the `hyprmod-src` `flake = false` pin
+        - `inputs.hyprmod.overlays.default` in `modules/overlays.nix`, so
+          `pkgs.hyprmod` resolves in every NixOS module and Home Manager
+        - `hyprmod` in `home.packages` of `modules/home/hyprland.nix`, so it is
+          actually installed for the session next to `nwg-look` / `nwg-displays`
+        - `packages.<system>.hyprmod` re-exported from the input, keeping
+          `nix build '.#hyprmod'` working
+        - Upstream `nix/hyprmod.nix` builds the five hyprland-* Python bindings
+          inline with real hashes (tracking NixOS/nixpkgs#505419) and adds the
+          `lua5_4` runtime `PATH`, the desktop entry, icon and metainfo
+        - Removed `pkgs/hyprmod.nix` and `pkgs/hyprland-python-bindings.nix`:
+          the latter used `lib.fakeHash` for all five bindings, so the local
+          derivation could never build, and it predated the 0.5.0 dependency floors
+        - Dropped the unused `customPkgs` specialArg; `docs/HYPRMOD.md` rewritten
+          to describe the overlay wiring and the dotfile-conflict caveat
+        - Verified: `nix build '.#hyprmod'` produces hyprmod 0.5.0 with
+          `bin/hyprmod` and its `.desktop` file, and
+          `nixosConfigurations.jak-hl` evaluates with `hyprmod-0.5.0` in the
+          user's home packages
+    - Flake checks for the hyprmod integration
+        - `checks.<system>.hyprmod` builds the derivation the overlay exposes and
+          `checks.<system>.formatting` runs `alejandra --check` over every `.nix`
+          file through a `fileset`, so `assets/` never enters the store; both run
+          from `nix flake check`, which also evaluates `nixosConfigurations`
+        - The five files the new formatting check flagged as already unformatted
+          (`hosts/jak-hl/{config,hardware,packages-fonts}.nix`,
+          `modules/quickshell.nix`, `modules/home/cli/freebuff-cli.nix`) were run
+          through `nix fmt .`; Alejandra only reflows, no semantic change
+        - hyprmod remains a manual update alongside every other input:
+          `nix flake update` (or `nix flake update hyprmod`), then
+          `nix flake check` before the switch
+        - `docs/HYPRMOD.md` corrected on what hyprmod actually writes: upstream
+          keeps its own `hyprland-gui.conf` (or edits `hyprland.lua` in Lua mode)
+          rather than rewriting the dotfiles, but only `UserConfigs/user_*.lua`
+          survives a dotfile upgrade, so settings belong there or in a saved
+          hyprmod profile
+    - Fresh installs format the generated `hardware.nix`
+        - `nixos-generate-config` emits its own style, which the new
+          `checks.<system>.formatting` gate rejects, so `nhl_generate_hardware`
+          runs Alejandra on the result: from `PATH` when available, otherwise
+          `nix run nixpkgs#alejandra`
+        - Formatting is cosmetic, so a failure only warns and the generated file
+          is used as-is; `README.md` manual host setup now says to run `nix fmt .`
     - `modules/hyprland.nix` for the system-level Hyprland session
         - `programs.hyprland` with UWSM and XWayland, and `programs.hyprlock`
         - `programs.waybar.enable = false`, since the dotfiles start Waybar themselves

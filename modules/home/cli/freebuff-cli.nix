@@ -4,7 +4,6 @@
 #  License: GNU GPLv3
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
-
 # freebuff-cli -- the freebuff coding agent, always run through npx.
 #
 # freebuff ships to npm as a thin launcher package: index.js and launcher.js

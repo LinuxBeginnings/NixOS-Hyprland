@@ -615,6 +615,26 @@ nhl_stage_changes() {
     return 1
 }
 
+# nhl_format_nix <file>
+# nixos-generate-config writes its own style, but `nix flake check` runs Alejandra
+# over every .nix file, so a freshly generated host would fail the formatting
+# check on its first commit. Cosmetic only: warn and continue without a formatter.
+nhl_format_nix() {
+    local file="$1"
+    [ -f "$file" ] || return 0
+    if command -v alejandra >/dev/null 2>&1 &&
+        alejandra --quiet "$file" >/dev/null 2>&1; then
+        return 0
+    fi
+    if command -v nix >/dev/null 2>&1 &&
+        NIX_CONFIG="experimental-features = nix-command flakes" \
+            nix run nixpkgs#alejandra -- --quiet "$file" >/dev/null 2>&1; then
+        return 0
+    fi
+    nhl_warn "Could not format $file; run 'nix fmt .' once the flake is available."
+    return 0
+}
+
 # nhl_generate_hardware <hostname>
 nhl_generate_hardware() {
     local host_name="$1" target="./hosts/$1/hardware.nix" attempt="" output=""
@@ -637,6 +657,7 @@ nhl_generate_hardware() {
             [ -s "$output" ] && grep -q 'fileSystems' "$output"; then
             if mv -- "$output" "$target"; then
                 nhl_ok "Hardware configuration written to $target."
+                nhl_format_nix "$target"
                 return 0
             fi
             nhl_error "Could not move the hardware configuration into $target."

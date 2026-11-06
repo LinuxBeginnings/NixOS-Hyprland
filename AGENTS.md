@@ -67,4 +67,5 @@ This repo is a NixOS flake that assembles a Hyprland-based desktop and a small H
 ## Tests and linting
 
 - There is no explicit unit/integration test suite in this repo. Use `nixos-rebuild dry-activate` and `nix flake check` for evaluation sanity.
+- `nix flake check` builds `checks.<system>.hyprmod` (the package from the hyprmod overlay) and `checks.<system>.formatting` (Alejandra over every `.nix` file), and evaluates `nixosConfigurations`; `--no-build` evaluates only. `hyprmod` is updated by hand with the other inputs (`nix flake update`).
 - Nix formatting is enforced via `nix fmt` (Alejandra). No additional lint tools are wired in the flake.

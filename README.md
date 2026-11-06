@@ -242,6 +242,13 @@ cp -r hosts/default hosts/<your-desired-hostname>
 sudo nixos-generate-config --show-hardware-config > hosts/<your-desired-hostname>/hardware.nix
 ```
 
+- then format it, because `nix flake check` runs Alejandra over every `.nix` file
+  and `nixos-generate-config` writes its own style:
+
+```
+nix fmt .
+```
+
 - Run this to enable flakes and install the flake replacing hostname with whatever you put as the hostname:
 
 ```

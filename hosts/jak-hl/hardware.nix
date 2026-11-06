@@ -1,7 +1,8 @@
-{ lib
-, pkgs
-, modulesPath
-, ...
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
 }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -16,9 +17,9 @@
       "sd_mod"
       "sr_mod"
     ];
-    initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
+    initrd.kernelModules = [];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
   };
 
   fileSystems."/" = {
@@ -29,7 +30,7 @@
   fileSystems."/bin" = {
     device = "/usr/bin";
     fsType = "none";
-    options = [ "bind" ];
+    options = ["bind"];
   };
 
   fileSystems."/boot" = {
@@ -46,7 +47,7 @@
     fsType = "nfs";
   };
 
-  swapDevices = [{ device = "/dev/disk/by-uuid/5c3ee7b1-89ff-4a74-b39f-fac8f15eef99"; }];
+  swapDevices = [{device = "/dev/disk/by-uuid/5c3ee7b1-89ff-4a74-b39f-fac8f15eef99";}];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   security.sudo.wheelNeedsPassword = false;

@@ -70,7 +70,6 @@
     kdePackages.polkit-kde-agent-1 # alternative agent kept available
   ];
 
-  # TODO: package hyprland-config, hyprland-monitors, hyprland-schema,
-  # hyprland-socket and hyprland-state on PyPI or as local overlays, then expose
-  # them through the flake's customPkgs. See docs/HYPRMOD.md.
+  #  hyprmod (the Hyprland settings app) is installed for the user session in
+  #  modules/home/hyprland.nix; it comes from the hyprmod flake overlay.
 }

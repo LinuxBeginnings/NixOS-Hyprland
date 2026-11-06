@@ -18,5 +18,10 @@
       butterpal = inputs.butterpal.packages.${final.stdenv.hostPlatform.system}.butterpal;
     })
 
+    #  hyprmod: GTK4/libadwaita settings app for Hyprland, taken from its own
+    #  flake overlay so pkgs.hyprmod is available everywhere. The overlay builds
+    #  hyprmod from the flake source and pins the five hyprland-* Python
+    #  bindings inline, which keeps them in sync with hyprmod's version floors.
+    inputs.hyprmod.overlays.default
   ];
 }

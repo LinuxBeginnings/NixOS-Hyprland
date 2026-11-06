@@ -62,6 +62,7 @@ in {
     nwg-displays
     nwg-dock-hyprland
     nwg-look
+    hyprmod # provided by the hyprmod flake overlay in modules/overlays.nix
 
     #  Wayland desktop tooling
     awww # wallpaper daemon

@@ -56,9 +56,13 @@
     #    inputs.nixpkgs.follows = "nixpkgs";
     #  };
 
-    hyprmod-src = {
+    #  hyprmod - GTK4/libadwaita settings app for Hyprland.
+    #  Consumed through its own flake overlay (pkgs.hyprmod), see
+    #  modules/overlays.nix. It packages the hyprland-* Python bindings inline
+    #  with pinned hashes, so there is no local derivation to maintain here.
+    hyprmod = {
       url = "github:BlueManCZ/hyprmod";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -66,7 +70,6 @@
     self,
     nixpkgs,
     ags,
-    hyprmod-src,
     ...
   }: let
     system = "x86_64-linux";
@@ -80,15 +83,34 @@
       };
     };
     waybarWeatherPkg = pkgs.callPackage ./pkgs/waybar-weather.nix {};
-    hyprlandBindings = pkgs.callPackage ./pkgs/hyprland-python-bindings.nix {};
-    hyprmodPkg = pkgs.callPackage ./pkgs/hyprmod.nix {
-      hyprmodSrc = hyprmod-src;
-      inherit hyprlandBindings;
-    };
   in {
     packages.${system} = {
       waybar-weather = waybarWeatherPkg;
-      hyprmod = hyprmodPkg;
+      #  Re-exported from the hyprmod flake so `nix build .#hyprmod` still works
+      #  standalone; the system gets it through pkgs.hyprmod (overlay).
+      hyprmod = inputs.hyprmod.packages.${system}.default;
+    };
+    #  `nix flake check` builds these. Nix evaluates the nixosConfigurations
+    #  output by itself, so the system is covered without a toplevel build.
+    checks.${system} = {
+      #  The derivation the overlay hands to modules; a bad upstream rev fails
+      #  here instead of at activation time.
+      hyprmod = self.packages.${system}.hyprmod;
+
+      #  Fails when a .nix file is not Alejandra-formatted. Only the .nix files
+      #  are copied into the store, not the assets.
+      formatting = let
+        nixSources = nixpkgs.lib.fileset.toSource {
+          root = ./.;
+          fileset = nixpkgs.lib.fileset.fileFilter (file: file.hasExt "nix") ./.;
+        };
+      in
+        pkgs.runCommand "check-alejandra" {
+          nativeBuildInputs = [pkgs.alejandra];
+        } ''
+          alejandra --check ${nixSources}
+          touch $out
+        '';
     };
     nixosConfigurations = {
       "${host}" = nixpkgs.lib.nixosSystem rec {
@@ -97,7 +119,6 @@
           inherit inputs;
           inherit username;
           inherit host;
-          customPkgs = {inherit hyprmodPkg;};
         };
         modules = [
           ./hosts/${host}/config.nix
@@ -145,7 +166,7 @@
         ];
       };
     };
-    # Code formatter
+    # Code formatter (the same Alejandra run by checks.${system}.formatting)
     formatter.x86_64-linux = pkgs.alejandra;
   };
 }
