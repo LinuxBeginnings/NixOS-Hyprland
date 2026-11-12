@@ -6,10 +6,11 @@
 # ==================================================
 #  Hyprland-specific packages and the session itself now live in
 #  modules/hyprland.nix and modules/home/hyprland.nix.
-{ pkgs
-, inputs
-, host
-, ...
+{
+  pkgs,
+  inputs,
+  host,
+  ...
 }: {
   services.power-profiles-daemon.enable = true;
 
@@ -150,7 +151,7 @@
     lazygit
     libappindicator
     libnotify
-    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
+    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
