@@ -6,17 +6,16 @@
 # ==================================================
 #  Hyprland-specific packages and the session itself now live in
 #  modules/hyprland.nix and modules/home/hyprland.nix.
-{
-  pkgs,
-  inputs,
-  host,
-  ...
+{ pkgs
+, inputs
+, host
+, ...
 }: {
   services.power-profiles-daemon.enable = true;
 
   programs = {
     zsh.enable = true;
-    firefox.enable = false;
+    firefox.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
     fuse.userAllowOther = true;
@@ -116,7 +115,6 @@
     bottom
     baobab
     btrfs-progs
-    brave-origin
     cmatrix
     distrobox
     dua
@@ -152,7 +150,7 @@
     lazygit
     libappindicator
     libnotify
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+    (mpv.override { scripts = [ mpvScripts.mpris ]; }) # with tray
     nvtopPackages.full
     openssl # required by Rainbow borders
     pciutils
@@ -174,11 +172,8 @@
     ghee # git TUI explorer
     butterpal # wallpaper palette generator for the butter setups
     erdtree # great tree util run: erd
-    #frogmouth # cli markdown renderer A
-    lstr # another tree util
     lolcat
     lsd # ls replacement util
-    #macchina # fetch tool
     mcat # show images in terminal
     mdcat # Markdown tool
     parallel-disk-usage # fast disk space tool run: pdu
