@@ -181,31 +181,18 @@ A technical record of notable changes. Dates are in UTC.
 
 - Fixed:
     - `mcat` builds again after the nixpkgs 26.11 Rust hook change
-        - Issue: the rebuild failed while building the activation toplevel, at
-          `mcat-unwrapped-0.6.7 failed with exit code 101 after 54s`. The
-          `aws-lc-sys` build script had panicked with "AWS_LC_SYS_USE_SYSTEM=1
-          requires a system-installed AWS-LC, but none was found", and the log
-          also warned about `zstd-sys`. `rustPlatform.cargoSetupHook` now runs
-          `cargoUseSystemLibs` for every Rust build and exports
-          `AWS_LC_SYS_USE_SYSTEM=1`, `ZSTD_SYS_USE_PKG_CONFIG=1`,
-          `OPENSSL_NO_VENDOR=1`, `LIBZ_SYS_STATIC=0`, `LIBGIT2_NO_VENDOR=1` and
-          friends (release note rl-2611), so a package that does not add
-          `pkg-config` plus the matching system library to its build inputs can
-          no longer fall back to a vendored copy. Every `zstd-sys` / `aws-lc-sys`
-          consumer is exposed to this, not just `mcat`, and the failure stops
-          `nixos-rebuild` before activation
-        - Fix: `modules/overlays.nix` sets `dontCargoUseSystemLibs = true` on
-          `mcat-unwrapped` (`overrideAttrs`) — the hook's own opt-out, which skips
-          `cargoUseSystemLibs` for that package so the crates vendor their bundled
-          libraries again — and rebuilds `mcat` with `override` against it, since
-          the wrapper script bakes in the unwrapped store path and would otherwise
-          pull in the broken build
-        - Scope: only `mcat` needs an entry here. Every other Rust package in
-          `modules/packages.nix` / `modules/home` is a `cache.nixos.org` hit, and
-          the only cache miss, `nh`, builds unchanged. Drop the opt-out once
-          nixpkgs fixes the package upstream
-        - Verified: `pkgs.mcat` builds and prints `mcat 0.6.7`, and
-          `nix flake check` passes, formatting check included
+        - Problem: the rebuild failed while building the activation toplevel,
+          before activation. Nixpkgs 26.11 makes the Rust setup hook force every
+          crate to link the system libraries instead of vendoring its own, so a
+          package that does not declare `pkg-config` and the matching system
+          library can no longer fall back, and its build script aborted with
+          "AWS_LC_SYS_USE_SYSTEM=1 requires a system-installed AWS-LC, but none
+          was found". Every consumer of the same crates is exposed to this, not
+          just this one
+        - Resolution: the affected package opts out with the setup hook's own
+          switch, so it vendors its bundled libraries again and builds
+        - Verified: the package builds and `nix flake check` passes, formatting
+          check included
     - `modules/home/overview/README.md` file tree no longer lists `hyprland-config.conf`
         - The file does not exist in the module, and a Hyprland config does not
           belong in the Quickshell config directory
