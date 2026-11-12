@@ -24,7 +24,8 @@ in {
   # BOOT related stuff
   boot = {
     #kernelPackages = pkgs.linuxPackages_zen; # zen Kernel
-    kernelPackages = pkgs.linuxPackages_xanmod_latest; # Kernel
+    #kernelPackages = pkgs.linuxPackages_xanmod_latest; # Kernel
+    kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
       "systemd.mask=dev-tpmrm0.device" # this is to mask that stupid 1.5 mins systemd bug
