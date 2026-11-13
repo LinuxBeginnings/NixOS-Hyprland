@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793987880,
-        "narHash": "sha256-gLrP4RdjY9HuvEFfszvFucSAokhuhmjdBkMCqP9pteE=",
+        "lastModified": 1794521026,
+        "narHash": "sha256-WS2Q+9xMgTvRySmd7KuQw1h85syoaHeghahUNau+HCM=",
         "ref": "refs/heads/main",
-        "rev": "7c40f92837b49792b555d226bc447af60b157a2a",
-        "revCount": 8,
+        "rev": "cca9cb1a8963304afb64ea19827ae50a59adf12e",
+        "revCount": 9,
         "type": "git",
         "url": "https://justaguy.dev/drew/butterpal"
       },
@@ -176,11 +176,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1794192123,
-        "narHash": "sha256-SvB8u5qaJAOwZZyZciqTVOg/rBoUs2w0sFTU6ED51AQ=",
+        "lastModified": 1794386569,
+        "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "177d0540942fb205af6993b1d5fa0b57799e09f8",
+        "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
         "type": "github"
       },
       "original": {

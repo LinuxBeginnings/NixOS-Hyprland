@@ -204,7 +204,13 @@
     # cpu-x
     cyme # list USB devices - very handy
     gdu # Dusk usage
-    glances # system monitor tool
+    # glances # system monitor tool
+    # Disabled 2026-11-12: nixpkgs' glances hard-depends on python-jose, which
+    # nixpkgs marks insecure for CVE-2026-120459 (JWT algorithm confusion in
+    # its crypto backend). Re-enable only once nixpkgs ships a fixed
+    # python-jose or glances drops the dependency; do not re-enable it by
+    # whitelisting the insecure package via permittedInsecurePackages.
+    # Other monitors already in this list: btop, bottom, htop, mission-center.
     gping # Graphical ping tool
     htop # system monitor tool
     # hyfetch
