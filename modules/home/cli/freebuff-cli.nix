@@ -34,6 +34,9 @@
 # re-downloads the current release synchronously. --version is the one flag
 # that completes that download and exits instead of starting the TUI.
 #
+# A short run can exit before the binary reads the terminal's OSC 11 colour
+# reply, so the --update and --version paths drain it before returning.
+#
 # A normal launch also compares the downloaded binary's recorded version with
 # the npm `latest` tag and warns when it is behind, because the launcher stages
 # its own update silently and only installs it on exit. `--check` prints the
@@ -344,6 +347,20 @@
     NODE
                 }
 
+                # freebuff's native binary asks the terminal for its background
+                # colour (OSC 11). A short run can exit before reading the answer,
+                # leaving bytes like "11;rgb:..." for the caller's shell to print.
+                # Read and discard whatever reply is still queued, then restore
+                # the terminal settings exactly as they were.
+                drain_terminal_reply() {
+                  [ -t 0 ] || return 0
+                  local saved
+                  saved=$(stty -g 2>/dev/null) || return 0
+                  stty -icanon min 0 time 2 2>/dev/null || return 0
+                  dd bs=256 count=1 of=/dev/null 2>/dev/null || true
+                  stty "$saved" 2>/dev/null || true
+                }
+
                 # None of --check, --status or --notify needs nix-ld or npx: read
                 # the metadata and the cached registry answer, then exit.
                 case "$1" in
@@ -407,7 +424,10 @@
 
                   # Reinstalls the wrapper (resolving `latest` again) and lets the
                   # launcher download the matching binary; --version prints it and exits.
-                  exec npx --yes --prefer-online freebuff --version
+                  npx --yes --prefer-online freebuff --version
+                  status=$?
+                  drain_terminal_reply
+                  exit "$status"
                 fi
 
                 # --version/--help are answered by the installed binary and must stay
@@ -415,6 +435,18 @@
                 case "$1" in
                   -v | --version | -h | --help) ;;
                   *) report_versions ;;
+                esac
+
+                # --version and --help print and exit before the binary reads the terminal's
+                # OSC 11 reply, so it cannot be exec'd if the wrapper is to clean up
+                # after it. Capture the status, drain, then exit the same way.
+                case "$1" in
+                  -v | --version | -h | --help)
+                    npx --yes freebuff "$@"
+                    status=$?
+                    drain_terminal_reply
+                    exit "$status"
+                    ;;
                 esac
 
                 # `--yes` skips npx's interactive "Ok to proceed?" install prompt so the
