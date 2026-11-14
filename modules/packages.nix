@@ -71,6 +71,8 @@
     onefetch
     atop
     util-linux
+    qalculate-gtk # replacement calculator for rofi-calc
+    tuios # replacement for tmux
     #go # needed for waybar-weather compile
 
     # Update flkake script

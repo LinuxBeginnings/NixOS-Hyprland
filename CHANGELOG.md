@@ -5,6 +5,8 @@ A technical record of notable changes. Dates are in UTC.
 ## Nov 2026
 
 - Added:
+    - `qalcuate-gtk` to replace `rofi-calc`
+    - `tuios` alternative to `tmux`
     - hyprmod consumed as its upstream flake instead of a local derivation
         - `hyprmod` flake input with `inputs.nixpkgs.follows = "nixpkgs"`, replacing
           the `hyprmod-src` `flake = false` pin
@@ -14,7 +16,7 @@ A technical record of notable changes. Dates are in UTC.
           actually installed for the session next to `nwg-look` / `nwg-displays`
         - `packages.<system>.hyprmod` re-exported from the input, keeping
           `nix build '.#hyprmod'` working
-        - Upstream `nix/hyprmod.nix` builds the five hyprland-* Python bindings
+        - Upstream `nix/hyprmod.nix` builds the five hyprland-\* Python bindings
           inline with real hashes (tracking NixOS/nixpkgs#505419) and adds the
           `lua5_4` runtime `PATH`, the desktop entry, icon and metainfo
         - Removed `pkgs/hyprmod.nix` and `pkgs/hyprland-python-bindings.nix`:
@@ -279,6 +281,7 @@ A technical record of notable changes. Dates are in UTC.
 - Trimmed pkgs
 - Added qt6ct
 - Removed QT5
+
 ## Aug 2026
 
 - Fixed:
