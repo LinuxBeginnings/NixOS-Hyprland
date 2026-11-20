@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795118184,
-        "narHash": "sha256-s8nX3v+7hWSz7IbaFkHDadCinYil4uow0gabUHlSFzc=",
+        "lastModified": 1795205587,
+        "narHash": "sha256-CMjvllE/+Ty2QOxrF95do4lFXwVgFuoXotz2BRaNAOY=",
         "ref": "refs/heads/main",
-        "rev": "3657c711dea7822df9d4387cf229a47fd4a2fa73",
-        "revCount": 11,
+        "rev": "17436429e916122f3609ec2fff0e5b393c0459ed",
+        "revCount": 12,
         "type": "git",
         "url": "https://justaguy.dev/drew/butterpal"
       },
@@ -104,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793987904,
-        "narHash": "sha256-9s7u0GasR2XYYt6cfLoR6GylCss+9Uz/OGiAdYIDdug=",
+        "lastModified": 1795205588,
+        "narHash": "sha256-PrZjh1krQ3/L57kac5tVMInWY0o+LwChZqyFmuh6xKM=",
         "ref": "refs/heads/main",
-        "rev": "36b7822948a8e664d805a2e6effb8abddd82e69f",
-        "revCount": 20,
+        "rev": "39e6070eaa9c1e4594916abc0cd615bdf7e1d608",
+        "revCount": 26,
         "type": "git",
         "url": "https://justaguy.dev/drew/ghee"
       },
@@ -176,11 +176,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1794890597,
-        "narHash": "sha256-lME2lHoDHAaSHP3/okgiVoJ0icVEvsQH8LeU3We7tcc=",
+        "lastModified": 1795085501,
+        "narHash": "sha256-S5keGWzaKpuXo9MNoIC2FfTIuTyTnx8P4NhYJMEsTLI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "04906337b6d53e8bb0eaf0470ae9f070a4d4eb55",
+        "rev": "0bb8272318b4ca41bf0edc6224df3e3e3046b70d",
         "type": "github"
       },
       "original": {
